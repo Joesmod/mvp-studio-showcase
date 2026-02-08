@@ -3,173 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculator</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Should I Buy This?</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px}
-.back{color:#888;text-decoration:none;font-size:.85rem;align-self:flex-start;margin-bottom:10px;transition:color .2s}
-.back:hover{color:#fff}
-h1{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:24px}
-.wrapper{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;align-items:flex-start;width:100%;max-width:700px}
-.calc{background:#1a1a2e;border-radius:24px;padding:24px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.display{background:#0f0f1a;border-radius:16px;padding:16px 20px;margin-bottom:16px;min-height:90px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;overflow:hidden}
-.prev{font-size:.85rem;color:#666;min-height:20px;word-break:break-all}
-.curr{font-size:2.2rem;font-weight:700;word-break:break-all;max-width:100%}
-.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.key{border:none;border-radius:14px;padding:18px 0;font-family:inherit;font-size:1.15rem;font-weight:600;cursor:pointer;transition:all .12s;background:#252540;color:#e0e0e0}
-.key:hover{background:#303055}
-.key:active{transform:scale(.94)}
-.key-op{background:#3b3b6e;color:#a78bfa}
-.key-op:hover{background:#4b4b8e}
-.key-eq{background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff}
-.key-eq:hover{opacity:.9}
-.key-fn{background:#1e1e35;color:#888}
-.key-fn:hover{background:#2a2a4a}
-.history{background:#1a1a2e;border-radius:20px;padding:20px;width:280px;max-height:440px;overflow-y:auto}
-.history h3{font-size:.9rem;color:#666;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
-.hist-item{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85rem}
-.hist-expr{color:#888}.hist-res{color:#a78bfa;font-weight:600;font-size:1rem}
-.hist-empty{color:#444;font-size:.85rem;text-align:center;padding:20px 0}
-@media(max-width:660px){.wrapper{flex-direction:column;align-items:center}.history{width:320px}}
+:root{--bg:#0f0a1a;--surface:#1a1128;--border:#2d1f4e;--purple:#a855f7;--pink:#ec4899;--yellow:#fbbf24;--green:#22c55e;--red:#ef4444;--text:#e8e0f0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:600px;margin:0 auto;padding:20px}
+a.back{display:inline-block;color:#6b5b8a;text-decoration:none;font-size:.85rem;margin-bottom:8px}a.back:hover{color:var(--purple)}
+h1{text-align:center;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:900;background:linear-gradient(135deg,var(--purple),var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:16px 0 4px}
+.subtitle{text-align:center;color:#7a6b94;font-size:.9rem;margin-bottom:28px}
+.input-section{background:var(--surface);border:2px solid var(--border);border-radius:20px;padding:24px;margin-bottom:20px}
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:.8rem;color:#8a7ba0;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.field input{width:100%;background:rgba(255,255,255,.05);border:2px solid var(--border);border-radius:12px;padding:14px 16px;color:var(--text);font-family:inherit;font-size:1.2rem;font-weight:700;outline:none;transition:border .2s}
+.field input:focus{border-color:var(--purple)}
+.field .hint{font-size:.75rem;color:#5a4d70;margin-top:4px}
+.results-section{display:none}
+.results-section.show{display:block}
+.hours-card{background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(236,72,153,.1));border:2px solid var(--border);border-radius:20px;padding:24px;text-align:center;margin-bottom:16px}
+.hours-num{font-size:3.5rem;font-weight:900;color:var(--yellow)}
+.hours-label{color:#8a7ba0;font-size:.9rem;margin-top:4px}
+.regret-section{background:var(--surface);border:2px solid var(--border);border-radius:20px;padding:20px;margin-bottom:16px}
+.regret-title{font-size:.8rem;color:#8a7ba0;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;text-align:center}
+.regret-bar{height:28px;background:rgba(255,255,255,.05);border-radius:14px;overflow:hidden;position:relative;margin-bottom:8px}
+.regret-fill{height:100%;border-radius:14px;transition:width .6s ease,background .6s ease}
+.regret-labels{display:flex;justify-content:space-between;font-size:.7rem;color:#5a4d70}
+.comparisons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.comp-card{background:var(--surface);border:2px solid var(--border);border-radius:16px;padding:16px;text-align:center}
+.comp-emoji{font-size:2rem;margin-bottom:4px}
+.comp-num{font-size:1.5rem;font-weight:900;color:var(--purple)}
+.comp-label{font-size:.75rem;color:#8a7ba0;margin-top:2px}
+.countdown-section{background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(251,191,36,.1));border:2px solid var(--border);border-radius:20px;padding:20px;text-align:center;margin-bottom:16px}
+.countdown-title{font-size:.9rem;font-weight:700;color:var(--yellow);margin-bottom:8px}
+.countdown-timer{font-size:2rem;font-weight:900;color:var(--text);font-variant-numeric:tabular-nums}
+.countdown-sub{font-size:.8rem;color:#8a7ba0;margin-top:6px}
+.countdown-btns{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.countdown-btns button{background:rgba(168,85,247,.15);border:1px solid var(--purple);border-radius:10px;padding:8px 16px;color:var(--purple);font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
+.countdown-btns button:hover{background:rgba(168,85,247,.3)}
+.countdown-btns button.danger{border-color:var(--red);color:var(--red);background:rgba(239,68,68,.1)}
+.verdict{background:var(--surface);border:2px solid var(--border);border-radius:20px;padding:24px;text-align:center;margin-bottom:16px}
+.verdict-emoji{font-size:3rem}
+.verdict-text{font-size:1.2rem;font-weight:700;margin-top:8px;color:var(--text)}
+.verdict-sub{font-size:.85rem;color:#8a7ba0;margin-top:4px}
+@media(max-width:500px){.comparisons{grid-template-columns:1fr 1fr}.hours-num{font-size:2.5rem}}
 </style>
 </head>
 <body>
-<a href="../" class="back">← Back to Showcase</a>
-<h1>🔢 Calculator</h1>
-<div class="wrapper">
-<div class="calc">
-  <div class="display">
-    <div class="prev" id="prev"></div>
-    <div class="curr" id="curr">0</div>
-  </div>
-  <div class="keys">
-    <button class="key key-fn" data-action="clear">C</button>
-    <button class="key key-fn" data-action="sign">±</button>
-    <button class="key key-fn" data-action="percent">%</button>
-    <button class="key key-op" data-action="op" data-op="÷">÷</button>
-    <button class="key" data-action="num" data-val="7">7</button>
-    <button class="key" data-action="num" data-val="8">8</button>
-    <button class="key" data-action="num" data-val="9">9</button>
-    <button class="key key-op" data-action="op" data-op="×">×</button>
-    <button class="key" data-action="num" data-val="4">4</button>
-    <button class="key" data-action="num" data-val="5">5</button>
-    <button class="key" data-action="num" data-val="6">6</button>
-    <button class="key key-op" data-action="op" data-op="-">−</button>
-    <button class="key" data-action="num" data-val="1">1</button>
-    <button class="key" data-action="num" data-val="2">2</button>
-    <button class="key" data-action="num" data-val="3">3</button>
-    <button class="key key-op" data-action="op" data-op="+">+</button>
-    <button class="key" data-action="num" data-val="0" style="grid-column:span 2">0</button>
-    <button class="key" data-action="decimal">.</button>
-    <button class="key key-eq" data-action="equals">=</button>
-  </div>
+<div class="container">
+<a class="back" href="../">← Back to Showcase</a>
+<h1>🤔 Should I Buy This?</h1>
+<p class="subtitle">Let's find out if your wallet agrees.</p>
+
+<div class="input-section">
+<div class="field">
+<label>💰 Item Price ($)</label>
+<input type="number" id="price" placeholder="0.00" min="0" step="0.01">
 </div>
-<div class="history">
-  <h3>History</h3>
-  <div id="hist"></div>
+<div class="field">
+<label>💼 Your Hourly Wage ($)</label>
+<input type="number" id="wage" placeholder="25.00" min="0.01" step="0.01" value="25">
+<div class="hint">After taxes — what you actually take home per hour</div>
+</div>
+</div>
+
+<div class="results-section" id="results">
+<div class="hours-card">
+<div class="hours-num" id="hoursNum">0</div>
+<div class="hours-label">hours of your life to earn this</div>
+</div>
+
+<div class="regret-section">
+<div class="regret-title">😬 Regret Meter</div>
+<div class="regret-bar"><div class="regret-fill" id="regretFill"></div></div>
+<div class="regret-labels"><span>No Regrets 😎</span><span>Maximum Regret 😭</span></div>
+</div>
+
+<div class="comparisons" id="comparisons"></div>
+
+<div class="verdict" id="verdict"></div>
+
+<div class="countdown-section" id="countdownSection">
+<div class="countdown-title">⏰ Impulse Buy Countdown</div>
+<div class="countdown-timer" id="countdownTimer">24:00:00</div>
+<div class="countdown-sub">Wait 24 hours before buying. If you still want it, go for it!</div>
+<div class="countdown-btns">
+<button id="startCountdown">Start Timer</button>
+<button id="clearCountdown" class="danger">Clear</button>
+</div>
+</div>
 </div>
 </div>
 
 <script>
-let curr = '0', prev = '', op = null, fresh = true;
-let history = JSON.parse(localStorage.getItem('calc-history') || '[]');
+const priceEl=document.getElementById('price');
+const wageEl=document.getElementById('wage');
+const resultsEl=document.getElementById('results');
+const hoursNum=document.getElementById('hoursNum');
+const regretFill=document.getElementById('regretFill');
+const comparisons=document.getElementById('comparisons');
+const verdict=document.getElementById('verdict');
+const countdownTimer=document.getElementById('countdownTimer');
+const startBtn=document.getElementById('startCountdown');
+const clearBtn=document.getElementById('clearCountdown');
 
-const $c = document.getElementById('curr');
-const $p = document.getElementById('prev');
-const $h = document.getElementById('hist');
+const BURRITO=9.50,NETFLIX=15.49,GAS=3.20,COFFEE=5.75;
 
-function update() {
-  $c.textContent = curr;
-  $p.textContent = prev ? `${prev} ${op||''}` : '';
+function update(){
+  const price=parseFloat(priceEl.value)||0;
+  const wage=parseFloat(wageEl.value)||25;
+  if(price<=0){resultsEl.classList.remove('show');return}
+  resultsEl.classList.add('show');
+  const hours=price/wage;
+  hoursNum.textContent=hours<1?hours.toFixed(1):hours<100?hours.toFixed(1):Math.round(hours);
+  // Regret meter: 0-8hrs=low, 8-40=med, 40+=high
+  const regretPct=Math.min(100,Math.max(0,(hours/40)*100));
+  const r=regretPct/100;
+  const color=r<.3?'#22c55e':r<.6?'#fbbf24':'#ef4444';
+  regretFill.style.width=regretPct+'%';
+  regretFill.style.background=color;
+  // Comparisons
+  const burritos=Math.round(price/BURRITO);
+  const netflix=(price/NETFLIX).toFixed(1);
+  const gas=(price/GAS).toFixed(1);
+  const coffees=Math.round(price/COFFEE);
+  comparisons.innerHTML=`
+    <div class="comp-card"><div class="comp-emoji">🌯</div><div class="comp-num">${burritos}</div><div class="comp-label">burritos</div></div>
+    <div class="comp-card"><div class="comp-emoji">📺</div><div class="comp-num">${netflix}</div><div class="comp-label">months of Netflix</div></div>
+    <div class="comp-card"><div class="comp-emoji">⛽</div><div class="comp-num">${gas}</div><div class="comp-label">gallons of gas</div></div>
+    <div class="comp-card"><div class="comp-emoji">☕</div><div class="comp-num">${coffees}</div><div class="comp-label">fancy coffees</div></div>`;
+  // Verdict
+  let emoji,text,sub;
+  if(hours<1){emoji='✅';text='Go for it!';sub="That's basically pocket change for you.";}
+  else if(hours<4){emoji='👍';text='Probably fine.';sub="You'll earn it back before lunch.";}
+  else if(hours<8){emoji='🤔';text='Sleep on it.';sub="That's a full day of work. Is it worth it?";}
+  else if(hours<40){emoji='😬';text='Think twice.';sub="That's "+Math.round(hours/8)+" full work days. Ouch.";}
+  else if(hours<160){emoji='🚨';text='Major purchase alert!';sub="That's "+Math.round(hours/40)+" weeks of work. Budget carefully.";}
+  else{emoji='💀';text='Are you sure about this?';sub="That's "+Math.round(hours/160)+" months of your life. Make sure it's worth it.";}
+  verdict.innerHTML=`<div class="verdict-emoji">${emoji}</div><div class="verdict-text">${text}</div><div class="verdict-sub">${sub}</div>`;
+  loadCountdown();
 }
 
-function renderHist() {
-  $h.innerHTML = history.length ? history.map(h =>
-    `<div class="hist-item"><div class="hist-expr">${h.expr}</div><div class="hist-res">= ${h.res}</div></div>`
-  ).join('') : '<div class="hist-empty">No calculations yet</div>';
-}
+priceEl.addEventListener('input',update);
+wageEl.addEventListener('input',update);
 
-function calc(a, b, o) {
-  a = parseFloat(a); b = parseFloat(b);
-  if (o === '+') return a + b;
-  if (o === '-') return a - b;
-  if (o === '×') return a * b;
-  if (o === '÷') return b === 0 ? 'Error' : a / b;
+// Countdown
+let countdownInterval=null;
+function getKey(){return'impulse_'+Math.round(parseFloat(priceEl.value)||0)}
+function loadCountdown(){
+  const saved=localStorage.getItem(getKey());
+  if(saved){
+    const end=parseInt(saved);
+    if(end>Date.now()){tickCountdown(end);return}
+    else{countdownTimer.textContent="⏰ Time's up! Still want it?";clearInterval(countdownInterval)}
+  } else {countdownTimer.textContent='24:00:00'}
 }
-
-function formatNum(n) {
-  if (n === 'Error') return n;
-  const f = parseFloat(n);
-  if (isNaN(f)) return '0';
-  return parseFloat(f.toPrecision(12)).toString();
+function tickCountdown(end){
+  clearInterval(countdownInterval);
+  countdownInterval=setInterval(()=>{
+    const diff=end-Date.now();
+    if(diff<=0){clearInterval(countdownInterval);countdownTimer.textContent="⏰ Time's up! Still want it?";return}
+    const h=Math.floor(diff/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
+    countdownTimer.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  },1000);
 }
-
-function handle(action, val) {
-  if (action === 'num') {
-    if (fresh) { curr = val; fresh = false; }
-    else { curr = curr === '0' ? val : curr + val; }
-  } else if (action === 'decimal') {
-    if (fresh) { curr = '0.'; fresh = false; }
-    else if (!curr.includes('.')) curr += '.';
-  } else if (action === 'clear') {
-    curr = '0'; prev = ''; op = null; fresh = true;
-  } else if (action === 'sign') {
-    if (curr !== '0') curr = curr.startsWith('-') ? curr.slice(1) : '-' + curr;
-  } else if (action === 'percent') {
-    curr = formatNum(parseFloat(curr) / 100);
-  } else if (action === 'op') {
-    if (prev && op && !fresh) {
-      const res = calc(prev, curr, op);
-      const expr = `${prev} ${op} ${curr}`;
-      prev = formatNum(res);
-      addHist(expr, prev);
-    } else {
-      prev = curr;
-    }
-    op = val; fresh = true;
-  } else if (action === 'equals') {
-    if (prev && op) {
-      const expr = `${prev} ${op} ${curr}`;
-      const res = formatNum(calc(prev, curr, op));
-      addHist(expr, res);
-      curr = res; prev = ''; op = null; fresh = true;
-    }
-  }
-  update();
-}
-
-function addHist(expr, res) {
-  history.unshift({ expr, res });
-  if (history.length > 10) history.pop();
-  localStorage.setItem('calc-history', JSON.stringify(history));
-  renderHist();
-}
-
-document.querySelector('.keys').addEventListener('click', e => {
-  const btn = e.target.closest('.key');
-  if (!btn) return;
-  handle(btn.dataset.action, btn.dataset.val || btn.dataset.op);
+startBtn.addEventListener('click',()=>{
+  const end=Date.now()+86400000;
+  localStorage.setItem(getKey(),end);
+  tickCountdown(end);
 });
-
-document.addEventListener('keydown', e => {
-  if (e.key >= '0' && e.key <= '9') handle('num', e.key);
-  else if (e.key === '.') handle('decimal');
-  else if (e.key === '+') handle('op', '+');
-  else if (e.key === '-') handle('op', '-');
-  else if (e.key === '*') handle('op', '×');
-  else if (e.key === '/') { e.preventDefault(); handle('op', '÷'); }
-  else if (e.key === 'Enter' || e.key === '=') handle('equals');
-  else if (e.key === 'Escape') handle('clear');
-  else if (e.key === '%') handle('percent');
-  else if (e.key === 'Backspace') {
-    if (curr.length > 1) curr = curr.slice(0, -1);
-    else curr = '0';
-    update();
-  }
+clearBtn.addEventListener('click',()=>{
+  localStorage.removeItem(getKey());
+  clearInterval(countdownInterval);
+  countdownTimer.textContent='24:00:00';
 });
-
-update(); renderHist();
 </script>
 </body>
 </html>
