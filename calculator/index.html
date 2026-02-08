@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px}
+.back{color:#888;text-decoration:none;font-size:.85rem;align-self:flex-start;margin-bottom:10px;transition:color .2s}
+.back:hover{color:#fff}
+h1{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:24px}
+.wrapper{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;align-items:flex-start;width:100%;max-width:700px}
+.calc{background:#1a1a2e;border-radius:24px;padding:24px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.display{background:#0f0f1a;border-radius:16px;padding:16px 20px;margin-bottom:16px;min-height:90px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;overflow:hidden}
+.prev{font-size:.85rem;color:#666;min-height:20px;word-break:break-all}
+.curr{font-size:2.2rem;font-weight:700;word-break:break-all;max-width:100%}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.key{border:none;border-radius:14px;padding:18px 0;font-family:inherit;font-size:1.15rem;font-weight:600;cursor:pointer;transition:all .12s;background:#252540;color:#e0e0e0}
+.key:hover{background:#303055}
+.key:active{transform:scale(.94)}
+.key-op{background:#3b3b6e;color:#a78bfa}
+.key-op:hover{background:#4b4b8e}
+.key-eq{background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff}
+.key-eq:hover{opacity:.9}
+.key-fn{background:#1e1e35;color:#888}
+.key-fn:hover{background:#2a2a4a}
+.history{background:#1a1a2e;border-radius:20px;padding:20px;width:280px;max-height:440px;overflow-y:auto}
+.history h3{font-size:.9rem;color:#666;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.hist-item{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85rem}
+.hist-expr{color:#888}.hist-res{color:#a78bfa;font-weight:600;font-size:1rem}
+.hist-empty{color:#444;font-size:.85rem;text-align:center;padding:20px 0}
+@media(max-width:660px){.wrapper{flex-direction:column;align-items:center}.history{width:320px}}
+</style>
+</head>
+<body>
+<a href="../" class="back">← Back to Showcase</a>
+<h1>🔢 Calculator</h1>
+<div class="wrapper">
+<div class="calc">
+  <div class="display">
+    <div class="prev" id="prev"></div>
+    <div class="curr" id="curr">0</div>
+  </div>
+  <div class="keys">
+    <button class="key key-fn" data-action="clear">C</button>
+    <button class="key key-fn" data-action="sign">±</button>
+    <button class="key key-fn" data-action="percent">%</button>
+    <button class="key key-op" data-action="op" data-op="÷">÷</button>
+    <button class="key" data-action="num" data-val="7">7</button>
+    <button class="key" data-action="num" data-val="8">8</button>
+    <button class="key" data-action="num" data-val="9">9</button>
+    <button class="key key-op" data-action="op" data-op="×">×</button>
+    <button class="key" data-action="num" data-val="4">4</button>
+    <button class="key" data-action="num" data-val="5">5</button>
+    <button class="key" data-action="num" data-val="6">6</button>
+    <button class="key key-op" data-action="op" data-op="-">−</button>
+    <button class="key" data-action="num" data-val="1">1</button>
+    <button class="key" data-action="num" data-val="2">2</button>
+    <button class="key" data-action="num" data-val="3">3</button>
+    <button class="key key-op" data-action="op" data-op="+">+</button>
+    <button class="key" data-action="num" data-val="0" style="grid-column:span 2">0</button>
+    <button class="key" data-action="decimal">.</button>
+    <button class="key key-eq" data-action="equals">=</button>
+  </div>
+</div>
+<div class="history">
+  <h3>History</h3>
+  <div id="hist"></div>
+</div>
+</div>
+
+<script>
+let curr = '0', prev = '', op = null, fresh = true;
+let history = JSON.parse(localStorage.getItem('calc-history') || '[]');
+
+const $c = document.getElementById('curr');
+const $p = document.getElementById('prev');
+const $h = document.getElementById('hist');
+
+function update() {
+  $c.textContent = curr;
+  $p.textContent = prev ? `${prev} ${op||''}` : '';
+}
+
+function renderHist() {
+  $h.innerHTML = history.length ? history.map(h =>
+    `<div class="hist-item"><div class="hist-expr">${h.expr}</div><div class="hist-res">= ${h.res}</div></div>`
+  ).join('') : '<div class="hist-empty">No calculations yet</div>';
+}
+
+function calc(a, b, o) {
+  a = parseFloat(a); b = parseFloat(b);
+  if (o === '+') return a + b;
+  if (o === '-') return a - b;
+  if (o === '×') return a * b;
+  if (o === '÷') return b === 0 ? 'Error' : a / b;
+}
+
+function formatNum(n) {
+  if (n === 'Error') return n;
+  const f = parseFloat(n);
+  if (isNaN(f)) return '0';
+  return parseFloat(f.toPrecision(12)).toString();
+}
+
+function handle(action, val) {
+  if (action === 'num') {
+    if (fresh) { curr = val; fresh = false; }
+    else { curr = curr === '0' ? val : curr + val; }
+  } else if (action === 'decimal') {
+    if (fresh) { curr = '0.'; fresh = false; }
+    else if (!curr.includes('.')) curr += '.';
+  } else if (action === 'clear') {
+    curr = '0'; prev = ''; op = null; fresh = true;
+  } else if (action === 'sign') {
+    if (curr !== '0') curr = curr.startsWith('-') ? curr.slice(1) : '-' + curr;
+  } else if (action === 'percent') {
+    curr = formatNum(parseFloat(curr) / 100);
+  } else if (action === 'op') {
+    if (prev && op && !fresh) {
+      const res = calc(prev, curr, op);
+      const expr = `${prev} ${op} ${curr}`;
+      prev = formatNum(res);
+      addHist(expr, prev);
+    } else {
+      prev = curr;
+    }
+    op = val; fresh = true;
+  } else if (action === 'equals') {
+    if (prev && op) {
+      const expr = `${prev} ${op} ${curr}`;
+      const res = formatNum(calc(prev, curr, op));
+      addHist(expr, res);
+      curr = res; prev = ''; op = null; fresh = true;
+    }
+  }
+  update();
+}
+
+function addHist(expr, res) {
+  history.unshift({ expr, res });
+  if (history.length > 10) history.pop();
+  localStorage.setItem('calc-history', JSON.stringify(history));
+  renderHist();
+}
+
+document.querySelector('.keys').addEventListener('click', e => {
+  const btn = e.target.closest('.key');
+  if (!btn) return;
+  handle(btn.dataset.action, btn.dataset.val || btn.dataset.op);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key >= '0' && e.key <= '9') handle('num', e.key);
+  else if (e.key === '.') handle('decimal');
+  else if (e.key === '+') handle('op', '+');
+  else if (e.key === '-') handle('op', '-');
+  else if (e.key === '*') handle('op', '×');
+  else if (e.key === '/') { e.preventDefault(); handle('op', '÷'); }
+  else if (e.key === 'Enter' || e.key === '=') handle('equals');
+  else if (e.key === 'Escape') handle('clear');
+  else if (e.key === '%') handle('percent');
+  else if (e.key === 'Backspace') {
+    if (curr.length > 1) curr = curr.slice(0, -1);
+    else curr = '0';
+    update();
+  }
+});
+
+update(); renderHist();
+</script>
+</body>
+</html>
