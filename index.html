@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVP Studio Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;overflow-x:hidden}
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+header{position:relative;z-index:1;text-align:center;padding:80px 20px 40px}
+header h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;background:linear-gradient(135deg,#6366f1,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+header p{font-size:1.1rem;color:#888;max-width:500px;margin:0 auto}
+.grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;max-width:1100px;margin:40px auto 80px;padding:0 24px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;transition:transform .35s,box-shadow .35s;cursor:pointer;text-decoration:none;color:inherit;display:block}
+.card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(99,102,241,.2)}
+.card-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden}
+.card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,#0a0a0f)}
+.c1 .card-img{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)}
+.c2 .card-img{background:linear-gradient(135deg,#1a1a2e,#e94560,#0f3460)}
+.c3 .card-img{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)}
+.card-body{padding:24px}
+.card-body h2{font-size:1.4rem;font-weight:700;margin-bottom:8px}
+.card-body p{color:#999;font-size:.95rem;line-height:1.5}
+.tag{display:inline-block;padding:4px 10px;border-radius:20px;font-size:.75rem;font-weight:600;margin-top:12px;background:rgba(99,102,241,.15);color:#a78bfa}
+footer{text-align:center;padding:40px 20px;color:#555;font-size:.85rem;position:relative;z-index:1}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<header>
+<h1>MVP Studio Showcase</h1>
+<p>Three handcrafted web apps — no frameworks, no build tools, just pure HTML, CSS & JS.</p>
+</header>
+<div class="grid">
+<a href="cosmic-explorer/" class="card c1">
+<div class="card-img">🌌</div>
+<div class="card-body">
+<h2>Cosmic Explorer</h2>
+<p>Explore NASA's Astronomy Picture of the Day. Travel through time with stunning space imagery and discover the cosmos.</p>
+<span class="tag">NASA APOD API</span>
+</div>
+</a>
+<a href="pokedex-pro/" class="card c2">
+<div class="card-img">⚡</div>
+<div class="card-body">
+<h2>PokéDex Pro</h2>
+<p>Browse all 151 Gen 1 Pokémon with type-based colors, stats, abilities, and smooth animations.</p>
+<span class="tag">PokéAPI</span>
+</div>
+</a>
+<a href="vibe-check/" class="card c3">
+<div class="card-img">✨</div>
+<div class="card-body">
+<h2>Vibe Check</h2>
+<p>Pick your mood and get matched with jokes, quotes, or fun facts. Share your vibe with beautiful cards.</p>
+<span class="tag">JokeAPI + Quotes</span>
+</div>
+</a>
+</div>
+<footer>&copy; 2026 MVP Studio &mdash; Built with ❤️ and vanilla JS</footer>
+<script>
+const c=document.getElementById('stars');
+for(let i=0;i<120;i++){const s=document.createElement('div');s.className='star';s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${Math.random()*3+1}px;height:${Math.random()*3+1}px;--d:${Math.random()*3+2}s;animation-delay:${Math.random()*3}s`;c.appendChild(s)}
+</script>
+</body>
+</html>
