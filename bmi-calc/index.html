@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.back{position:fixed;top:20px;left:20px;color:#888;text-decoration:none;font-size:.9rem;z-index:10;transition:color .2s}.back:hover{color:#e0e0e0}
+.container{padding:80px 20px 40px;width:100%;max-width:460px}
+h1{font-size:1.8rem;font-weight:800;text-align:center;margin-bottom:8px;background:linear-gradient(135deg,#22c55e,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{color:#666;font-size:.9rem;margin-bottom:32px;text-align:center}
+.toggle{display:flex;background:rgba(255,255,255,.06);border-radius:12px;padding:4px;margin-bottom:28px}
+.toggle button{flex:1;padding:10px;border:none;border-radius:10px;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;background:none;color:#888;transition:all .2s}
+.toggle button.active{background:#22c55e;color:#fff}
+.fields{display:grid;gap:16px;margin-bottom:28px}
+.field label{display:block;font-size:.8rem;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+.field input{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:1.05rem}
+.field input:focus{outline:none;border-color:#22c55e}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.calc-btn{width:100%;padding:16px;border:none;border-radius:14px;background:#22c55e;color:#fff;font-family:inherit;font-size:1.1rem;font-weight:700;cursor:pointer;transition:background .2s;margin-bottom:28px}.calc-btn:hover{background:#16a34a}
+.result{display:none;text-align:center;margin-bottom:28px}
+.result .bmi-number{font-size:3.5rem;font-weight:800;margin-bottom:4px}
+.result .bmi-category{font-size:1.1rem;font-weight:600;margin-bottom:20px}
+.gauge{position:relative;height:24px;border-radius:12px;background:linear-gradient(to right,#3b82f6 0%,#22c55e 30%,#eab308 60%,#f97316 80%,#ef4444 100%);margin-bottom:12px;overflow:visible}
+.gauge-marker{position:absolute;top:-6px;width:4px;height:36px;background:#fff;border-radius:2px;transform:translateX(-50%);transition:left .5s;box-shadow:0 0 10px rgba(255,255,255,.5)}
+.gauge-labels{display:flex;justify-content:space-between;font-size:.7rem;color:#888;margin-bottom:16px}
+.disclaimer{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;font-size:.8rem;color:#888;line-height:1.5}
+.disclaimer strong{color:#aaa}
+</style>
+</head>
+<body>
+<a href="../" class="back">← Back</a>
+<div class="container">
+<h1>⚖️ BMI Calculator</h1>
+<p class="subtitle">Check your Body Mass Index</p>
+<div class="toggle">
+<button class="active" onclick="setUnit('metric',this)">Metric (kg/cm)</button>
+<button onclick="setUnit('imperial',this)">Imperial (lbs/in)</button>
+</div>
+<div class="fields" id="fields"></div>
+<button class="calc-btn" onclick="calculate()">Calculate BMI</button>
+<div class="result" id="result">
+<div class="bmi-number" id="bmiNumber">--</div>
+<div class="bmi-category" id="bmiCategory">--</div>
+<div class="gauge"><div class="gauge-marker" id="gaugeMarker" style="left:50%"></div></div>
+<div class="gauge-labels"><span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span></div>
+</div>
+<div class="disclaimer"><strong>⚠️ Disclaimer:</strong> BMI is a general screening tool and does not account for muscle mass, bone density, age, sex, or ethnicity. Consult a healthcare professional for personalized health advice.</div>
+</div>
+<script>
+let unit='metric';
+function setUnit(u,btn){
+  unit=u;
+  document.querySelectorAll('.toggle button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFields();
+  document.getElementById('result').style.display='none';
+}
+function renderFields(){
+  const f=document.getElementById('fields');
+  if(unit==='metric'){
+    f.innerHTML=`<div class="field"><label>Height (cm)</label><input type="number" id="height" placeholder="170" min="50" max="300"></div><div class="field"><label>Weight (kg)</label><input type="number" id="weight" placeholder="70" min="10" max="500"></div>`;
+  }else{
+    f.innerHTML=`<div class="row"><div class="field"><label>Feet</label><input type="number" id="feet" placeholder="5" min="1" max="8"></div><div class="field"><label>Inches</label><input type="number" id="inches" placeholder="7" min="0" max="11"></div></div><div class="field"><label>Weight (lbs)</label><input type="number" id="weight" placeholder="154" min="10" max="1000"></div>`;
+  }
+}
+function calculate(){
+  let bmi;
+  if(unit==='metric'){
+    const h=parseFloat(document.getElementById('height').value)/100;
+    const w=parseFloat(document.getElementById('weight').value);
+    if(!h||!w||h<=0)return;
+    bmi=w/(h*h);
+  }else{
+    const ft=parseFloat(document.getElementById('feet').value)||0;
+    const inc=parseFloat(document.getElementById('inches').value)||0;
+    const w=parseFloat(document.getElementById('weight').value);
+    const totalIn=ft*12+inc;
+    if(!totalIn||!w)return;
+    bmi=(703*w)/(totalIn*totalIn);
+  }
+  bmi=Math.round(bmi*10)/10;
+  let cat,color;
+  if(bmi<18.5){cat='Underweight';color='#3b82f6';}
+  else if(bmi<25){cat='Normal';color='#22c55e';}
+  else if(bmi<30){cat='Overweight';color='#f97316';}
+  else{cat='Obese';color='#ef4444';}
+  document.getElementById('bmiNumber').textContent=bmi;
+  document.getElementById('bmiNumber').style.color=color;
+  document.getElementById('bmiCategory').textContent=cat;
+  document.getElementById('bmiCategory').style.color=color;
+  // Gauge: map BMI 14-40 to 0-100%
+  const pct=Math.min(100,Math.max(0,(bmi-14)/(40-14)*100));
+  document.getElementById('gaugeMarker').style.left=pct+'%';
+  document.getElementById('result').style.display='block';
+}
+renderFields();
+</script>
+</body>
+</html>
