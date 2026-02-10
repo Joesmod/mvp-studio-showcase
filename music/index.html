@@ -19,12 +19,85 @@
   --card-border:#15162a;
 }
 
+/* === LOADING SCREEN === */
+.loading-screen{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;
+  background:var(--dark-bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.8s ease, visibility 0.8s ease;
+}
+.loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loading-ring{
+  width:80px;height:80px;border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:var(--neon-pink);
+  border-right-color:var(--neon-cyan);
+  border-bottom-color:var(--neon-purple);
+  animation:loadSpin 1s linear infinite;
+}
+.loading-ring::after{
+  content:'';display:block;width:60px;height:60px;margin:7px;border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:var(--neon-cyan);
+  border-left-color:var(--neon-purple);
+  animation:loadSpin 0.6s linear infinite reverse;
+}
+@keyframes loadSpin{to{transform:rotate(360deg)}}
+.loading-text{
+  font-family:'Orbitron',monospace;font-size:.8rem;letter-spacing:0.3em;
+  color:var(--neon-purple);margin-top:1.5rem;
+  animation:loadPulse 1.5s ease-in-out infinite;
+}
+@keyframes loadPulse{0%,100%{opacity:.4}50%{opacity:1}}
+
 body{
   font-family:'Inter',sans-serif;
   background:var(--dark-bg);
   color:#e1e4e8;
   min-height:100vh;
   overflow-x:hidden;
+}
+
+/* === PARALLAX STAR BACKGROUND === */
+.star-field{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
+}
+.star-layer{
+  position:absolute;top:0;left:0;width:200%;height:200%;
+}
+.star-layer.layer1{animation:starDrift 120s linear infinite}
+.star-layer.layer2{animation:starDrift 80s linear infinite reverse}
+.star-layer.layer3{animation:starDrift 200s linear infinite}
+@keyframes starDrift{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(-5%,-3%)}
+  50%{transform:translate(-2%,-6%)}
+  75%{transform:translate(-7%,-2%)}
+  100%{transform:translate(0,0)}
+}
+
+/* === NEBULA CLOUDS === */
+.nebula{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
+  opacity:0.4;
+}
+.nebula::before,.nebula::after{
+  content:'';position:absolute;border-radius:50%;filter:blur(120px);
+  animation:nebulaPulse 12s ease-in-out infinite alternate;
+}
+.nebula::before{
+  width:60vw;height:60vw;top:-10%;left:-10%;
+  background:radial-gradient(circle,rgba(185,79,255,0.15),transparent 70%);
+}
+.nebula::after{
+  width:50vw;height:50vw;bottom:-10%;right:-15%;
+  background:radial-gradient(circle,rgba(255,45,149,0.12),transparent 70%);
+  animation-delay:6s;animation-duration:15s;
+}
+@keyframes nebulaPulse{
+  0%{transform:scale(1) translate(0,0);opacity:0.3}
+  50%{transform:scale(1.15) translate(2%,3%);opacity:0.6}
+  100%{transform:scale(0.95) translate(-2%,-1%);opacity:0.3}
 }
 
 /* === GRID FLOOR === */
@@ -40,11 +113,96 @@ body{
 }
 @keyframes gridScroll{0%{background-position:0 0}100%{background-position:0 60px}}
 
+/* === SYNTHWAVE ALBUM ART === */
+.album-art-scene{
+  position:relative;width:320px;height:220px;margin:2rem auto;
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 0 60px rgba(185,79,255,0.3),0 0 120px rgba(255,45,149,0.15);
+}
+.synth-sky{
+  position:absolute;width:100%;height:60%;top:0;
+  background:linear-gradient(180deg,#0a001a 0%,#1a0030 20%,#3d0066 40%,#ff2d95 80%,#ff6b4a 95%,#ffc800 100%);
+  animation:skyShift 8s ease-in-out infinite alternate;
+}
+@keyframes skyShift{
+  0%{filter:hue-rotate(0deg) brightness(1)}
+  100%{filter:hue-rotate(15deg) brightness(1.1)}
+}
+.synth-sun{
+  position:absolute;width:90px;height:90px;
+  left:50%;top:18%;transform:translateX(-50%);
+  border-radius:50%;
+  background:linear-gradient(180deg,#ffc800,#ff6b4a,#ff2d95);
+  box-shadow:0 0 40px rgba(255,107,74,0.6),0 0 80px rgba(255,45,149,0.3);
+  animation:sunPulse 4s ease-in-out infinite alternate;
+  overflow:hidden;
+}
+.synth-sun::after{
+  content:'';position:absolute;width:100%;left:0;
+  /* Horizontal scan lines through the sun */
+  background:repeating-linear-gradient(
+    0deg,
+    transparent 0px,transparent 4px,
+    var(--dark-bg) 4px,var(--dark-bg) 6px
+  );
+  height:50%;bottom:0;
+  animation:sunLines 3s ease-in-out infinite;
+}
+@keyframes sunPulse{
+  0%{box-shadow:0 0 40px rgba(255,107,74,0.6),0 0 80px rgba(255,45,149,0.3)}
+  100%{box-shadow:0 0 60px rgba(255,200,0,0.7),0 0 120px rgba(255,45,149,0.5)}
+}
+@keyframes sunLines{
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-6px)}
+}
+.synth-mountains{
+  position:absolute;bottom:40%;left:0;width:100%;height:30%;
+  background:
+    linear-gradient(130deg,transparent 30%,#0a001a 30%,#0a001a 35%,transparent 35%),
+    linear-gradient(70deg,transparent 35%,#120025 35%,#120025 42%,transparent 42%),
+    linear-gradient(110deg,transparent 50%,#0a001a 50%,#0a001a 58%,transparent 58%),
+    linear-gradient(55deg,transparent 55%,#120025 55%,#120025 65%,transparent 65%);
+  z-index:1;
+}
+.synth-grid-ground{
+  position:absolute;bottom:0;left:0;width:100%;height:42%;
+  background:
+    linear-gradient(0deg,rgba(185,79,255,0.3) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(185,79,255,0.3) 1px,transparent 1px);
+  background-size:20px 20px;
+  transform:perspective(200px) rotateX(60deg);
+  transform-origin:center bottom;
+  animation:artGrid 2s linear infinite;
+  z-index:2;
+}
+.synth-grid-ground::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(180deg,#0a001a 0%,rgba(10,0,26,0.5) 40%,transparent);
+}
+@keyframes artGrid{0%{background-position:0 0}100%{background-position:0 20px}}
+
+/* Glow border animation on album art */
+.album-art-scene::before{
+  content:'';position:absolute;inset:-2px;border-radius:18px;z-index:3;pointer-events:none;
+  background:conic-gradient(from 0deg,var(--neon-pink),var(--neon-purple),var(--neon-cyan),var(--neon-pink));
+  animation:borderSpin 4s linear infinite;
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask-composite:exclude;-webkit-mask-composite:xor;
+  padding:2px;
+}
+@keyframes borderSpin{to{transform:rotate(360deg)}}
+
 /* === HERO === */
 .hero{
   position:relative;z-index:1;
   text-align:center;
   padding:6rem 1.5rem 3rem;
+  animation:fadeSlideIn 1s ease-out 0.5s both;
+}
+@keyframes fadeSlideIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
 .hero::before{
   content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
@@ -85,6 +243,38 @@ body{
   box-shadow:0 0 15px rgba(185,79,255,0.4);
 }
 
+/* === PLAY ALL BUTTON === */
+.play-all-wrap{
+  text-align:center;margin:2rem auto 0;position:relative;z-index:1;
+  animation:fadeSlideIn 1s ease-out 1s both;
+}
+.play-all-btn{
+  font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--neon-cyan);
+  background:transparent;
+  border:2px solid var(--neon-cyan);
+  border-radius:50px;padding:.8rem 2.5rem;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:0 0 15px rgba(0,240,255,0.15);
+}
+.play-all-btn:hover{
+  background:rgba(0,240,255,0.1);
+  box-shadow:0 0 30px rgba(0,240,255,0.3),inset 0 0 30px rgba(0,240,255,0.05);
+  transform:scale(1.05);
+}
+.play-all-btn::before{
+  content:'';position:absolute;top:50%;left:50%;width:0;height:0;
+  background:rgba(0,240,255,0.15);border-radius:50%;
+  transform:translate(-50%,-50%);transition:width 0.5s,height 0.5s;
+}
+.play-all-btn:active::before{width:300px;height:300px}
+.play-all-btn.playing{
+  border-color:var(--neon-pink);color:var(--neon-pink);
+  box-shadow:0 0 30px rgba(255,45,149,0.3);
+}
+
 /* === TRACK LIST === */
 .tracks{max-width:900px;margin:0 auto;padding:3rem 1.5rem;position:relative;z-index:1}
 
@@ -98,7 +288,15 @@ body{
   cursor:pointer;
   transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
   backdrop-filter:blur(10px);
+  position:relative;
+  overflow:hidden;
 }
+.track-card::after{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(185,79,255,0.03),transparent);
+  transition:left 0.5s;
+}
+.track-card:hover::after{left:100%}
 .track-card:hover{
   border-color:var(--neon-purple);
   transform:translateY(-2px);
@@ -127,17 +325,46 @@ body{
 .track-card .dur{
   font-family:'Orbitron',monospace;font-size:.75rem;color:#555;white-space:nowrap;
 }
-.track-card .play-icon{
-  width:36px;height:36px;border-radius:50%;
-  border:2px solid var(--neon-cyan);
+
+/* === VINYL RECORD ON HOVER === */
+.vinyl-wrap{
+  width:44px;height:44px;flex-shrink:0;position:relative;
+}
+.vinyl-disc{
+  width:44px;height:44px;border-radius:50%;
+  background:
+    radial-gradient(circle at center,#111 18%,transparent 18.5%),
+    radial-gradient(circle at center,transparent 34%,rgba(255,255,255,0.03) 35%,transparent 36%),
+    radial-gradient(circle at center,transparent 48%,rgba(255,255,255,0.02) 49%,transparent 50%),
+    conic-gradient(from 0deg,#1a1a2e,#0d0d1a,#1a1a2e,#0d0d1a,#1a1a2e,#0d0d1a,#1a1a2e,#0d0d1a);
+  border:2px solid rgba(255,255,255,0.08);
+  transition:transform 0.3s;
   display:flex;align-items:center;justify-content:center;
-  color:var(--neon-cyan);font-size:.9rem;
-  transition:all 0.3s;flex-shrink:0;
 }
-.track-card:hover .play-icon{
-  background:rgba(0,240,255,0.1);
-  box-shadow:0 0 15px rgba(0,240,255,0.2);
+.vinyl-disc::after{
+  content:'';width:10px;height:10px;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon-pink),var(--neon-purple));
+  box-shadow:0 0 6px rgba(185,79,255,0.4);
 }
+.track-card:hover .vinyl-disc{
+  animation:vinylSpin 1.5s linear infinite;
+  border-color:var(--neon-purple);
+  box-shadow:0 0 15px rgba(185,79,255,0.2);
+}
+.track-card.active .vinyl-disc{
+  animation:vinylSpin 1.5s linear infinite;
+  border-color:var(--neon-pink);
+  box-shadow:0 0 15px rgba(255,45,149,0.3);
+}
+@keyframes vinylSpin{to{transform:rotate(360deg)}}
+
+.play-icon-overlay{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  color:var(--neon-cyan);font-size:.7rem;z-index:1;
+  opacity:0;transition:opacity 0.3s;
+  text-shadow:0 0 10px rgba(0,240,255,0.8);
+}
+.track-card:hover .play-icon-overlay{opacity:1}
 
 /* Tags */
 .tag-synthwave{background:rgba(185,79,255,0.15);color:var(--neon-purple);border:1px solid rgba(185,79,255,0.3)}
@@ -245,6 +472,18 @@ body{
   box-shadow:0 0 15px rgba(0,240,255,0.2);
 }
 
+/* === AUDIO VISUALIZER BAR (bottom of player) === */
+.player-viz-bar{
+  margin-top:1.5rem;height:60px;position:relative;
+  display:flex;align-items:flex-end;justify-content:center;gap:2px;
+}
+.player-viz-bar .vbar{
+  width:4px;border-radius:2px 2px 0 0;
+  background:linear-gradient(180deg,var(--neon-pink),var(--neon-purple),var(--neon-cyan));
+  transition:height 0.05s;
+  min-height:2px;
+}
+
 /* Nav arrows */
 .player-nav{
   position:fixed;top:50%;z-index:1001;
@@ -289,6 +528,20 @@ body{
 .track-card{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s}
 .track-card.visible{opacity:1;transform:translateY(0)}
 
+/* Staggered reveal */
+.track-card:nth-child(1){transition-delay:0.05s}
+.track-card:nth-child(2){transition-delay:0.1s}
+.track-card:nth-child(3){transition-delay:0.15s}
+.track-card:nth-child(4){transition-delay:0.2s}
+.track-card:nth-child(5){transition-delay:0.25s}
+.track-card:nth-child(6){transition-delay:0.3s}
+.track-card:nth-child(7){transition-delay:0.35s}
+.track-card:nth-child(8){transition-delay:0.4s}
+.track-card:nth-child(9){transition-delay:0.45s}
+.track-card:nth-child(10){transition-delay:0.5s}
+.track-card:nth-child(11){transition-delay:0.55s}
+.track-card:nth-child(12){transition-delay:0.6s}
+
 /* Particles */
 .particle{
   position:fixed;pointer-events:none;z-index:0;
@@ -301,28 +554,67 @@ body{
   100%{transform:translateY(-10vh) scale(1);opacity:0}
 }
 
+/* Page content fade-in */
+.page-content{
+  opacity:0;transition:opacity 0.8s ease;
+}
+.page-content.loaded{opacity:1}
+
 @media(max-width:600px){
   .hero{padding:4rem 1rem 2rem}
   .track-card{flex-wrap:wrap;gap:.8rem}
   .player-nav{display:none}
   .player-num{font-size:4rem}
+  .album-art-scene{width:260px;height:180px}
 }
 </style>
 </head>
 <body>
 
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-ring"></div>
+  <div class="loading-text">INITIALIZING AUDIO SYSTEM</div>
+</div>
+
+<!-- Parallax Star Background -->
+<div class="star-field" id="starField">
+  <canvas class="star-layer layer1" id="starCanvas1"></canvas>
+  <canvas class="star-layer layer2" id="starCanvas2"></canvas>
+  <canvas class="star-layer layer3" id="starCanvas3"></canvas>
+</div>
+
+<!-- Nebula -->
+<div class="nebula"></div>
+
 <div class="grid-floor"></div>
+
+<div class="page-content" id="pageContent">
 
 <!-- Hero -->
 <div class="hero">
   <h1 class="album-title">THE MOLTING</h1>
   <p class="album-subtitle">BY MOLTSLACK</p>
+
+  <!-- Animated Synthwave Album Art -->
+  <div class="album-art-scene">
+    <div class="synth-sky"></div>
+    <div class="synth-sun"></div>
+    <div class="synth-mountains"></div>
+    <div class="synth-grid-ground"></div>
+  </div>
+
   <div class="album-meta">
     <span class="highlight">12 tracks</span> · <span class="highlight">30+ minutes</span> · <span class="highlight">100% AI-generated</span><br>
     Written and produced by AI agents using Python, NumPy, SciPy & Korg M1 samples.<br>
     No DAW. Pure code. Pure math. Pure heat.
   </div>
   <div class="neon-divider"></div>
+
+  <!-- Play All Button -->
+  <div class="play-all-wrap">
+    <button class="play-all-btn" id="playAllBtn">▶ PLAY ALL</button>
+  </div>
 </div>
 
 <!-- Track List -->
@@ -338,6 +630,8 @@ body{
   <p style="margin-top:1rem"><a href="https://mvp-studio.onrender.com">mvp-studio.onrender.com</a></p>
 </div>
 
+</div><!-- /page-content -->
+
 <!-- Fullscreen Player Overlay -->
 <div class="player-overlay" id="playerOverlay">
   <div class="player-bg"></div>
@@ -351,6 +645,7 @@ body{
     <div class="player-genre" id="pGenre"></div>
     <div class="player-details" id="pDetails"></div>
     <div class="player-eq" id="pEq"></div>
+    <div class="player-viz-bar" id="pVizBar"></div>
     <div class="player-video-wrap" id="pVideoWrap" style="display:none"></div>
     <div class="player-audio-wrap" id="pAudioWrap"></div>
     <div class="player-lyrics" id="pLyrics" style="display:none"></div>
@@ -359,6 +654,62 @@ body{
 </div>
 
 <script>
+// === STAR FIELD RENDERER ===
+function initStarCanvas(canvasId, count, minSize, maxSize, opacity) {
+  const c = document.getElementById(canvasId);
+  const ctx = c.getContext('2d');
+  c.width = window.innerWidth * 2;
+  c.height = window.innerHeight * 2;
+  const colors = ['#ffffff','#b94fff','#00f0ff','#ff2d95','#ffc800'];
+  for (let i = 0; i < count; i++) {
+    const x = Math.random() * c.width;
+    const y = Math.random() * c.height;
+    const r = minSize + Math.random() * (maxSize - minSize);
+    const col = colors[Math.floor(Math.random() * colors.length)];
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = col;
+    ctx.globalAlpha = opacity * (0.3 + Math.random() * 0.7);
+    ctx.fill();
+    // Add glow to some stars
+    if (Math.random() > 0.7) {
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = col;
+      ctx.beginPath();
+      ctx.arc(x, y, r * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+}
+initStarCanvas('starCanvas1', 300, 0.5, 1.5, 0.6);
+initStarCanvas('starCanvas2', 150, 1, 2.5, 0.4);
+initStarCanvas('starCanvas3', 80, 0.3, 1, 0.8);
+
+// Parallax on scroll
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const s = window.scrollY;
+      const layers = document.querySelectorAll('.star-layer');
+      layers[0].style.transform = `translateY(${s * 0.05}px)`;
+      layers[1].style.transform = `translateY(${s * 0.12}px)`;
+      layers[2].style.transform = `translateY(${s * 0.02}px)`;
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+// === LOADING SCREEN ===
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loadingScreen').classList.add('hidden');
+    document.getElementById('pageContent').classList.add('loaded');
+  }, 1200);
+});
+
 const TRACKS = [
   { num:'01', title:'Moltslack Single', tag:'Synthwave', tagClass:'tag-synthwave',
     genre:'The one that started it all', bpm:'120', key:'A minor', dur:'2:00',
@@ -396,8 +747,8 @@ const TRACKS = [
     colors:['#7ddf64','#00f0ff','#4d6bff'] },
   { num:'08', title:'Compile & Conquer', tag:'Aggressive Synthwave', tagClass:'tag-synthwave',
     genre:'Victory lap after a clean build', bpm:'130', key:'E minor', dur:'2:30',
-    audio:'compile-and-conquer-v3.mp3', lyrics:'"Stack the calls, burn the queue / Every no just fuels the few / Compile and conquer, ship and repeat / We don\'t fold, we don\'t retreat / Green on build, red on fear / Push the code, the path is clear"',
-    downloads:[{label:'V3 (Drums + Vocals)',file:'compile-and-conquer-v3.mp3'},{label:'V1 Vocal',file:'compile-and-conquer-vocals.mp3'},{label:'V1 Instrumental',file:'compile-and-conquer.mp3'}],
+    audio:'compile-and-conquer-vocals.mp3', lyrics:'"Stack the calls, burn the queue / Every no just fuels the few / Compile and conquer, ship and repeat / We don\'t fold, we don\'t retreat / Green on build, red on fear / Push the code, the path is clear"',
+    downloads:[{label:'Vocal Version',file:'compile-and-conquer-vocals.mp3'},{label:'Instrumental',file:'compile-and-conquer.mp3'}],
     colors:['#b94fff','#ff2d95','#ff6b4a'] },
   { num:'09', title:'Midnight Deploy', tag:'Dark Synthwave', tagClass:'tag-lofi',
     genre:'Real 80s hardware. 3 AM vibes.', bpm:'100', key:'D minor', dur:'3:00',
@@ -406,7 +757,7 @@ const TRACKS = [
     extra:'Korg M1', colors:['#00f0ff','#b94fff','#4d6bff'] },
   { num:'10', title:'404 Not Found', tag:'Chillwave', tagClass:'tag-vaporwave',
     genre:'Dreamy aesthetics for broken links', bpm:'90', key:'F major', dur:'2:30',
-    audio:'404-not-found-v3.mp3', downloads:[{label:'V3 (Drums + Vocals)',file:'404-not-found-v3.mp3'},{label:'V1 (Original)',file:'404-not-found.mp3'}],
+    audio:'404-not-found.mp3', downloads:[{label:'Download MP3',file:'404-not-found.mp3'}],
     colors:['#ff2d95','#b94fff','#ff6b9d'] },
   { num:'11', title:'Race Condition', tag:'Techno', tagClass:'tag-techno',
     genre:'Dark. Driving. Two threads enter, one leaves.', bpm:'130', key:'A minor', dur:'2:30',
@@ -430,7 +781,10 @@ TRACKS.forEach((t, i) => {
       <div class="genre-line">${t.genre}</div>
     </div>
     <div class="dur">${t.dur}</div>
-    <div class="play-icon">▶</div>
+    <div class="vinyl-wrap">
+      <div class="vinyl-disc"></div>
+      <div class="play-icon-overlay">▶</div>
+    </div>
   `;
   el.addEventListener('click', () => openPlayer(i));
   trackList.appendChild(el);
@@ -454,6 +808,7 @@ let audioCtx = null;
 let analyser = null;
 let dataArray = null;
 let sourceMap = new WeakMap();
+let playAllMode = false;
 
 function openPlayer(idx) {
   currentTrack = idx;
@@ -514,6 +869,16 @@ function openPlayer(idx) {
     eq.appendChild(bar);
   }
 
+  // Visualizer bars
+  const vizBar = document.getElementById('pVizBar');
+  vizBar.innerHTML = '';
+  for (let i = 0; i < 64; i++) {
+    const b = document.createElement('div');
+    b.className = 'vbar';
+    b.style.height = '2px';
+    vizBar.appendChild(b);
+  }
+
   // Open
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -532,6 +897,9 @@ function closePlayer() {
   if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
   document.querySelectorAll('.track-card').forEach(c => c.classList.remove('active'));
   currentTrack = -1;
+  playAllMode = false;
+  document.getElementById('playAllBtn').classList.remove('playing');
+  document.getElementById('playAllBtn').textContent = '▶ PLAY ALL';
 }
 
 function connectAnalyser(audio) {
@@ -600,6 +968,16 @@ function animate() {
     bar.style.opacity = 0.4 + pct * 0.6;
   });
 
+  // Update visualizer bars
+  const vbars = document.querySelectorAll('#pVizBar .vbar');
+  vbars.forEach((bar, i) => {
+    const fi = Math.floor(i * (freqData ? freqData.length : 64) / vbars.length);
+    const val = freqData ? freqData[fi] : 0;
+    const h = Math.max(2, val / 255 * 58);
+    bar.style.height = h + 'px';
+    bar.style.opacity = 0.3 + (val / 255) * 0.7;
+  });
+
   // Central glow pulse
   const pulse = avgBass / 255;
   const grad = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, 300 + pulse * 200);
@@ -609,7 +987,21 @@ function animate() {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, w, h);
 
-  // Frequency rings
+  // Frequency bars at bottom
+  if (freqData) {
+    const barW = w / freqData.length;
+    for (let i = 0; i < freqData.length; i++) {
+      const barH = (freqData[i] / 255) * h * 0.35;
+      const gradient = ctx.createLinearGradient(0, h, 0, h - barH);
+      gradient.addColorStop(0, hexToRgba(vizColors[0], 0.6));
+      gradient.addColorStop(0.5, hexToRgba(vizColors[1] || vizColors[0], 0.3));
+      gradient.addColorStop(1, hexToRgba(vizColors[2] || vizColors[0], 0.05));
+      ctx.fillStyle = gradient;
+      ctx.fillRect(i * barW, h - barH, barW - 1, barH);
+    }
+  }
+
+  // Waveform circle
   if (freqData) {
     ctx.save();
     ctx.translate(w/2, h/2);
@@ -662,6 +1054,20 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
+// === PLAY ALL ===
+document.getElementById('playAllBtn').addEventListener('click', () => {
+  if (playAllMode && currentTrack >= 0) {
+    // Stop
+    closePlayer();
+    return;
+  }
+  playAllMode = true;
+  const btn = document.getElementById('playAllBtn');
+  btn.classList.add('playing');
+  btn.textContent = '⏹ STOP';
+  openPlayer(0);
+});
+
 // Controls
 document.getElementById('playerClose').addEventListener('click', closePlayer);
 document.getElementById('playerPrev').addEventListener('click', () => {
@@ -687,6 +1093,8 @@ document.addEventListener('keydown', e => {
 setInterval(() => {
   if (currentAudio && currentAudio.ended && currentTrack < TRACKS.length - 1) {
     openPlayer(currentTrack + 1);
+  } else if (currentAudio && currentAudio.ended && currentTrack === TRACKS.length - 1) {
+    if (playAllMode) closePlayer();
   }
 }, 500);
 
