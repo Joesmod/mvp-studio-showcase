@@ -621,7 +621,7 @@ document.getElementById('caption-card').innerHTML='<div style="padding:24px;text
 return;
 }
 const c=captionData[capIdx];
-document.getElementById('caption-card').innerHTML='<img src="'+c.img+'" alt="Tony P"><div style="padding:16px"><p style="color:rgba(255,255,255,0.5);margin-bottom:8px">'+(capIdx+1)+'/'+captionData.length+' — What did Tony caption this?</p><input class="caption-input" id="cap-input" placeholder="Type your guess..." onkeydown="if(event.key==='Enter')checkCaption()"><div style="text-align:center"><button class="btn" onclick="checkCaption()">Guess</button></div><div class="caption-result" id="cap-result"></div></div>';
+document.getElementById('caption-card').innerHTML='<img src="'+c.img+'" alt="Tony P"><div style="padding:16px"><p style="color:rgba(255,255,255,0.5);margin-bottom:8px">'+(capIdx+1)+'/'+captionData.length+' — What did Tony caption this?</p><input class="caption-input" id="cap-input" placeholder="Type your guess..." onkeydown="if(event.key===\'Enter\')checkCaption()"><div style="text-align:center"><button class="btn" onclick="checkCaption()">Guess</button></div><div class="caption-result" id="cap-result"></div></div>';
 }
 function checkCaption(){
 const c=captionData[capIdx];
@@ -680,36 +680,36 @@ initMemory();
 
 // SPANISH
 const spanishData=[
-{es:"Buenos días",en:"Good morning"},
-{es:"¿Cómo estás?",en:"How are you?"},
+{es:"Buenos d\u00edas",en:"Good morning"},
+{es:"\u00bfC\u00f3mo est\u00e1s?",en:"How are you?"},
 {es:"Me encanta la comida italiana",en:"I love Italian food"},
-{es:"¿Dónde está el estadio?",en:"Where is the stadium?"},
+{es:"\u00bfD\u00f3nde est\u00e1 el estadio?",en:"Where is the stadium?"},
 {es:"Tengo hambre",en:"I am hungry"},
 {es:"La vida es bella",en:"Life is beautiful"},
-{es:"¿Quieres bailar?",en:"Do you want to dance?"},
-{es:"El traje está perfecto",en:"The suit is perfect"},
+{es:"\u00bfQuieres bailar?",en:"Do you want to dance?"},
+{es:"El traje est\u00e1 perfecto",en:"The suit is perfect"},
 {es:"Me gusta cocinar",en:"I like to cook"},
-{es:"¡Vamos a ganar!",en:"Let's go win!"},
-{es:"El café está caliente",en:"The coffee is hot"},
+{es:"\u00a1Vamos a ganar!",en:"Let\x27s go win!"},
+{es:"El caf\u00e9 est\u00e1 caliente",en:"The coffee is hot"},
 {es:"Necesito unas vacaciones",en:"I need a vacation"},
-{es:"¿Cuánto cuesta esto?",en:"How much does this cost?"},
-{es:"La música es increíble",en:"The music is incredible"},
-{es:"Estoy aprendiendo español",en:"I am learning Spanish"},
+{es:"\u00bfCu\u00e1nto cuesta esto?",en:"How much does this cost?"},
+{es:"La m\u00fasica es incre\u00edble",en:"The music is incredible"},
+{es:"Estoy aprendiendo espa\u00f1ol",en:"I am learning Spanish"},
 {es:"Me encanta Washington",en:"I love Washington"},
-{es:"El golf es mi pasión",en:"Golf is my passion"},
+{es:"El golf es mi pasi\u00f3n",en:"Golf is my passion"},
 {es:"Feliz Navidad a todos",en:"Merry Christmas to everyone"},
 {es:"La familia es todo",en:"Family is everything"},
-{es:"¡Qué bonito día!",en:"What a beautiful day!"}
+{es:"\u00a1Qu\u00e9 bonito d\u00eda!",en:"What a beautiful day!"}
 ];
 let spanIdx=0,spanScore=0;
 
 function renderSpanish(){
 if(spanIdx>=spanishData.length){
-document.getElementById('spanish-card').innerHTML='<h3 style="color:var(--gold)">¡Completado!</h3><p>Score: '+spanScore+'/'+spanishData.length+'</p><button class="btn" style="margin-top:12px" onclick="spanIdx=0;spanScore=0;renderSpanish()">Again</button>';
+document.getElementById('spanish-card').innerHTML='<h3 style="color:var(--gold)">\u00a1Completado!</h3><p>Score: '+spanScore+'/'+spanishData.length+'</p><button class="btn" style="margin-top:12px" onclick="spanIdx=0;spanScore=0;renderSpanish()">Again</button>';
 return;
 }
 const s=spanishData[spanIdx];
-document.getElementById('spanish-card').innerHTML='<p style="color:rgba(255,255,255,0.5);margin-bottom:8px">'+(spanIdx+1)+'/'+spanishData.length+'</p><div class="spanish-phrase">'+s.es+'</div><p style="color:rgba(255,255,255,0.4);margin-bottom:12px">Translate to English:</p><input class="spanish-input" id="span-input" placeholder="Your translation..." onkeydown="if(event.key==='Enter')checkSpanish()"><div style="margin-top:12px"><button class="btn" onclick="checkSpanish()">Check</button></div><div class="spanish-result" id="span-result"></div>';
+document.getElementById('spanish-card').innerHTML='<p style="color:rgba(255,255,255,0.5);margin-bottom:8px">'+(spanIdx+1)+'/'+spanishData.length+'</p><div class="spanish-phrase">'+s.es+'</div><p style="color:rgba(255,255,255,0.4);margin-bottom:12px">Translate to English:</p><input class="spanish-input" id="span-input" placeholder="Your translation..." onkeydown="if(event.key===\'Enter\')checkSpanish()"><div style="margin-top:12px"><button class="btn" onclick="checkSpanish()">Check</button></div><div class="spanish-result" id="span-result"></div>';
 }
 function checkSpanish(){
 const s=spanishData[spanIdx];
@@ -717,7 +717,7 @@ const guess=document.getElementById('span-input').value.toLowerCase().trim();
 const actual=s.en.toLowerCase();
 const words=actual.split(/\s+/).filter(w=>w.length>2);
 const matched=words.filter(w=>guess.includes(w)).length;
-if(matched>=words.length*0.5){spanScore++;document.getElementById('span-result').innerHTML='<span style="color:#0f0">¡Correcto! ✅</span>';}
+if(matched>=words.length*0.5){spanScore++;document.getElementById('span-result').innerHTML='<span style="color:#0f0">\u00a1Correcto! \u2705</span>';}
 else{document.getElementById('span-result').innerHTML='<span style="color:#f44">Answer: '+s.en+'</span>';}
 setTimeout(()=>{spanIdx++;renderSpanish()},1500);
 }
