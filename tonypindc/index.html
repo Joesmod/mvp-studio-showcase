@@ -33,7 +33,7 @@ section{max-width:800px;margin:0 auto;padding:40px 20px}
 .countdown-nums .lbl{font-size:0.7rem;color:rgba(255,255,255,0.5);text-transform:uppercase}
 
 .fit-card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;overflow:hidden;max-width:500px;margin:0 auto}
-.fit-card video{width:100%;max-height:70vh;object-fit:contain;background:#000}
+.fit-card iframe{width:100%;min-height:500px;border:none;background:#000}
 .fit-info{padding:16px}
 .fit-caption{font-size:0.9rem;color:rgba(255,255,255,0.8);margin-bottom:12px;max-height:60px;overflow-y:auto}
 .stars{display:flex;gap:4px;justify-content:center;margin:12px 0}
@@ -164,7 +164,7 @@ section{max-width:800px;margin:0 auto;padding:40px 20px}
 <h2 class="section-title">👔 Fit Check Ranker</h2>
 <p style="text-align:center;color:rgba(255,255,255,0.5);margin-bottom:16px">Swipe through Tony's fits. Rate each one!</p>
 <div class="fit-card">
-<video id="fit-video" controls playsinline></video>
+<div id="fit-embed" style="width:100%;max-height:70vh;overflow:hidden;background:#000;position:relative"><p style="color:#666;text-align:center;padding:40px">Loading...</p></div>
 <div class="fit-info">
 <div class="fit-caption" id="fit-caption"></div>
 <div class="fit-avg" id="fit-avg"></div>
@@ -438,9 +438,8 @@ const fitRatings=JSON.parse(localStorage.getItem('tonyFitRatings')||'{}');
 
 function renderFit(){
 const f=fitData[fitIdx];
-const vid=document.getElementById('fit-video');
-vid.src=f.v;
-vid.load();
+const embed=document.getElementById('fit-embed');
+embed.innerHTML='<iframe src="https://www.instagram.com/reel/'+f.s+'/embed/" width="100%" height="500" frameborder="0" scrolling="no" allowtransparency="true" style="border:none;overflow:hidden;background:#000"></iframe>';
 document.getElementById('fit-caption').textContent=f.c;
 document.getElementById('fit-counter').textContent=(fitIdx+1)+' / '+fitData.length;
 const r=fitRatings[f.s]||0;
@@ -716,7 +715,7 @@ function checkSpanish(){
 const s=spanishData[spanIdx];
 const guess=document.getElementById('span-input').value.toLowerCase().trim();
 const actual=s.en.toLowerCase();
-const words=actual.split(/s+/).filter(w=>w.length>2);
+const words=actual.split(/\s+/).filter(w=>w.length>2);
 const matched=words.filter(w=>guess.includes(w)).length;
 if(matched>=words.length*0.5){spanScore++;document.getElementById('span-result').innerHTML='<span style="color:#0f0">¡Correcto! ✅</span>';}
 else{document.getElementById('span-result').innerHTML='<span style="color:#f44">Answer: '+s.en+'</span>';}
