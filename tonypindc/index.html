@@ -3,1331 +3,693 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tony P in DC — The Ultimate Fan Site 🎤🏛️</title>
+<title>TONE CHECK — How well do you know Tony P?</title>
 <style>
-:root {
-  --dc-red: #BF0A30;
-  --dc-blue: #002868;
-  --dc-navy: #0a1628;
-  --dc-gold: #FFD700;
-  --dc-white: #f8f9fa;
-  --accent: #e63946;
-  --gradient: linear-gradient(135deg, #002868 0%, #0a1628 50%, #1a1a2e 100%);
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: var(--dc-navy);
-  color: #e0e0e0;
-  overflow-x: hidden;
-}
-.stars-bg {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: var(--gradient);
-  z-index: -1;
-}
-.stars-bg::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background-image: radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
-    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
-    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.2), transparent);
-  background-size: 200px 200px;
-  animation: twinkle 4s ease-in-out infinite alternate;
-}
-@keyframes twinkle { from { opacity: 0.6; } to { opacity: 1; } }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#1a1a2e;--bg2:#16213e;--bg3:#0f3460;--gold:#ffc800;--gold2:#ffb700;--white:#f0f0f0;--gray:#8892a4;--green:#4ade80;--red:#f87171;--pink:#f472b6}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden}
+.container{max-width:600px;margin:0 auto;padding:16px}
+button{cursor:pointer;font-family:inherit;border:none;outline:none}
+.btn{background:var(--gold);color:var(--bg);font-weight:700;font-size:1.1rem;padding:14px 28px;border-radius:14px;width:100%;transition:all .2s;touch-action:manipulation}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,200,0,.3)}
+.btn:active{transform:scale(.97)}
+.btn-outline{background:transparent;border:2px solid var(--gold);color:var(--gold)}
+.btn-outline:hover{background:var(--gold);color:var(--bg)}
+.btn-sm{padding:10px 20px;font-size:.95rem;width:auto;display:inline-block}
+.btn-back{background:rgba(255,255,255,.08);color:var(--gray);font-size:.9rem;padding:10px 18px;border-radius:10px;margin-bottom:16px}
+.btn-back:hover{background:rgba(255,255,255,.15);color:var(--white)}
 
-/* NAV */
-nav {
-  position: fixed; top: 0; width: 100%; z-index: 1000;
-  background: rgba(10,22,40,0.95); backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--dc-gold);
-  padding: 0.8rem 2rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
-}
-nav a {
-  color: var(--dc-gold); text-decoration: none; font-weight: 600; font-size: 0.85rem;
-  text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;
-  padding: 0.3rem 0.8rem; border-radius: 20px;
-}
-nav a:hover { background: var(--dc-gold); color: var(--dc-navy); }
+/* Hero */
+.hero{text-align:center;padding:40px 0 20px}
+.hero h1{font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px}
+.hero .tagline{color:var(--gray);font-size:1.1rem;margin-top:8px}
+.hero .catchphrase{color:var(--gold);font-size:.85rem;margin-top:12px;font-style:italic;min-height:20px;transition:opacity .3s}
 
-/* HERO */
-.hero {
-  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 2rem; position: relative;
-}
-.hero-badge {
-  width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--dc-gold);
-  overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 0 40px rgba(255,215,0,0.3);
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 40px rgba(255,215,0,0.3); }
-  50% { box-shadow: 0 0 60px rgba(255,215,0,0.5); }
-}
-.hero-badge img { width: 100%; height: 100%; object-fit: cover; }
-.hero h1 { font-size: 4rem; color: var(--dc-gold); text-shadow: 0 0 30px rgba(255,215,0,0.5); margin-bottom: 0.5rem; }
-.hero h1 span { color: white; }
-.hero .subtitle { font-size: 1.4rem; color: #aaa; margin-bottom: 1rem; }
-.hero .tagline {
-  font-size: 1.1rem; color: var(--accent); font-style: italic;
-  padding: 0.5rem 1.5rem; border: 1px solid var(--accent); border-radius: 30px;
-  display: inline-block; margin-top: 0.5rem;
-}
-.hero-stats {
-  display: flex; gap: 3rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center;
-}
-.hero-stat { text-align: center; }
-.hero-stat .num { font-size: 2rem; font-weight: 800; color: var(--dc-gold); }
-.hero-stat .label { font-size: 0.8rem; text-transform: uppercase; color: #888; letter-spacing: 2px; }
-.dc-skyline {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
-  background: linear-gradient(transparent, rgba(10,22,40,0.8));
-  display: flex; align-items: flex-end; justify-content: center; gap: 4px; padding-bottom: 10px;
-  opacity: 0.15;
-}
-.building { background: #fff; border-radius: 2px 2px 0 0; }
+/* Cards */
+.game-grid{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.game-card{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid rgba(255,200,0,.15);border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px;transition:all .25s;cursor:pointer}
+.game-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 30px rgba(255,200,0,.1)}
+.game-card .icon{font-size:2.2rem;min-width:50px;text-align:center}
+.game-card h3{font-size:1.05rem;color:var(--white);margin-bottom:2px}
+.game-card p{font-size:.82rem;color:var(--gray);line-height:1.3}
 
-/* SECTIONS */
-section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
-.section-title {
-  font-size: 2.5rem; color: var(--dc-gold); text-align: center; margin-bottom: 0.5rem;
-}
-.section-subtitle { text-align: center; color: #888; margin-bottom: 2rem; font-size: 1rem; }
-.section-divider {
-  width: 80px; height: 3px; background: var(--dc-gold); margin: 0 auto 3rem;
-}
+/* Screens */
+.screen{display:none;animation:fadeIn .35s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 
-/* STATS DASHBOARD */
-.stats-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-.stat-card {
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,215,0,0.2);
-  border-radius: 16px; padding: 2rem; text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,215,0,0.1); }
-.stat-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
-.stat-card .value { font-size: 2.2rem; font-weight: 800; color: var(--dc-gold); }
-.stat-card .label { color: #888; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+/* Progress */
+.progress-bar{height:6px;background:rgba(255,255,255,.1);border-radius:3px;margin-bottom:16px;overflow:hidden}
+.progress-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .4s ease}
 
-/* HASHTAG CLOUD */
-.hashtag-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
-.hashtag {
-  padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem;
-  background: rgba(255,215,0,0.1); color: var(--dc-gold); border: 1px solid rgba(255,215,0,0.2);
-  transition: all 0.3s;
-}
-.hashtag:hover { background: var(--dc-gold); color: var(--dc-navy); }
+/* Trivia */
+.timer-ring{width:54px;height:54px;border-radius:50%;border:4px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;margin:0 auto 14px;transition:border-color .3s}
+.timer-ring.danger{border-color:var(--red);color:var(--red);animation:pulse .5s infinite}
+.question-text{font-size:1.15rem;font-weight:600;text-align:center;margin-bottom:20px;line-height:1.4}
+.options{display:flex;flex-direction:column;gap:10px}
+.option-btn{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);color:var(--white);padding:14px 18px;border-radius:12px;font-size:1rem;text-align:left;transition:all .2s}
+.option-btn:hover{border-color:var(--gold);background:rgba(255,200,0,.08)}
+.option-btn.correct{border-color:var(--green);background:rgba(74,222,128,.15);color:var(--green)}
+.option-btn.wrong{border-color:var(--red);background:rgba(248,113,113,.15);color:var(--red)}
+.option-btn.disabled{pointer-events:none}
+.streak{text-align:center;color:var(--gold);font-weight:700;font-size:.95rem;margin-bottom:10px}
+.context-box{background:rgba(255,200,0,.08);border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 10px 10px 0;margin-top:16px;font-size:.9rem;color:var(--gray);line-height:1.4}
 
-/* GALLERY */
-.gallery-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;
-}
-.gallery-item {
-  position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 1;
-  cursor: pointer; transition: transform 0.3s;
-}
-.gallery-item:hover { transform: scale(1.03); }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.9));
-  padding: 1rem; opacity: 0; transition: opacity 0.3s;
-}
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay .caption { font-size: 0.8rem; color: #ddd; }
-.gallery-overlay .stats { font-size: 0.75rem; color: var(--dc-gold); margin-top: 0.3rem; }
+/* Quiz */
+.quiz-q{font-size:1.05rem;font-weight:600;margin-bottom:16px;text-align:center}
+.quiz-options{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);color:var(--white);padding:14px;border-radius:12px;font-size:.95rem;text-align:left;transition:all .2s}
+.quiz-opt:hover{border-color:var(--gold)}
+.quiz-opt.selected{border-color:var(--gold);background:rgba(255,200,0,.12)}
 
-/* LIGHTBOX */
-.lightbox {
-  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center;
-  flex-direction: column; padding: 2rem;
-}
-.lightbox.active { display: flex; }
-.lightbox img { max-width: 90%; max-height: 70vh; border-radius: 12px; object-fit: contain; }
-.lightbox .lb-caption { color: #ddd; margin-top: 1rem; max-width: 600px; text-align: center; font-size: 0.95rem; }
-.lightbox .lb-stats { color: var(--dc-gold); margin-top: 0.5rem; }
-.lightbox .lb-close {
-  position: absolute; top: 1rem; right: 2rem; font-size: 2rem; color: white;
-  cursor: pointer; background: none; border: none;
-}
+/* Slider */
+.slider-wrap{margin:20px 0}
+.slider-wrap input[type=range]{width:100%;-webkit-appearance:none;background:rgba(255,255,255,.1);height:8px;border-radius:4px;outline:none}
+.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--gold);cursor:pointer}
+.slider-val{text-align:center;font-size:2rem;font-weight:800;color:var(--gold);margin:10px 0}
 
-/* FLASHCARDS */
-.flashcard-container { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
-.flashcard {
-  width: 300px; height: 200px; perspective: 1000px; cursor: pointer;
-}
-.flashcard-inner {
-  width: 100%; height: 100%; position: relative; transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-.flashcard-front, .flashcard-back {
-  position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-  border-radius: 16px; display: flex; align-items: center; justify-content: center;
-  padding: 1.5rem; text-align: center; font-size: 1rem;
-}
-.flashcard-front {
-  background: linear-gradient(135deg, var(--dc-blue), #1a1a3e);
-  border: 2px solid var(--dc-gold); color: white;
-}
-.flashcard-front::before { content: '❓'; font-size: 1.5rem; position: absolute; top: 0.8rem; left: 1rem; }
-.flashcard-back {
-  background: linear-gradient(135deg, #1a3a1a, #0a2a0a);
-  border: 2px solid #4CAF50; color: #4CAF50; transform: rotateY(180deg);
-  font-weight: 700;
-}
-.flashcard-back::before { content: '✅'; font-size: 1.5rem; position: absolute; top: 0.8rem; left: 1rem; }
+/* Flashcard */
+.flashcard{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:2px solid rgba(255,200,0,.2);border-radius:20px;padding:30px;text-align:center;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;perspective:1000px}
+.flashcard:hover{border-color:var(--gold)}
+.flashcard .spanish{font-size:1.6rem;font-weight:700;color:var(--gold)}
+.flashcard .english{font-size:1.2rem;color:var(--white);margin-top:12px}
+.flashcard .hint{font-size:.85rem;color:var(--gray);margin-top:8px;font-style:italic}
+.fc-options{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.fc-opt{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);color:var(--white);padding:12px;border-radius:10px;font-size:.95rem;transition:all .2s}
+.fc-opt:hover{border-color:var(--gold)}
+.fc-opt.correct{border-color:var(--green);background:rgba(74,222,128,.15)}
+.fc-opt.wrong{border-color:var(--red);background:rgba(248,113,113,.15)}
 
-/* QUIZ */
-.quiz-container {
-  max-width: 700px; margin: 0 auto;
-  background: rgba(255,255,255,0.03); border-radius: 20px; padding: 2rem;
-  border: 1px solid rgba(255,215,0,0.2);
-}
-.quiz-question { font-size: 1.3rem; color: white; margin-bottom: 1.5rem; text-align: center; }
-.quiz-progress { text-align: center; color: #888; margin-bottom: 1rem; font-size: 0.85rem; }
-.quiz-options { display: flex; flex-direction: column; gap: 0.8rem; }
-.quiz-option {
-  padding: 1rem 1.5rem; border-radius: 12px; cursor: pointer;
-  background: rgba(255,255,255,0.05); border: 2px solid rgba(255,215,0,0.2);
-  color: #ddd; font-size: 1rem; transition: all 0.3s; text-align: left;
-}
-.quiz-option:hover { border-color: var(--dc-gold); background: rgba(255,215,0,0.1); }
-.quiz-option.selected { border-color: var(--dc-gold); background: rgba(255,215,0,0.15); color: var(--dc-gold); }
-.quiz-result {
-  text-align: center; padding: 2rem;
-}
-.quiz-result h3 { font-size: 1.8rem; color: var(--dc-gold); margin-bottom: 1rem; }
-.quiz-result p { color: #bbb; margin-bottom: 1rem; }
-.quiz-result img { width: 200px; height: 200px; object-fit: cover; border-radius: 12px; margin: 1rem auto; display: block; }
-.btn {
-  padding: 0.8rem 2rem; border-radius: 30px; border: none; cursor: pointer;
-  font-weight: 700; font-size: 1rem; transition: all 0.3s;
-  background: var(--dc-gold); color: var(--dc-navy);
-}
-.btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(255,215,0,0.3); }
+/* Results */
+.result-card{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:2px solid var(--gold);border-radius:20px;padding:30px;text-align:center;margin:20px 0}
+.result-card .score-big{font-size:3.5rem;font-weight:900;color:var(--gold)}
+.result-card .score-label{font-size:1.1rem;color:var(--gray);margin-top:4px}
+.result-card .result-msg{font-size:1rem;margin-top:14px;line-height:1.5;color:var(--white)}
+.share-btn{margin-top:16px}
 
-/* COMMENTS */
-.comments-carousel { display: flex; flex-direction: column; gap: 1rem; max-width: 700px; margin: 0 auto; }
-.comment-card {
-  background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1.5rem;
-  border-left: 4px solid var(--dc-gold); transition: transform 0.3s;
-}
-.comment-card:hover { transform: translateX(5px); }
-.comment-text { font-style: italic; color: #ddd; margin-bottom: 0.5rem; font-size: 1rem; }
-.comment-user { color: var(--dc-gold); font-size: 0.85rem; }
+/* Fit */
+.fit-desc{background:rgba(255,200,0,.06);border-radius:14px;padding:20px;text-align:center;margin-bottom:16px}
+.fit-desc .outfit-name{font-size:1.2rem;font-weight:700;color:var(--gold);margin-bottom:6px}
+.fit-desc .outfit-detail{color:var(--gray);font-size:.9rem;line-height:1.4}
+.fit-compare{display:flex;justify-content:space-around;margin:16px 0;text-align:center}
+.fit-compare div span{display:block;font-size:2rem;font-weight:800}
+.fit-compare .yours{color:var(--gold)}
+.fit-compare .community{color:var(--pink)}
+.era-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.era-btn{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);color:var(--white);padding:12px;border-radius:12px;font-size:.9rem;font-weight:600;transition:all .2s}
+.era-btn:hover{border-color:var(--gold)}
+.era-btn.correct{border-color:var(--green);background:rgba(74,222,128,.15)}
+.era-btn.wrong{border-color:var(--red);background:rgba(248,113,113,.15)}
 
-/* MEMORY GAME */
-.memory-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem;
-  max-width: 500px; margin: 0 auto;
-}
-.memory-card {
-  aspect-ratio: 1; border-radius: 12px; cursor: pointer;
-  perspective: 1000px; position: relative;
-}
-.memory-card-inner {
-  width: 100%; height: 100%; position: relative; transition: transform 0.4s;
-  transform-style: preserve-3d;
-}
-.memory-card.flipped .memory-card-inner { transform: rotateY(180deg); }
-.memory-card.matched .memory-card-inner { transform: rotateY(180deg); }
-.memory-card.matched { opacity: 0.7; pointer-events: none; }
-.memory-front, .memory-back {
-  position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-  border-radius: 12px;
-}
-.memory-front {
-  background: linear-gradient(135deg, var(--dc-blue), var(--dc-navy));
-  border: 2px solid var(--dc-gold);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem;
-}
-.memory-back {
-  transform: rotateY(180deg); overflow: hidden;
-}
-.memory-back img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
-.game-info { text-align: center; margin-bottom: 1.5rem; color: #888; }
-.game-info span { color: var(--dc-gold); font-weight: 700; }
+/* Meme gen */
+.meme-output{font-size:1.4rem;font-weight:700;text-align:center;color:var(--gold);margin:20px 0;min-height:40px}
+.meme-input{width:100%;padding:14px;border-radius:12px;border:2px solid rgba(255,200,0,.3);background:rgba(255,255,255,.06);color:var(--white);font-size:1rem;font-family:inherit;text-align:center;margin-bottom:12px}
+.meme-input::placeholder{color:var(--gray)}
+.meme-input:focus{outline:none;border-color:var(--gold)}
+.meme-wall{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.meme-wall .chip{background:rgba(255,200,0,.1);border:1px solid rgba(255,200,0,.2);color:var(--gold);padding:6px 12px;border-radius:20px;font-size:.8rem;cursor:pointer;transition:all .2s}
+.meme-wall .chip:hover{background:rgba(255,200,0,.2)}
 
-/* CAPTION GAME */
-.caption-game { max-width: 600px; margin: 0 auto; text-align: center; }
-.caption-game img { width: 250px; height: 250px; object-fit: cover; border-radius: 12px; margin: 1rem auto; }
-.caption-input {
-  width: 100%; padding: 1rem; border-radius: 12px; border: 2px solid rgba(255,215,0,0.3);
-  background: rgba(255,255,255,0.05); color: white; font-size: 1rem; margin: 1rem 0;
-}
-.caption-input::placeholder { color: #666; }
-.caption-reveal {
-  background: rgba(255,215,0,0.1); border-radius: 12px; padding: 1rem; margin-top: 1rem;
-  border: 1px solid var(--dc-gold); color: var(--dc-gold);
-}
+/* WouldTonyWear */
+.wtw-btns{display:flex;gap:12px;margin-top:16px}
+.wtw-btns .btn{flex:1}
+.wtw-yes{background:var(--green);color:#000}
+.wtw-no{background:var(--red);color:#fff}
 
-/* TOP POSTS */
-.top-posts { display: flex; flex-direction: column; gap: 1rem; }
-.top-post {
-  display: flex; gap: 1rem; align-items: center;
-  background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1rem;
-  border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s;
-}
-.top-post:hover { border-color: var(--dc-gold); }
-.top-post .rank {
-  font-size: 1.8rem; font-weight: 900; color: var(--dc-gold); min-width: 40px; text-align: center;
-}
-.top-post img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; }
-.top-post .info { flex: 1; }
-.top-post .info .cap { font-size: 0.9rem; color: #ccc; }
-.top-post .info .nums { font-size: 0.8rem; color: var(--dc-gold); margin-top: 0.3rem; }
+/* Tabs */
+.tab-bar{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
+.tab{background:rgba(255,255,255,.06);color:var(--gray);padding:8px 16px;border-radius:20px;font-size:.85rem;font-weight:600;white-space:nowrap;transition:all .2s}
+.tab:hover{color:var(--white)}
+.tab.active{background:var(--gold);color:var(--bg)}
 
-/* FOOTER */
-footer {
-  text-align: center; padding: 3rem 2rem;
-  border-top: 2px solid rgba(255,215,0,0.2);
-  color: #666; font-size: 0.85rem;
-}
-footer a { color: var(--dc-gold); text-decoration: none; }
+/* Confetti */
+.confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.confetti-piece{position:absolute;width:10px;height:10px;top:-10px;animation:confettiFall 3s linear forwards}
+@keyframes confettiFall{to{top:110vh;transform:rotate(720deg) translateX(100px)}}
 
-/* TABS */
-.tab-container { margin-top: 2rem; }
-.tab-buttons { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.tab-btn {
-  padding: 0.6rem 1.5rem; border-radius: 30px; border: 2px solid rgba(255,215,0,0.3);
-  background: transparent; color: #aaa; cursor: pointer; font-size: 0.9rem; transition: all 0.3s;
-}
-.tab-btn.active { background: var(--dc-gold); color: var(--dc-navy); border-color: var(--dc-gold); }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+/* Toast */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--bg);padding:12px 24px;border-radius:12px;font-weight:700;font-size:.95rem;z-index:9999;animation:toastIn .3s ease}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .hero h1 { font-size: 2.5rem; }
-  .memory-grid { grid-template-columns: repeat(4, 1fr); max-width: 350px; }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  nav { gap: 0.5rem; }
-  nav a { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
-}
+/* Easter egg */
+.easter-egg{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(255,200,0,.95);color:var(--bg);padding:14px 24px;border-radius:14px;font-weight:700;font-size:.9rem;z-index:9998;animation:toastIn .3s ease;max-width:90%;text-align:center}
 </style>
 </head>
 <body>
-<div class="stars-bg"></div>
+<div class="container" id="app">
 
-<nav>
-  <a href="#hero">🏠 Home</a>
-  <a href="#stats">📊 Stats</a>
-  <a href="#gallery">📸 Gallery</a>
-  <a href="#trivia">🧠 Trivia</a>
-  <a href="#quiz">🎯 Quiz</a>
-  <a href="#comments">💬 Comments</a>
-  <a href="#games">🎮 Games</a>
-  <a href="#top">🏆 Top Posts</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-badge">
-    <img src="images/DJ2eVolPIIQ.jpg" alt="Tony P">
-  </div>
-  <h1>Tony <span>P</span> in DC</h1>
-  <p class="subtitle">🎤 Aspiring Broadcaster · 🏛️ DC Native · 👨‍🍳 Home Chef · ⛳ Golfer · 💼 Consultant</p>
-  <p class="tagline">@_tonypindc — The People's Broadcaster</p>
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="num">186K</div><div class="label">Followers</div></div>
-    <div class="hero-stat"><div class="num">200</div><div class="label">Posts</div></div>
-    <div class="hero-stat"><div class="num">179K</div><div class="label">Total Likes</div></div>
-    <div class="hero-stat"><div class="num">9.0M</div><div class="label">Total Views</div></div>
-  </div>
-  <div class="dc-skyline">
-    <div class="building" style="height:20.797516473252486px;width:22.058215823810777px"></div><div class="building" style="height:80.94190770351915px;width:10.649520052468844px"></div><div class="building" style="height:70.13758950935187px;width:15.71087358846572px"></div><div class="building" style="height:90.10401501273054px;width:21.771974803721108px"></div><div class="building" style="height:92.23138736509034px;width:8.388535930783036px"></div><div class="building" style="height:58.67435076274786px;width:15.15090876034532px"></div><div class="building" style="height:93.47513120011631px;width:17.45738349425444px"></div><div class="building" style="height:70.5321495157713px;width:17.1220437419581px"></div><div class="building" style="height:36.34359413082156px;width:11.996859648012894px"></div><div class="building" style="height:76.76434300363691px;width:16.826263671684536px"></div><div class="building" style="height:70.49688825628317px;width:10.726682008266751px"></div><div class="building" style="height:77.58218971504041px;width:19.91621666947011px"></div><div class="building" style="height:70.34806080176327px;width:9.651288502104894px"></div><div class="building" style="height:92.36358980235842px;width:8.373901709950488px"></div><div class="building" style="height:80.26540879753495px;width:8.15849488822646px"></div><div class="building" style="height:98.45999931903552px;width:21.17609083714491px"></div><div class="building" style="height:23.782599225832925px;width:8.674580758969547px"></div><div class="building" style="height:33.445550673554195px;width:12.85085090365216px"></div><div class="building" style="height:56.43572857009663px;width:14.548352755445421px"></div><div class="building" style="height:91.62516588014952px;width:19.874384733424108px"></div><div class="building" style="height:50.65514853399356px;width:13.650418015286128px"></div><div class="building" style="height:22.822637986382823px;width:11.683526532701677px"></div><div class="building" style="height:98.66420553712531px;width:17.58741200226457px"></div><div class="building" style="height:78.46489798508668px;width:16.792620106086883px"></div><div class="building" style="height:63.99000770840825px;width:21.425410985389966px"></div><div class="building" style="height:50.18652951299622px;width:16.484678418340543px"></div><div class="building" style="height:77.4942996978295px;width:13.86112426965239px"></div><div class="building" style="height:36.430777587310175px;width:22.753972892900897px"></div><div class="building" style="height:42.38009008646378px;width:9.875576872754287px"></div><div class="building" style="height:79.71368642669424px;width:8.655879817081912px"></div>
-  </div>
-</section>
-
-<!-- STATS DASHBOARD -->
-<section id="stats">
-  <h2 class="section-title">📊 Stats Dashboard</h2>
-  <p class="section-subtitle">The numbers behind the Tone</p>
-  <div class="section-divider"></div>
-  <div class="stats-grid">
-    <div class="stat-card"><div class="icon">❤️</div><div class="value">179,176</div><div class="label">Total Likes</div></div>
-    <div class="stat-card"><div class="icon">👁️</div><div class="value">9.0M</div><div class="label">Total Views</div></div>
-    <div class="stat-card"><div class="icon">💬</div><div class="value">17,270</div><div class="label">Total Comments</div></div>
-    <div class="stat-card"><div class="icon">📱</div><div class="value">200</div><div class="label">Posts Analyzed</div></div>
-    <div class="stat-card"><div class="icon">📈</div><div class="value">896</div><div class="label">Avg Likes/Post</div></div>
-    <div class="stat-card"><div class="icon">🎬</div><div class="value">44,802</div><div class="label">Avg Views/Post</div></div>
-    <div class="stat-card"><div class="icon">🔥</div><div class="value">7,467</div><div class="label">Most Liked Post</div></div>
-    <div class="stat-card"><div class="icon">👀</div><div class="value">221K</div><div class="label">Most Viewed</div></div>
-  </div>
-  
-  <h3 style="color:var(--dc-gold);text-align:center;margin-bottom:1rem">🏷️ Tony's Top Hashtags</h3>
-  <div class="hashtag-cloud">
-    <span class="hashtag" title="39 uses">#vlog <small>(39)</small></span><span class="hashtag" title="21 uses">#news <small>(21)</small></span><span class="hashtag" title="20 uses">#broadcasting <small>(20)</small></span><span class="hashtag" title="18 uses">#dayinthelife <small>(18)</small></span><span class="hashtag" title="18 uses">#christmas <small>(18)</small></span><span class="hashtag" title="17 uses">#ootd <small>(17)</small></span><span class="hashtag" title="16 uses">#adulting <small>(16)</small></span><span class="hashtag" title="16 uses">#holidays <small>(16)</small></span><span class="hashtag" title="15 uses">#travel <small>(15)</small></span><span class="hashtag" title="13 uses">#fitcheck <small>(13)</small></span><span class="hashtag" title="12 uses">#headlines <small>(12)</small></span><span class="hashtag" title="11 uses">#bts <small>(11)</small></span><span class="hashtag" title="11 uses">#movies <small>(11)</small></span><span class="hashtag" title="10 uses">#fyp <small>(10)</small></span><span class="hashtag" title="9 uses">#cooking <small>(9)</small></span><span class="hashtag" title="9 uses">#weekend <small>(9)</small></span><span class="hashtag" title="9 uses">#dc <small>(9)</small></span><span class="hashtag" title="9 uses">#music <small>(9)</small></span><span class="hashtag" title="9 uses">#tv <small>(9)</small></span><span class="hashtag" title="8 uses">#rant <small>(8)</small></span>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-  <h2 class="section-title">📸 The Gallery</h2>
-  <p class="section-subtitle">Tony P's greatest hits — click any photo to expand</p>
-  <div class="section-divider"></div>
-  <div class="gallery-grid">
-    
-    <div class="gallery-item" onclick="openLightbox('images/DJ2eVolPIIQ.jpg', `I’m back and here to keep you company 😊`, '❤️ 7,467 · 👁️ 23,799 · 💬 487')">
-      <img src="images/DJ2eVolPIIQ.jpg" alt="I’m back and here to keep you company 😊
-
-#vlog #l" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I’m back and here to keep you company 😊</div>
-        <div class="stats">❤️ 7,467 · 💬 487</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQqDJU2kREE.jpg', `Always wanted to hold that mic and I owe it to all the people here and in my life who keep me going and have believed in`, '❤️ 5,420 · 👁️ 195,974 · 💬 217')">
-      <img src="images/DQqDJU2kREE.jpg" alt="Always wanted to hold that mic and I owe it to all" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Always wanted to hold that mic and I owe it to all the people here and in my lif</div>
-        <div class="stats">❤️ 5,420 · 💬 217</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQaK0GuEYez.jpg', `Sarah, you continue to amaze me in every way. Throughout your whole life, you have managed so effortlessly to thrive in `, '❤️ 4,416 · 👁️ 115,454 · 💬 124')">
-      <img src="images/DQaK0GuEYez.jpg" alt="Sarah, you continue to amaze me in every way. Thro" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Sarah, you continue to amaze me in every way. Throughout your whole life, you ha</div>
-        <div class="stats">❤️ 4,416 · 💬 124</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSksS4DEbdk.jpg', `Shout out to the original Tony P and the guys down the North End for this outfit inspiration!`, '❤️ 4,036 · 👁️ 197,968 · 💬 348')">
-      <img src="images/DSksS4DEbdk.jpg" alt="Shout out to the original Tony P and the guys down" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Shout out to the original Tony P and the guys down the North End for this outfit</div>
-        <div class="stats">❤️ 4,036 · 💬 348</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DUHMRrhkU7U.jpg', `You’re not the only one who laughs 😉`, '❤️ 3,903 · 👁️ 175,519 · 💬 374')">
-      <img src="images/DUHMRrhkU7U.jpg" alt="You’re not the only one who laughs 😉
-
-#datenight " loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">You’re not the only one who laughs 😉</div>
-        <div class="stats">❤️ 3,903 · 💬 374</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRBOqy2EQoC.jpg', `I couldn’t even give it a good politicians answer 😂`, '❤️ 4,067 · 👁️ 221,075 · 💬 201')">
-      <img src="images/DRBOqy2EQoC.jpg" alt="I couldn’t even give it a good politicians answer " loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I couldn’t even give it a good politicians answer 😂</div>
-        <div class="stats">❤️ 4,067 · 💬 201</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPm0WLjkX6a.jpg', `I got a little disheveled this past year — mentally and physically.`, '❤️ 3,870 · 👁️ 161,415 · 💬 245')">
-      <img src="images/DPm0WLjkX6a.jpg" alt="I got a little disheveled this past year — mentall" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I got a little disheveled this past year — mentally and physically.</div>
-        <div class="stats">❤️ 3,870 · 💬 245</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPudEEmkSeM.jpg', `Little late on this one but here it is! `, '❤️ 3,789 · 👁️ 109,534 · 💬 241')">
-      <img src="images/DPudEEmkSeM.jpg" alt="Little late on this one but here it is! 
-
-Shoutout" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Little late on this one but here it is! </div>
-        <div class="stats">❤️ 3,789 · 💬 241</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DURzLHJEYrT.jpg', `I guess committed bachelor was a bit confusing for some of us so let’s try this one 😂`, '❤️ 3,749 · 👁️ 188,604 · 💬 252')">
-      <img src="images/DURzLHJEYrT.jpg" alt="I guess committed bachelor was a bit confusing for" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I guess committed bachelor was a bit confusing for some of us so let’s try this </div>
-        <div class="stats">❤️ 3,749 · 💬 252</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRqGcnWkR-N.jpg', `27 years in the making! `, '❤️ 3,611 · 👁️ 163,476 · 💬 186')">
-      <img src="images/DRqGcnWkR-N.jpg" alt="27 years in the making! 
-
-#travel #europe #interna" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">27 years in the making! </div>
-        <div class="stats">❤️ 3,611 · 💬 186</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSgDDQ0ESm7.jpg', `I guess my album could be called…Life of a Broadcaster`, '❤️ 2,701 · 👁️ 145,092 · 💬 148')">
-      <img src="images/DSgDDQ0ESm7.jpg" alt="I guess my album could be called…Life of a Broadca" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I guess my album could be called…Life of a Broadcaster</div>
-        <div class="stats">❤️ 2,701 · 💬 148</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPcm80CEQQ0.jpg', `Album drop 🤝 Sunday Football 🏈 `, '❤️ 2,405 · 👁️ 171,142 · 💬 374')">
-      <img src="images/DPcm80CEQQ0.jpg" alt="Album drop 🤝 Sunday Football 🏈 
-
-It’s a science " loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Album drop 🤝 Sunday Football 🏈 </div>
-        <div class="stats">❤️ 2,405 · 💬 374</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DS80OM3jajz.jpg', `Tv show at 9 and then party at 10:30 so I just decided to use the tux for both 😊`, '❤️ 2,595 · 👁️ 111,922 · 💬 167')">
-      <img src="images/DS80OM3jajz.jpg" alt="Tv show at 9 and then party at 10:30 so I just dec" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Tv show at 9 and then party at 10:30 so I just decided to use the tux for both �</div>
-        <div class="stats">❤️ 2,595 · 💬 167</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQVOK4rEVMj.jpg', `I would’ve been a hit in 1987 for sure 😂`, '❤️ 2,488 · 👁️ 146,097 · 💬 144')">
-      <img src="images/DQVOK4rEVMj.jpg" alt="I would’ve been a hit in 1987 for sure 😂
-
-#dancin" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I would’ve been a hit in 1987 for sure 😂</div>
-        <div class="stats">❤️ 2,488 · 💬 144</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DStuqN2DRlt.jpg', `Like clockwork 🥹`, '❤️ 2,161 · 👁️ 72,119 · 💬 106')">
-      <img src="images/DStuqN2DRlt.jpg" alt="Like clockwork 🥹
-
-#christmas #holiday #nostalgia " loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Like clockwork 🥹</div>
-        <div class="stats">❤️ 2,161 · 💬 106</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRQpq2PERmM.jpg', `I love cooking but those frozen meals are clutch these days `, '❤️ 2,099 · 👁️ 139,884 · 💬 150')">
-      <img src="images/DRQpq2PERmM.jpg" alt="I love cooking but those frozen meals are clutch t" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I love cooking but those frozen meals are clutch these days </div>
-        <div class="stats">❤️ 2,099 · 💬 150</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSc08AnkSm3.jpg', `I’ll call this, the Hallmark movie fit 🤷🏻`, '❤️ 1,925 · 👁️ 62,007 · 💬 172')">
-      <img src="images/DSc08AnkSm3.jpg" alt="I’ll call this, the Hallmark movie fit 🤷🏻
-
-#ootd" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I’ll call this, the Hallmark movie fit 🤷🏻</div>
-        <div class="stats">❤️ 1,925 · 💬 172</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPkQ_BqkZr_.jpg', `Proud of These AP2’s…they have been through everything`, '❤️ 1,906 · 👁️ 79,691 · 💬 172')">
-      <img src="images/DPkQ_BqkZr_.jpg" alt="Proud of These AP2’s…they have been through everyt" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Proud of These AP2’s…they have been through everything</div>
-        <div class="stats">❤️ 1,906 · 💬 172</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPzEGr6EcEg.jpg', `Looks can be deceiving. I smile a lot, but Dark Tony can still be brought out when needed. 😌🥋`, '❤️ 1,719 · 👁️ 91,328 · 💬 303')">
-      <img src="images/DPzEGr6EcEg.jpg" alt="Looks can be deceiving. I smile a lot, but Dark To" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Looks can be deceiving. I smile a lot, but Dark Tony can still be brought out wh</div>
-        <div class="stats">❤️ 1,719 · 💬 303</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQ5eXOkEVeD.jpg', `Mingya! `, '❤️ 1,830 · 👁️ 75,201 · 💬 165')">
-      <img src="images/DQ5eXOkEVeD.jpg" alt="Mingya! 
-
-#italian #pasta #tarriffs" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Mingya! </div>
-        <div class="stats">❤️ 1,830 · 💬 165</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQ8Ta-CjU1B.jpg', `On this Veterans Day, I think about two men that have helped shape my life….my grandfathers. Daniel Ferraro and Tony Pol`, '❤️ 1,940 · 👁️ 0 · 💬 29')">
-      <img src="images/DQ8Ta-CjU1B.jpg" alt="On this Veterans Day, I think about two men that h" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">On this Veterans Day, I think about two men that have helped shape my life….my g</div>
-        <div class="stats">❤️ 1,940 · 💬 29</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRVLn7akfcw.jpg', `I’m a pretty positive guy but when it comes to this, I have to be truthful 😂`, '❤️ 1,809 · 👁️ 65,207 · 💬 125')">
-      <img src="images/DRVLn7akfcw.jpg" alt="I’m a pretty positive guy but when it comes to thi" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">I’m a pretty positive guy but when it comes to this, I have to be truthful 😂</div>
-        <div class="stats">❤️ 1,809 · 💬 125</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPxQ4g8kXn3.jpg', `Still trying to prove I’m Penske material….`, '❤️ 1,791 · 👁️ 105,840 · 💬 143')">
-      <img src="images/DPxQ4g8kXn3.jpg" alt="Still trying to prove I’m Penske material….
-
-#Work" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Still trying to prove I’m Penske material….</div>
-        <div class="stats">❤️ 1,791 · 💬 143</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRzYx9HDNjf.jpg', `From across the Atlantic straight to the heart of Europe.`, '❤️ 1,808 · 👁️ 43,093 · 💬 69')">
-      <img src="images/DRzYx9HDNjf.jpg" alt="From across the Atlantic straight to the heart of " loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">From across the Atlantic straight to the heart of Europe.</div>
-        <div class="stats">❤️ 1,808 · 💬 69</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQxwrD6kb_6.jpg', `It’s when I get to be an introvert a little bit `, '❤️ 1,798 · 👁️ 61,750 · 💬 66')">
-      <img src="images/DQxwrD6kb_6.jpg" alt="It’s when I get to be an introvert a little bit 
-
-" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">It’s when I get to be an introvert a little bit </div>
-        <div class="stats">❤️ 1,798 · 💬 66</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSlC1vrkVS2.jpg', `This has been going on for too long now!  Bring back the classics. `, '❤️ 1,609 · 👁️ 165,424 · 💬 226')">
-      <img src="images/DSlC1vrkVS2.jpg" alt="This has been going on for too long now!  Bring ba" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">This has been going on for too long now!  Bring back the classics. </div>
-        <div class="stats">❤️ 1,609 · 💬 226</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRXe_vYkf4f.jpg', `As much as I love Ina, Jeffrey is my hero 😂`, '❤️ 1,606 · 👁️ 76,791 · 💬 109')">
-      <img src="images/DRXe_vYkf4f.jpg" alt="As much as I love Ina, Jeffrey is my hero 😂
-
-#coo" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">As much as I love Ina, Jeffrey is my hero 😂</div>
-        <div class="stats">❤️ 1,606 · 💬 109</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRDzyWLDU58.jpg', `Wasn’t chasing any helicopters 😂`, '❤️ 1,602 · 👁️ 64,425 · 💬 94')">
-      <img src="images/DRDzyWLDU58.jpg" alt="Wasn’t chasing any helicopters 😂
-
-#week #dailylif" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Wasn’t chasing any helicopters 😂</div>
-        <div class="stats">❤️ 1,602 · 💬 94</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSp7QbIEYmi.jpg', `How much you gift bro?`, '❤️ 1,535 · 👁️ 51,899 · 💬 143')">
-      <img src="images/DSp7QbIEYmi.jpg" alt="How much you gift bro?
-
-#gym #workout #ootd #fashi" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">How much you gift bro?</div>
-        <div class="stats">❤️ 1,535 · 💬 143</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DTOuhOkkYYV.jpg', `It just might be my generation’s Sopranos! `, '❤️ 1,529 · 👁️ 100,118 · 💬 109')">
-      <img src="images/DTOuhOkkYYV.jpg" alt="It just might be my generation’s Sopranos! 
-
-#dayi" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">It just might be my generation’s Sopranos! </div>
-        <div class="stats">❤️ 1,529 · 💬 109</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRIeP6MkUkV.jpg', `If you want more great ideas like this for you and your family’s future, please visit tonyforamerica.com to see more of `, '❤️ 1,563 · 👁️ 85,172 · 💬 71')">
-      <img src="images/DRIeP6MkUkV.jpg" alt="If you want more great ideas like this for you and" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">If you want more great ideas like this for you and your family’s future, please </div>
-        <div class="stats">❤️ 1,563 · 💬 71</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRaYwVOkcHh.jpg', `First time cooking a roast! Stick around for Part 2 coming up later 😊`, '❤️ 1,429 · 👁️ 106,838 · 💬 139')">
-      <img src="images/DRaYwVOkcHh.jpg" alt="First time cooking a roast! Stick around for Part " loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">First time cooking a roast! Stick around for Part 2 coming up later 😊</div>
-        <div class="stats">❤️ 1,429 · 💬 139</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPeiAzgkWzd.jpg', `Before the Noise — Episode 1: “I’m Still Learning” `, '❤️ 1,378 · 👁️ 43,072 · 💬 163')">
-      <img src="images/DPeiAzgkWzd.jpg" alt="Before the Noise — Episode 1: “I’m Still Learning”" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Before the Noise — Episode 1: “I’m Still Learning” </div>
-        <div class="stats">❤️ 1,378 · 💬 163</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQz83gNEYrh.jpg', `It ain’t Joey Chestnut numbers but it’s a personal record! `, '❤️ 1,376 · 👁️ 62,045 · 💬 144')">
-      <img src="images/DQz83gNEYrh.jpg" alt="It ain’t Joey Chestnut numbers but it’s a personal" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">It ain’t Joey Chestnut numbers but it’s a personal record! </div>
-        <div class="stats">❤️ 1,376 · 💬 144</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSx4ADeEVai.jpg', `Oh I have been manifesting this for a while 😊`, '❤️ 1,334 · 👁️ 79,592 · 💬 139')">
-      <img src="images/DSx4ADeEVai.jpg" alt="Oh I have been manifesting this for a while 😊
-
-#c" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Oh I have been manifesting this for a while 😊</div>
-        <div class="stats">❤️ 1,334 · 💬 139</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DTvOsYRkf65.jpg', `The beginning of this song is the perfect embodiment of what goes on in my head upon wake up 😂`, '❤️ 1,239 · 👁️ 103,193 · 💬 215')">
-      <img src="images/DTvOsYRkf65.jpg" alt="The beginning of this song is the perfect embodime" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">The beginning of this song is the perfect embodiment of what goes on in my head </div>
-        <div class="stats">❤️ 1,239 · 💬 215</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DR8HDaHkb-4.jpg', `It’s different for all the right reasons! `, '❤️ 1,334 · 👁️ 107,195 · 💬 90')">
-      <img src="images/DR8HDaHkb-4.jpg" alt="It’s different for all the right reasons! 
-
-#italy" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">It’s different for all the right reasons! </div>
-        <div class="stats">❤️ 1,334 · 💬 90</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQ-3BjjDXam.jpg', `Have to consolidate those left overs 😊`, '❤️ 1,333 · 👁️ 111,531 · 💬 82')">
-      <img src="images/DQ-3BjjDXam.jpg" alt="Have to consolidate those left overs 😊
-
-#routine " loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">Have to consolidate those left overs 😊</div>
-        <div class="stats">❤️ 1,333 · 💬 82</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPZ3hJREZ4a.jpg', `The beginning of the “everything is content” era `, '❤️ 1,210 · 👁️ 77,244 · 💬 167')">
-      <img src="images/DPZ3hJREZ4a.jpg" alt="The beginning of the “everything is content” era 
-" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">The beginning of the “everything is content” era </div>
-        <div class="stats">❤️ 1,210 · 💬 167</div>
-      </div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DTIvTghEfFy.jpg', `A little simple, a little cozy and a little low effort but we got to ease into this week folks! `, '❤️ 1,201 · 👁️ 59,394 · 💬 166')">
-      <img src="images/DTIvTghEfFy.jpg" alt="A little simple, a little cozy and a little low ef" loading="lazy">
-      <div class="gallery-overlay">
-        <div class="caption">A little simple, a little cozy and a little low effort but we got to ease into t</div>
-        <div class="stats">❤️ 1,201 · 💬 166</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lb-close" onclick="closeLightbox()">&times;</button>
-  <img id="lb-img" src="" alt="">
-  <p class="lb-caption" id="lb-caption"></p>
-  <p class="lb-stats" id="lb-stats"></p>
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+<div class="hero">
+<h1>🎤 TONE CHECK</h1>
+<p class="tagline">How well do you know Tony P?</p>
+<p class="catchphrase" id="catchphrase"></p>
+</div>
+<div class="game-grid">
+<div class="game-card" onclick="startTrivia()"><div class="icon">🧠</div><div><h3>Tony P Trivia</h3><p>40 questions • Easy to Hard • 15s timer</p></div></div>
+<div class="game-card" onclick="startFit()"><div class="icon">👔</div><div><h3>Rate Tony's Fit</h3><p>Rate outfits • Match the era • Would Tony wear it?</p></div></div>
+<div class="game-card" onclick="startDating()"><div class="icon">💛</div><div><h3>Would Tony Date You?</h3><p>15-question personality quiz • Match percentage</p></div></div>
+<div class="game-card" onclick="startCaption()"><div class="icon">✍️</div><div><h3>Complete the Caption</h3><p>Finish Tony's real Instagram captions</p></div></div>
+<div class="game-card" onclick="startSpanish()"><div class="icon">🇪🇸</div><div><h3>Spanish with Tony</h3><p>20 flashcards • Inspired by Bad Bunny</p></div></div>
+<div class="game-card" onclick="startMeme()"><div class="icon">😂</div><div><h3>The P Stands For...</h3><p>Meme generator + catchphrase randomizer</p></div></div>
+</div>
+<p style="text-align:center;color:var(--gray);font-size:.75rem;margin-top:30px">Made with ❤️ and Reasonably Positive energy</p>
 </div>
 
-<!-- TRIVIA FLASHCARDS -->
-<section id="trivia">
-  <h2 class="section-title">🧠 Tony P Trivia</h2>
-  <p class="section-subtitle">Click a card to reveal the answer — how well do you know Tone?</p>
-  <div class="section-divider"></div>
-  <div class="flashcard-container">
-    
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What does Tony P call his fans?</div>
-        <div class="flashcard-back">They call him &#039;Tone&#039;!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">How many followers does Tony P have?</div>
-        <div class="flashcard-back">About 186,000!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What city is Tony P based in?</div>
-        <div class="flashcard-back">Washington DC!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What&#039;s Tony P&#039;s dream career?</div>
-        <div class="flashcard-back">Broadcaster / Talk Show Host!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What holiday dish did Tony P make for Friendsgiving?</div>
-        <div class="flashcard-back">A roast — his first time!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What does Tony P run besides his content?</div>
-        <div class="flashcard-back">A small consulting company!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What 80s show is Tony P a big fan of?</div>
-        <div class="flashcard-back">Stranger Things!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What sport does Tony P play (badly, by his own admission)?</div>
-        <div class="flashcard-back">Golf!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What cooking icon inspired Tony P&#039;s Friendsgiving?</div>
-        <div class="flashcard-back">Ina Garten!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What classic TV show helps Tony P discover music?</div>
-        <div class="flashcard-back">The Sopranos!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What did Tony P dress as for Halloween?</div>
-        <div class="flashcard-back">Bob Ross (with ASMR)!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What European city did Tony P visit for 27 years in the making?</div>
-        <div class="flashcard-back">Europe — Brussels &amp; Italy!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What&#039;s Tony P&#039;s guilty pleasure candy?</div>
-        <div class="flashcard-back">A chilled Reese&#039;s — his version of a &#039;cold one&#039;!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What did Tony P buy at HomeGoods?</div>
-        <div class="flashcard-back">Dropped &#039;the GDP of a small country&#039; on home decor!</div>
-      </div>
-    </div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-      <div class="flashcard-inner">
-        <div class="flashcard-front">What&#039;s Tony P&#039;s fashion icon quote?</div>
-        <div class="flashcard-back">&#039;I wear black because I&#039;m comfortable in it&#039; — Johnny Cash</div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- TRIVIA -->
+<div class="screen" id="screen-trivia">
+<button class="btn-back" onclick="goHome()">← Back</button>
+<div class="progress-bar"><div class="progress-fill" id="trivia-progress"></div></div>
+<div class="streak" id="trivia-streak"></div>
+<div class="timer-ring" id="trivia-timer">15</div>
+<div class="question-text" id="trivia-question"></div>
+<div class="options" id="trivia-options"></div>
+<div class="context-box" id="trivia-context" style="display:none"></div>
+<button class="btn" id="trivia-next" style="display:none;margin-top:16px" onclick="nextTrivia()">Next Question →</button>
+</div>
 
-<!-- QUIZ -->
-<section id="quiz">
-  <h2 class="section-title">🎯 Which Tony P Post Are You?</h2>
-  <p class="section-subtitle">Answer 5 questions to find your inner Tone</p>
-  <div class="section-divider"></div>
-  <div class="quiz-container" id="quiz-container"></div>
-</section>
+<!-- TRIVIA RESULT -->
+<div class="screen" id="screen-trivia-result">
+<button class="btn-back" onclick="goHome()">← Home</button>
+<div class="result-card">
+<div class="score-big" id="trivia-score-big"></div>
+<div class="score-label" id="trivia-score-label"></div>
+<div class="result-msg" id="trivia-result-msg"></div>
+</div>
+<button class="btn share-btn" onclick="shareResult('trivia')">📋 Copy Result</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="startTrivia()">🔄 Play Again</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="goHome()">← Home</button>
+</div>
 
-<!-- FAN COMMENTS -->
-<section id="comments">
-  <h2 class="section-title">💬 Fan Comment Highlights</h2>
-  <p class="section-subtitle">The best reactions from Tony's community</p>
-  <div class="section-divider"></div>
-  <div class="comments-carousel">
-    
-    <div class="comment-card">
-      <div class="comment-text">"I can not imagine anyone having the slightest idea what the point of this video is"</div>
-      <div class="comment-user">— @mattrodgers818 · ❤️ 55</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"No footage of you pretending to watch? Taking your cousins words to heart. That&#039;s growth king"</div>
-      <div class="comment-user">— @hitemup92 · ❤️ 48</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Do you have a different holiday you like celebrate on January 6th, Tone?"</div>
-      <div class="comment-user">— @thatramsdalekid · ❤️ 46</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Address the rumours that you charged a girl you were dating $250 to appear at her birthday party"</div>
-      <div class="comment-user">— @jimdiggitti · ❤️ 40</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Tone is it true you thought all of the paintings on the walls were scratch and sniff?"</div>
-      <div class="comment-user">— @cole_parker24 · ❤️ 34</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Maybe this wedding shouldn’t be content. Just a thought"</div>
-      <div class="comment-user">— @michaelcomeau · ❤️ 34</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Does anyone know how to delete someone else’s account?"</div>
-      <div class="comment-user">— @mt.crushmore · ❤️ 27</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"“Who needs alcohol when you got blow”- tone probably"</div>
-      <div class="comment-user">— @tomas_da_train_ · ❤️ 27</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"An Instagram account about nothing"</div>
-      <div class="comment-user">— @cwallserino · ❤️ 24</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Be sure to state your pronouns before addressing the guests at the ceremony 👍"</div>
-      <div class="comment-user">— @doubleoverankle · ❤️ 24</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"address the rumour you charges a girl you were dating $250 to appear at her birthday party"</div>
-      <div class="comment-user">— @jimdiggitti · ❤️ 24</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"I was at the wedding. Hated seeing you present at what would have otherwise been an amazing time"</div>
-      <div class="comment-user">— @jon_youngblood · ❤️ 19</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Tony P and the P is for Putting ornaments on the Christmas tree"</div>
-      <div class="comment-user">— @hitemup92 · ❤️ 17</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Hi Tone! Quick question: is this mandated by your probation officer? (follow up question: is the P for probation?)"</div>
-      <div class="comment-user">— @by.vince · ❤️ 16</div>
-    </div>
-    <div class="comment-card">
-      <div class="comment-text">"Brings in his own bucket to film this is next level content creation planning. Kudos"</div>
-      <div class="comment-user">— @steve101310 · ❤️ 16</div>
-    </div>
-  </div>
-</section>
+<!-- FIT CHECK -->
+<div class="screen" id="screen-fit">
+<button class="btn-back" onclick="goHome()">← Back</button>
+<div class="tab-bar">
+<button class="tab active" onclick="fitTab('rate')">Rate the Fit</button>
+<button class="tab" onclick="fitTab('wtw')">Would Tony Wear?</button>
+<button class="tab" onclick="fitTab('era')">Match the Era</button>
+</div>
+<div id="fit-rate"></div>
+<div id="fit-wtw" style="display:none"></div>
+<div id="fit-era" style="display:none"></div>
+</div>
 
-<!-- GAMES -->
-<section id="games">
-  <h2 class="section-title">🎮 Fan Games</h2>
-  <p class="section-subtitle">Test your Tony P knowledge with these interactive games</p>
-  <div class="section-divider"></div>
-  
-  <div class="tab-container">
-    <div class="tab-buttons">
-      <button class="tab-btn active" onclick="switchTab('memory')">🃏 Memory Match</button>
-      <button class="tab-btn" onclick="switchTab('caption')">✍️ Caption Guess</button>
-    </div>
-    
-    <div class="tab-content active" id="tab-memory">
-      <div class="game-info">
-        Moves: <span id="memory-moves">0</span> · Matches: <span id="memory-matches">0</span>/8
-        <br><button class="btn" style="margin-top:1rem;font-size:0.85rem" onclick="initMemory()">🔄 New Game</button>
-      </div>
-      <div class="memory-grid" id="memory-grid"></div>
-    </div>
-    
-    <div class="tab-content" id="tab-caption">
-      <div class="caption-game" id="caption-game"></div>
-    </div>
-  </div>
-</section>
+<!-- DATING QUIZ -->
+<div class="screen" id="screen-dating">
+<button class="btn-back" onclick="goHome()">← Back</button>
+<div class="progress-bar"><div class="progress-fill" id="dating-progress"></div></div>
+<div class="quiz-q" id="dating-question"></div>
+<div class="quiz-options" id="dating-options"></div>
+</div>
 
-<!-- TOP POSTS -->
-<section id="top">
-  <h2 class="section-title">🏆 Top Posts</h2>
-  <p class="section-subtitle">Tony P's most popular content</p>
-  <div class="section-divider"></div>
-  
-  <div class="tab-container">
-    <div class="tab-buttons">
-      <button class="tab-btn active" onclick="switchTopTab('likes')">❤️ Most Liked</button>
-      <button class="tab-btn" onclick="switchTopTab('views')">👁️ Most Viewed</button>
-      <button class="tab-btn" onclick="switchTopTab('comments')">💬 Most Discussed</button>
-    </div>
-    
-    <div class="tab-content active" id="top-likes">
-      <div class="top-posts">
-        
-        <div class="top-post">
-          <div class="rank">#1</div>
-          <img src="images/DJ2eVolPIIQ.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I’m back and here to keep you company 😊</div>
-            <div class="nums">❤️ 7,467 · 👁️ 23,799 · 💬 487</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#2</div>
-          <img src="images/DQqDJU2kREE.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Always wanted to hold that mic and I owe it to all the people here and in my life who keep me going </div>
-            <div class="nums">❤️ 5,420 · 👁️ 195,974 · 💬 217</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#3</div>
-          <img src="images/DQaK0GuEYez.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Sarah, you continue to amaze me in every way. Throughout your whole life, you have managed so effort</div>
-            <div class="nums">❤️ 4,416 · 👁️ 115,454 · 💬 124</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#4</div>
-          <img src="images/DRBOqy2EQoC.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I couldn’t even give it a good politicians answer 😂</div>
-            <div class="nums">❤️ 4,067 · 👁️ 221,075 · 💬 201</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#5</div>
-          <img src="images/DSksS4DEbdk.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Shout out to the original Tony P and the guys down the North End for this outfit inspiration!</div>
-            <div class="nums">❤️ 4,036 · 👁️ 197,968 · 💬 348</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#6</div>
-          <img src="images/DUHMRrhkU7U.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">You’re not the only one who laughs 😉</div>
-            <div class="nums">❤️ 3,903 · 👁️ 175,519 · 💬 374</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#7</div>
-          <img src="images/DPm0WLjkX6a.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I got a little disheveled this past year — mentally and physically.</div>
-            <div class="nums">❤️ 3,870 · 👁️ 161,415 · 💬 245</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#8</div>
-          <img src="images/DPudEEmkSeM.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Little late on this one but here it is! </div>
-            <div class="nums">❤️ 3,789 · 👁️ 109,534 · 💬 241</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#9</div>
-          <img src="images/DURzLHJEYrT.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I guess committed bachelor was a bit confusing for some of us so let’s try this one 😂</div>
-            <div class="nums">❤️ 3,749 · 👁️ 188,604 · 💬 252</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#10</div>
-          <img src="images/DRqGcnWkR-N.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">27 years in the making! </div>
-            <div class="nums">❤️ 3,611 · 👁️ 163,476 · 💬 186</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="tab-content" id="top-views">
-      <div class="top-posts">
-        
-        <div class="top-post">
-          <div class="rank">#1</div>
-          <img src="images/DRBOqy2EQoC.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I couldn’t even give it a good politicians answer 😂</div>
-            <div class="nums">👁️ 221,075 · ❤️ 4,067</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#2</div>
-          <img src="images/DSksS4DEbdk.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Shout out to the original Tony P and the guys down the North End for this outfit inspiration!</div>
-            <div class="nums">👁️ 197,968 · ❤️ 4,036</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#3</div>
-          <img src="images/DQqDJU2kREE.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Always wanted to hold that mic and I owe it to all the people here and in my life who keep me going </div>
-            <div class="nums">👁️ 195,974 · ❤️ 5,420</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#4</div>
-          <img src="images/DURzLHJEYrT.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I guess committed bachelor was a bit confusing for some of us so let’s try this one 😂</div>
-            <div class="nums">👁️ 188,604 · ❤️ 3,749</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#5</div>
-          <img src="images/DUHMRrhkU7U.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">You’re not the only one who laughs 😉</div>
-            <div class="nums">👁️ 175,519 · ❤️ 3,903</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#6</div>
-          <img src="images/DPcm80CEQQ0.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Album drop 🤝 Sunday Football 🏈 </div>
-            <div class="nums">👁️ 171,142 · ❤️ 2,405</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#7</div>
-          <img src="images/DSlC1vrkVS2.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">This has been going on for too long now!  Bring back the classics. </div>
-            <div class="nums">👁️ 165,424 · ❤️ 1,609</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#8</div>
-          <img src="images/DRqGcnWkR-N.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">27 years in the making! </div>
-            <div class="nums">👁️ 163,476 · ❤️ 3,611</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#9</div>
-          <img src="images/DPm0WLjkX6a.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I got a little disheveled this past year — mentally and physically.</div>
-            <div class="nums">👁️ 161,415 · ❤️ 3,870</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#10</div>
-          <img src="images/DQVOK4rEVMj.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I would’ve been a hit in 1987 for sure 😂</div>
-            <div class="nums">👁️ 146,097 · ❤️ 2,488</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="tab-content" id="top-comments">
-      <div class="top-posts">
-        
-        <div class="top-post">
-          <div class="rank">#1</div>
-          <img src="images/DJ2eVolPIIQ.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I’m back and here to keep you company 😊</div>
-            <div class="nums">💬 487 · ❤️ 7,467</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#2</div>
-          <img src="images/DUHMRrhkU7U.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">You’re not the only one who laughs 😉</div>
-            <div class="nums">💬 374 · ❤️ 3,903</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#3</div>
-          <img src="images/DPcm80CEQQ0.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Album drop 🤝 Sunday Football 🏈 </div>
-            <div class="nums">💬 374 · ❤️ 2,405</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#4</div>
-          <img src="images/DSksS4DEbdk.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Shout out to the original Tony P and the guys down the North End for this outfit inspiration!</div>
-            <div class="nums">💬 348 · ❤️ 4,036</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#5</div>
-          <img src="images/DPzEGr6EcEg.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Looks can be deceiving. I smile a lot, but Dark Tony can still be brought out when needed. 😌🥋</div>
-            <div class="nums">💬 303 · ❤️ 1,719</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#6</div>
-          <img src="images/DURzLHJEYrT.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I guess committed bachelor was a bit confusing for some of us so let’s try this one 😂</div>
-            <div class="nums">💬 252 · ❤️ 3,749</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#7</div>
-          <img src="images/DPm0WLjkX6a.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">I got a little disheveled this past year — mentally and physically.</div>
-            <div class="nums">💬 245 · ❤️ 3,870</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#8</div>
-          <img src="images/DPudEEmkSeM.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Little late on this one but here it is! </div>
-            <div class="nums">💬 241 · ❤️ 3,789</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#9</div>
-          <img src="images/DSlC1vrkVS2.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">This has been going on for too long now!  Bring back the classics. </div>
-            <div class="nums">💬 226 · ❤️ 1,609</div>
-          </div>
-        </div>
-        <div class="top-post">
-          <div class="rank">#10</div>
-          <img src="images/DQqDJU2kREE.jpg" alt="" loading="lazy">
-          <div class="info">
-            <div class="cap">Always wanted to hold that mic and I owe it to all the people here and in my life who keep me going </div>
-            <div class="nums">💬 217 · ❤️ 5,420</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- DATING RESULT -->
+<div class="screen" id="screen-dating-result">
+<button class="btn-back" onclick="goHome()">← Home</button>
+<div class="result-card">
+<div class="score-big" id="dating-score-big"></div>
+<div class="score-label">compatibility with Tony P</div>
+<div class="result-msg" id="dating-result-msg"></div>
+</div>
+<button class="btn share-btn" onclick="shareResult('dating')">📋 Share Result</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="startDating()">🔄 Retake Quiz</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="goHome()">← Home</button>
+</div>
 
-<footer>
-  <p>🎤 Tony P in DC — Fan Site 🏛️</p>
-  <p style="margin-top:0.5rem">Made with ❤️ for the Tone community · <a href="https://instagram.com/_tonypindc" target="_blank">@_tonypindc</a></p>
-  <p style="margin-top:0.3rem;font-size:0.75rem">This is an unofficial fan site. All content belongs to Tony P.</p>
-</footer>
+<!-- CAPTION -->
+<div class="screen" id="screen-caption">
+<button class="btn-back" onclick="goHome()">← Back</button>
+<div class="progress-bar"><div class="progress-fill" id="caption-progress"></div></div>
+<div class="question-text" id="caption-prompt"></div>
+<div class="options" id="caption-options"></div>
+<div class="context-box" id="caption-context" style="display:none"></div>
+<button class="btn" id="caption-next" style="display:none;margin-top:16px" onclick="nextCaption()">Next →</button>
+</div>
+
+<!-- CAPTION RESULT -->
+<div class="screen" id="screen-caption-result">
+<button class="btn-back" onclick="goHome()">← Home</button>
+<div class="result-card">
+<div class="score-big" id="caption-score-big"></div>
+<div class="score-label">captions completed</div>
+<div class="result-msg" id="caption-result-msg"></div>
+</div>
+<button class="btn share-btn" onclick="shareResult('caption')">📋 Copy Result</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="startCaption()">🔄 Play Again</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="goHome()">← Home</button>
+</div>
+
+<!-- SPANISH -->
+<div class="screen" id="screen-spanish">
+<button class="btn-back" onclick="goHome()">← Back</button>
+<div class="progress-bar"><div class="progress-fill" id="spanish-progress"></div></div>
+<div id="spanish-score-display" style="text-align:center;color:var(--gold);font-weight:700;margin-bottom:12px"></div>
+<div class="flashcard" id="spanish-card">
+<div class="spanish" id="spanish-phrase"></div>
+<div class="hint" id="spanish-hint"></div>
+</div>
+<div class="fc-options" id="spanish-options"></div>
+<button class="btn" id="spanish-next" style="display:none;margin-top:16px" onclick="nextSpanish()">Next Card →</button>
+</div>
+
+<!-- SPANISH RESULT -->
+<div class="screen" id="screen-spanish-result">
+<button class="btn-back" onclick="goHome()">← Home</button>
+<div class="result-card">
+<div class="score-big" id="spanish-score-big"></div>
+<div class="score-label">Spanish phrases mastered</div>
+<div class="result-msg" id="spanish-result-msg"></div>
+</div>
+<button class="btn share-btn" onclick="shareResult('spanish')">📋 Copy Result</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="startSpanish()">🔄 Practice Again</button>
+<button class="btn btn-outline" style="margin-top:10px" onclick="goHome()">← Home</button>
+</div>
+
+<!-- MEME GEN -->
+<div class="screen" id="screen-meme">
+<button class="btn-back" onclick="goHome()">← Back</button>
+<h2 style="text-align:center;margin-bottom:20px">😂 Tony P and the P stands for...</h2>
+<div class="meme-output" id="meme-display">Tony P and the P stands for ___</div>
+<input class="meme-input" id="meme-input" placeholder="Type your P stands for..." maxlength="80">
+<button class="btn" onclick="generateMeme()" style="margin-bottom:12px">✨ Generate</button>
+<button class="btn btn-outline" onclick="randomMeme()">🎲 Random Community Meme</button>
+<div class="meme-wall" id="meme-wall" style="margin-top:20px"></div>
+<hr style="border:1px solid rgba(255,255,255,.08);margin:30px 0">
+<h3 style="text-align:center;margin-bottom:14px">🎤 Catchphrase Randomizer</h3>
+<div class="meme-output" id="catchphrase-display" style="font-size:1.1rem"></div>
+<button class="btn btn-outline" onclick="randomCatchphrase()">🔀 Random Catchphrase</button>
+</div>
+
+</div>
 
 <script>
-// Lightbox
-function openLightbox(src, caption, stats) {
-  document.getElementById('lb-img').src = src;
-  document.getElementById('lb-caption').textContent = caption;
-  document.getElementById('lb-stats').textContent = stats;
-  document.getElementById('lightbox').classList.add('active');
-}
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
-}
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+// ===== DATA =====
+const triviaQuestions = [
+{q:"What city does Tony P live in?",a:"Washington, D.C.",o:["New York City","Washington, D.C.","Boston, MA","Los Angeles"],ctx:"Tone is a DC guy through and through 🏛️",d:"easy"},
+{q:"What city is Tony P originally from?",a:"Boston, MA",o:["Philadelphia","Washington, D.C.","Boston, MA","Chicago"],ctx:"The Boston accent slips out sometimes! 🦞",d:"easy"},
+{q:"What is Tony P's brand/tagline?",a:"Reasonably Positive",o:["Unreasonably Handsome","Reasonably Positive","Vibrantly Masculine","Positively Reasonable"],ctx:"The most Tone tagline ever 😊",d:"easy"},
+{q:"Approx how many Instagram followers does Tony have?",a:"186K",o:["50K","186K","500K","1M"],ctx:"Peaked 200K+, dipped to 186K — the fans track everything",d:"easy"},
+{q:"What does everyone call Tony in the comments?",a:"Tone",o:["T-Money","Tone","TP","Antonio"],ctx:"It's always been Tone. Always will be.",d:"easy"},
+{q:"What is Tony's ethnicity?",a:"Half-Italian, half-Irish",o:["Half-Italian, half-Irish","Full Italian","Irish-American","Portuguese-American"],ctx:"The best combo for a Boston guy 🍝☘️",d:"easy"},
+{q:"Is Tony currently single?",a:"No — he's a 'taken bachelor'",o:["Yes, very single","No — he's a 'taken bachelor'","It's complicated","Engaged"],ctx:"The 'taken bachelor' era is upon us 💛",d:"easy"},
+{q:"What language is Tony currently learning?",a:"Spanish",o:["Italian","French","Spanish","Portuguese"],ctx:"Gracias, Bad Bunny 🐰",d:"easy"},
+{q:"What artist inspired Tony to learn Spanish?",a:"Bad Bunny",o:["Shakira","Bad Bunny","Rosalía","J Balvin"],ctx:"The Bad Bunny pipeline is real 🇵🇷",d:"easy"},
+{q:"What app does Tony use to learn Spanish?",a:"Duolingo",o:["Babbel","Rosetta Stone","Duolingo","Busuu"],ctx:"That green owl has Tony in a chokehold 🦉",d:"easy"},
+{q:"What was Tony's career before becoming a creator?",a:"Management consultant",o:["Investment banker","Management consultant","Lawyer","Real estate agent"],ctx:"From consulting to content — what a pivot",d:"medium"},
+{q:"What talk show host does Tony aspire to be like?",a:"Ryan Seacrest",o:["Jimmy Fallon","Ryan Seacrest","Jimmy Kimmel","Stephen Colbert"],ctx:"Also Regis Philbin! Tone has taste 🎤",d:"medium"},
+{q:"What news station does Tony do segments on?",a:"Local Fox News",o:["CNN","MSNBC","Local Fox News","ABC News"],ctx:"Broadcasting Tone is the best era 📺",d:"medium"},
+{q:"What is Tony's term for his style of masculinity?",a:"Vibrant masculinity",o:["Toxic masculinity","Vibrant masculinity","Gentle masculinity","Modern masculinity"],ctx:"Vibrant masculinity >> everything else 💪",d:"medium"},
+{q:"What political candidate did Tony endorse?",a:"Kamala Harris",o:["Joe Biden","Kamala Harris","Pete Buttigieg","Bernie Sanders"],ctx:"He did it on Barstool's The Yak of all places 😂",d:"medium"},
+{q:"Where did Tony publicly endorse that candidate?",a:"Barstool Sports' The Yak podcast",o:["His Instagram","CNN interview","Barstool Sports' The Yak podcast","TikTok live"],ctx:"The most unexpected endorsement venue ever",d:"medium"},
+{q:"What recurring meme do commenters post about Tony?",a:"'The hog' / hog reveal demands",o:["His height","'The hog' / hog reveal demands","His cooking","His accent"],ctx:"The comment section is UNHINGED 🐗",d:"medium"},
+{q:"What does Tony pretend to do on camera but doesn't actually do?",a:"Drink alcohol",o:["Cook well","Exercise","Drink alcohol","Enjoy his job"],ctx:"It's always Diet Coke in that glass 🥤",d:"medium"},
+{q:"What song played on Tony's pinned 'I'm back' video?",a:"New Radicals — 'You Get What You Give'",o:["Don't Stop Believin'","New Radicals — 'You Get What You Give'","Mr. Brightside","Walking on Sunshine"],ctx:"The perfect comeback anthem 🎵",d:"medium"},
+{q:"What comment format is a running meme?",a:"'Tony P and the P stands for ___'",o:["'Tony P more like Tony W'","'Tony P and the P stands for ___'","'Tone check: passed'","'Bachelor alert'"],ctx:"The P stands for... well, everything apparently 😂",d:"medium"},
+{q:"What was Tony's pinned post about when he returned from hiatus?",a:"'I'm back and here to keep you company'",o:["New brand deal","'I'm back and here to keep you company'","Girlfriend reveal","Career change"],ctx:"487 comments of pure love 😊",d:"hard"},
+{q:"Approx how many posts has Tony made (as of Feb 2026)?",a:"1,237",o:["500","1,237","2,500","800"],ctx:"The man is PROLIFIC 📱",d:"hard"},
+{q:"What verified commenter wrote 'We are so back baby!' on his return?",a:"zachleonsis",o:["clockoutdc","zachleonsis","drewblueshoes","chef.joe.sasto"],ctx:"DC royalty welcoming Tone back 👑",d:"hard"},
+{q:"What is Tony's TikTok bio description of himself?",a:"A golden retriever taking you for a walk",o:["Your favorite bachelor","A golden retriever taking you for a walk","DC's most positive guy","Reasonably Positive creator"],ctx:"It's so accurate it hurts 🐕",d:"hard"},
+{q:"Which Slate article called Tony 'the nicest man on the internet'?",a:"Dec 17, 2024 profile",o:["Jan 2025 feature","Dec 17, 2024 profile","Nov 2024 review","Feb 2025 article"],ctx:"And honestly? They weren't wrong.",d:"hard"},
+{q:"What was the most-liked comment on his pinned post?",a:"'HELL YEAH BUTTON —————->' by samvlessing (1,310 likes)",o:["'We missed you Tone'","'HELL YEAH BUTTON —————->' by samvlessing","'King is back'","'Tony P goated'"],ctx:"1,310 likes on a COMMENT. Legendary.",d:"hard"},
+{q:"Why doesn't Tony actually drink?",a:"Family history of addiction — mother 21+ years sober",o:["He just doesn't like it","Religious reasons","Family history of addiction — mother 21+ years sober","Health/fitness goals"],ctx:"Real and vulnerable. Respect to Tone. ❤️",d:"hard"},
+{q:"What did Tony order instead of beer meeting the Slate reporter?",a:"Diet Coke",o:["Sparkling water","Diet Coke","Orange juice","Coffee"],ctx:"Diet Coke is Tony's true love 🥤",d:"hard"},
+{q:"What do commenters constantly ask Tony to do about his girlfriend?",a:"'Hard launch' (post a photo of her)",o:["Propose","'Hard launch' (post a photo of her)","Break up","Introduce to his mom"],ctx:"The hard launch demands are RELENTLESS 📸",d:"hard"},
+{q:"What is Tony's management company for Instagram?",a:"Motive LA",o:["Creative Artists Agency","Motive LA","Viral Nation","Night Media"],ctx:"The business side of being Tone",d:"hard"},
+{q:"What is Tony's management company for TikTok?",a:"CLR Management",o:["CLR Management","Motive LA","UTA","WME"],ctx:"Different platform, different management. Smart.",d:"hard"},
+{q:"What are Tony's pronouns listed in his bio?",a:"he/him/his",o:["Not listed","he/him/his","he/him","they/them"],ctx:"King of being straightforward 👑",d:"hard"},
+{q:"What food is Tony most associated with cooking?",a:"Salmon with balsamic glaze",o:["Pasta carbonara","Salmon with balsamic glaze","Chicken parm","Steak"],ctx:"The signature dish of a taken bachelor 🐟",d:"hard"},
+{q:"What comment on the date night cooking video got 3,335 likes?",a:"'Someone's wife is about to have the night of her life'",o:["'Marry me Tone'","'Someone's wife is about to have the night of her life'","'Gordon Ramsay is shaking'","'Chef Tone strikes again'"],ctx:"3,335 likes! The most-liked comment EVER on his page",d:"hard"},
+{q:"What clothing item is Tony most known for wearing?",a:"Quarter-zip / blue suits with aviator sunglasses",o:["Hoodies and sneakers","Quarter-zip / blue suits with aviator sunglasses","Leather jackets","Graphic tees"],ctx:"The turquoisest quarter zip lives rent-free in our minds",d:"hard"},
+{q:"What convention did Tony attend that surprised followers?",a:"The Democratic National Convention (DNC)",o:["Comic-Con","The Democratic National Convention (DNC)","CES","VidCon"],ctx:"Political Tone was NOT on the bingo card",d:"hard"},
+{q:"How many TikTok followers does Tony have?",a:"17.5K",o:["100K","17.5K","500K","50K"],ctx:"Instagram is his main stage for sure 📱",d:"hard"},
+{q:"What did Tony call himself before 'taken bachelor'?",a:"Committed bachelor",o:["Proud bachelor","Committed bachelor","Happy bachelor","Forever bachelor"],ctx:"'Day X of asking Tone if he understands what bachelor means' 😂",d:"hard"},
+{q:"Who runs the 'Day X of asking Tone if he understands what bachelor means' series?",a:"m_scalisi7",o:["chef.joe.sasto","m_scalisi7","zachleonsis","samvlessing"],ctx:"The most dedicated troll in Tone's comments",d:"hard"},
+{q:"What American Psycho–style copypasta was posted on his cooking video?",a:"The Huey Lewis 'Hip To Be Square' monologue adapted for Tony",o:["The morning routine monologue","The business card scene","The Huey Lewis 'Hip To Be Square' monologue adapted for Tony","The reservation scene"],ctx:"The comment section is genuinely unhinged and we love it",d:"hard"},
+];
 
-// Tabs
-function switchTab(id) {
-  document.querySelectorAll('#games .tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('#games .tab-content').forEach(c => c.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('tab-' + id).classList.add('active');
-}
-function switchTopTab(id) {
-  document.querySelectorAll('#top .tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('#top .tab-content').forEach(c => c.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('top-' + id).classList.add('active');
-}
+const datingQuiz = [
+{q:"Your ideal Friday night?",opts:[{t:"Cooking salmon at home 🐟",s:10},{t:"Going out drinking 🍻",s:2},{t:"Netflix and chill 📺",s:6},{t:"Working late 💼",s:4}]},
+{q:"How do you handle criticism?",opts:[{t:"Stay positive and keep going ☀️",s:10},{t:"Fire back immediately 🔥",s:2},{t:"Cry in the bathroom 😢",s:4},{t:"Write a long response 📝",s:6}]},
+{q:"Favorite drink?",opts:[{t:"Diet Coke 🥤",s:10},{t:"Craft beer 🍺",s:4},{t:"Red wine 🍷",s:6},{t:"Water 💧",s:5}]},
+{q:"Political vibe?",opts:[{t:"Endorse candidates you believe in publicly 🗳️",s:10},{t:"Stay quiet about politics 🤐",s:3},{t:"Post memes only 😂",s:5},{t:"Argue in comments 💬",s:2}]},
+{q:"How do you express feelings?",opts:[{t:"Go to therapy and talk openly 🧠",s:10},{t:"Keep it inside 🤷",s:2},{t:"Journal about it 📓",s:7},{t:"Post about it on social media 📱",s:5}]},
+{q:"Ideal date activity?",opts:[{t:"Cook dinner together 👨‍🍳",s:10},{t:"Fancy restaurant 🍽️",s:5},{t:"Netflix marathon 📺",s:4},{t:"Adventure activity 🏔️",s:6}]},
+{q:"What's your accent like?",opts:[{t:"Boston that slips out sometimes 🦞",s:10},{t:"No accent whatsoever 😐",s:4},{t:"Southern charm 🤠",s:5},{t:"International mystery 🌍",s:6}]},
+{q:"How do you handle trolls?",opts:[{t:"Laugh it off and keep going 😂",s:10},{t:"Clap back HARD 👊",s:2},{t:"Block immediately 🚫",s:5},{t:"Ignore completely 😶",s:6}]},
+{q:"Favorite music vibe?",opts:[{t:"New Radicals / Bad Bunny 🎵",s:10},{t:"Country 🤠",s:3},{t:"Classic rock 🎸",s:5},{t:"Lo-fi beats 🎧",s:4}]},
+{q:"Dream job?",opts:[{t:"Talk show host 🎤",s:10},{t:"CEO 💼",s:4},{t:"Travel blogger ✈️",s:6},{t:"Professional athlete ⚽",s:3}]},
+{q:"How do you dress for a date?",opts:[{t:"Quarter-zip and fresh haircut 👔",s:10},{t:"T-shirt is fine 👕",s:2},{t:"Full suit 🤵",s:6},{t:"Streetwear drip 🔥",s:5}]},
+{q:"What do you post on social media?",opts:[{t:"Mundane life details with radical sincerity 📱",s:10},{t:"Only highlights and wins ✨",s:4},{t:"Memes exclusively 😂",s:5},{t:"Nothing, I'm a lurker 👀",s:3}]},
+{q:"Favorite seasoning?",opts:[{t:"Salt and pepper with fresh garlic 🧄",s:10},{t:"Everything bagel seasoning 🥯",s:4},{t:"Hot sauce on everything 🌶️",s:3},{t:"No seasoning needed 😤",s:1}]},
+{q:"What animal are you?",opts:[{t:"Golden retriever 🐕",s:10},{t:"Cat 🐱",s:4},{t:"Wolf 🐺",s:3},{t:"Sloth 🦥",s:2}]},
+{q:"How do you handle a breakup?",opts:[{t:"Make it a content era 📸",s:10},{t:"Go silent for months 🤐",s:4},{t:"Rebound immediately 💃",s:3},{t:"Write sad poetry ✍️",s:5}]},
+];
 
-// Quiz
-const quizData = [{"q":"It's Saturday morning. You:","options":["Hit the gym, then brunch","Sleep in, cozy vibes","Already filming content","Exploring a new neighborhood"],"scores":[1,3,0,2]},{"q":"Your ideal dinner is:","options":["Homemade pasta from scratch","Frozen meal (no shame)","Fancy restaurant date night","Leftover magic"],"scores":[2,3,0,1]},{"q":"Your fashion style is:","options":["All black everything","Preppy with a twist","Comfortable but put together","Whatever's clean"],"scores":[0,2,1,3]},{"q":"On a snow day, you:","options":["Rant about school closings","Build a snowman","Stay inside with hot cocoa","Content creation time"],"scores":[1,3,2,0]},{"q":"Your dream job:","options":["Sports broadcaster","Chef with a show","Travel vlogger","Talk show host"],"scores":[1,2,3,0]}];
-const quizResults = [{"min":0,"max":4,"title":"The Super Bowl Analyst","desc":"You're the Tony P who breaks down every announcer's move. Analytical, passionate, and always taking notes!","post":{"id":"3636227177226994192","type":"Video","shortCode":"DJ2eVolPIIQ","caption":"I’m back and here to keep you company 😊\n\n#vlog #lifestyle #mentalhealth #mission #newday #authenticity #journey #figuringitout #kindness #wholesome #keepingyoucompany","hashtags":["vlog","lifestyle","mentalhealth","mission","newday","authenticity","journey","figuringitout","kindness","wholesome","keepingyoucompany"],"mentions":[],"url":"https://www.instagram.com/p/DJ2eVolPIIQ/","commentsCount":487,"firstComment":"🔥 Keep being you, my dawg! 🔥 You inspire others that struggle with mental health and want the courage to be our authentic selves.","latestComments":[{"id":"18082176409983506","text":"🔥 Keep being you, my dawg! 🔥 You inspire others that struggle with mental health and want the courage to be our authentic selves.","ownerUsername":"jad0824","ownerProfilePicUrl":"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/482078759_1163451882076096_4710954591049754296_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=_2GG8od8uyMQ7kNvwG181Sq&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afsge6G7PwnNpJ47oC0TvP4X6F9nP-waRvHObmUl_M8HPA&oe=6991C2DF&_nc_sid=10d13b","timestamp":"2026-02-06T17:16:13.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"47706426865","is_verified":false,"profile_pic_url":"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/482078759_1163451882076096_4710954591049754296_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=_2GG8od8uyMQ7kNvwG181Sq&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afsge6G7PwnNpJ47oC0TvP4X6F9nP-waRvHObmUl_M8HPA&oe=6991C2DF&_nc_sid=10d13b","username":"jad0824"}},{"id":"18082692428221368","text":"Check my latest reel 😢","ownerUsername":"still_above0","ownerProfilePicUrl":"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/621576968_17849054469667612_4695684528541704859_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=ctfcsm1CaT8Q7kNvwEVEfxP&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afu7jGQSpzN18CuqNr2hsKOmCOdBqr5twvzeYzypAolyKw&oe=6991EB9E&_nc_sid=10d13b","timestamp":"2026-01-31T04:37:12.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"80086659611","is_verified":false,"profile_pic_url":"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/621576968_17849054469667612_4695684528541704859_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=ctfcsm1CaT8Q7kNvwEVEfxP&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afu7jGQSpzN18CuqNr2hsKOmCOdBqr5twvzeYzypAolyKw&oe=6991EB9E&_nc_sid=10d13b","username":"still_above0"}},{"id":"18120210865568380","text":"Classic throwback song tha suits you my man 🕴️","ownerUsername":"mellatarantella","ownerProfilePicUrl":"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/566385062_17980062839938286_1589730675147193004_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=ZAYYJ6UjoDYQ7kNvwFJat3J&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfuFCpzxNTxQA56STDU4tZbvPAWIgUcAMc8QB434k2DZSQ&oe=6991B95C&_nc_sid=10d13b","timestamp":"2026-01-30T02:25:11.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"58291330285","is_verified":false,"profile_pic_url":"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/566385062_17980062839938286_1589730675147193004_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=ZAYYJ6UjoDYQ7kNvwFJat3J&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfuFCpzxNTxQA56STDU4tZbvPAWIgUcAMc8QB434k2DZSQ&oe=6991B95C&_nc_sid=10d13b","username":"mellatarantella"}},{"id":"18189117571349727","text":"Fmer been 26 since 2023","ownerUsername":"capital_time_","ownerProfilePicUrl":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/457133254_3789963837924047_7332983436955585375_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDI0LmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=UbQuhi60x9IQ7kNvwHM5tX2&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfteckQBE91r7Lop0YgHPK1JTrsWwjLbvRMZnz1zLjUyYg&oe=6991DB39&_nc_sid=10d13b","timestamp":"2026-01-27T21:41:58.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"68586736560","is_verified":false,"profile_pic_url":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/457133254_3789963837924047_7332983436955585375_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDI0LmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=UbQuhi60x9IQ7kNvwHM5tX2&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfteckQBE91r7Lop0YgHPK1JTrsWwjLbvRMZnz1zLjUyYg&oe=6991DB39&_nc_sid=10d13b","username":"capital_time_"}},{"id":"17995583570906356","text":"Tone, what is a rent relief fund? Can you explain what you are advocating for? #ToneDeaf","ownerUsername":"livvillains","ownerProfilePicUrl":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/327309814_3089351038029875_6150843841440182774_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby41NTcuYzIifQ&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=EXcSgznWmiYQ7kNvwEznimT&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Aftgck-9mU2A9ApjhtkiBqrcoyEovBWTXL8o06_lOMhAng&oe=6991E9C9&_nc_sid=10d13b","timestamp":"2026-01-26T00:09:23.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"53635035772","is_verified":false,"profile_pic_url":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/327309814_3089351038029875_6150843841440182774_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby41NTcuYzIifQ&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=EXcSgznWmiYQ7kNvwEznimT&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Aftgck-9mU2A9ApjhtkiBqrcoyEovBWTXL8o06_lOMhAng&oe=6991E9C9&_nc_sid=10d13b","username":"livvillains"}},{"id":"17850951567621307","text":"🙌 AP you're as authentic as they get buddy. Keep up the great work 👍","ownerUsername":"joeparolisi66","ownerProfilePicUrl":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/497761453_18408096340098233_3125665406441441740_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby40ODkuYzIifQ&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=105&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=wyB3Av4Da0gQ7kNvwGA-i1s&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsEGW0AKlqmk91wSSKpqPsCsYYXSei8E2zbrx9VzbJJig&oe=6991BEC2&_nc_sid=10d13b","timestamp":"2026-01-20T21:26:03.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"2915506232","is_verified":true,"profile_pic_url":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/497761453_18408096340098233_3125665406441441740_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby40ODkuYzIifQ&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=105&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=wyB3Av4Da0gQ7kNvwGA-i1s&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsEGW0AKlqmk91wSSKpqPsCsYYXSei8E2zbrx9VzbJJig&oe=6991BEC2&_nc_sid=10d13b","username":"joeparolisi66"}},{"id":"17935031793140490","text":"Ah yes the return to fish dinners and no a relationship or date in site. You quirky lil tone","ownerUsername":"jvson_11","ownerProfilePicUrl":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/335979150_585704230152263_5743161729058153783_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=TxsAcKoQjaUQ7kNvwHCEz-o&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsGAtd9ZREuLdpgshlPK4Z_z-vnNe6J-yD48DMvnxIgoA&oe=6991DA8B&_nc_sid=10d13b","timestamp":"2026-01-15T23:28:29.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"8604097582","is_verified":false,"profile_pic_url":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/335979150_585704230152263_5743161729058153783_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=TxsAcKoQjaUQ7kNvwHCEz-o&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsGAtd9ZREuLdpgshlPK4Z_z-vnNe6J-yD48DMvnxIgoA&oe=6991DA8B&_nc_sid=10d13b","username":"jvson_11"}},{"id":"17997116312889759","text":"Sending hate","ownerUsername":"capital_time_","ownerProfilePicUrl":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/457133254_3789963837924047_7332983436955585375_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDI0LmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=UbQuhi60x9IQ7kNvwHM5tX2&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfteckQBE91r7Lop0YgHPK1JTrsWwjLbvRMZnz1zLjUyYg&oe=6991DB39&_nc_sid=10d13b","timestamp":"2026-01-04T23:48:59.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"68586736560","is_verified":false,"profile_pic_url":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/457133254_3789963837924047_7332983436955585375_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDI0LmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=UbQuhi60x9IQ7kNvwHM5tX2&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfteckQBE91r7Lop0YgHPK1JTrsWwjLbvRMZnz1zLjUyYg&oe=6991DB39&_nc_sid=10d13b","username":"capital_time_"}}],"dimensionsHeight":1918,"dimensionsWidth":1080,"displayUrl":"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-15/504018577_18514690351058530_8141019124373257156_n.jpg?stp=dst-jpg_e35_p1080x1080_sh0.08_tt6&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=-3KTW708ERwQ7kNvwEYW7Qe&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Aft8dCxRi2cFGHKyzTktvPqOym7SPF4ASzpQrDe-5JsvDQ&oe=6991BF11&_nc_sid=10d13b","images":[],"videoUrl":"https://scontent-iad3-1.cdninstagram.com/o1/v/t16/f2/m86/AQMm9kjAYREZiR6is76gnqDGC4Iq3f9Cv1mhyte5MnB40x4hML10RuOlO5Sf7qYPeouBAVeZtoMuotL65ZNA4VeT5quVjy6juPtApF0.mp4?stp=dst-mp4&efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuMzYwLmJhc2VsaW5lIn0&_nc_cat=107&vs=877467151233099_1832029700&_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC81RjQ5MDczOEZDRjFDNDdDQUUyMTZFNTNFNkI4MkRBQV92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYRmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC83MDI3MTM4NjkwMTE0MzZfNTAxNTg4Mjg1MDk4Nzc4MTgzOS5tcDQVAgLIARIAKAAYABsAFQAAJvyu37angNA%2FFQIoAkMzLBdAVgQ5WBBiThgSZGFzaF9iYXNlbGluZV8zX3YxEQB1%2Fgdl5p0BAA%3D%3D&_nc_rid=431047dbbe&ccb=9-4&oh=00_Afts2Hzaqn06BWemqFz9pkiHwmMLhCMVZpyfGpjPubYmHA&oe=698DE5A1&_nc_sid=10d13b","likesCount":7467,"videoViewCount":23799,"timestamp":"2025-05-19T22:16:29.000Z","childPosts":[],"locationName":"Washington D.C.","locationId":"213480180","ownerFullName":"Tony P","ownerUsername":"_tonypindc","ownerId":"1577274529","productType":"clips","taggedUsers":[{"full_name":"The P Hive","id":"61462751189","is_verified":false,"profile_pic_url":"https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/367521012_827656735442903_4864220796130932233_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QG7ZvZBwFwjZ8p7NW_UR0PBQfStm3jJYyXAjNxpiaNAoT3sKiZcTRHnPxcsX1ygGqM&_nc_ohc=xCP0cb9SAjsQ7kNvwE_ohar&_nc_gid=JBnxciFvztb1dOmkylaytw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AftzdOJy_YKAMftjSKYy9Eq_ZqFJfHPtnPDMXCye1_ul2Q&oe=6991CDB4&_nc_sid=10d13b","username":"the_phive"}],"isPinned":true,"isCommentsDisabled":false,"inputUrl":"https://www.instagram.com/_tonypindc/","audioUrl":"https://scontent-iad3-1.cdninstagram.com/o1/v/t2/f2/m86/AQPJYBoozSRS5HZRFtt5E-9sPdv9kVylxYt4K_ZOZHDUWLHGC0n77QVJlo3xBgS5L8XqvJNxHAbPf4XEGlgRV5I.mp4?_nc_cat=102&_nc_sid=9ca052&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ohc=IEtaPCPM8xoQ7kNvwF3qXMH&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmMyLUMzLmRhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjoxNDExNzQ4MzU5OTc5NzYwLCJhc3NldF9hZ2VfZGF5cyI6MjY3LCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6ODgsImJpdHJhdGUiOjU3MTQ3LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=JBnxciFvztb1dOmkylaytw&_nc_zt=28&oh=00_AfsHTxwlJLjS8H1OtFh5_kbSfK7-iSu5CsUFoFvN40fmkA&oe=698DE246","alt":null,"videoPlayCount":369113,"videoDuration":88.066,"musicInfo":{"artist_name":"New Radicals","song_name":"You Get What You Give","uses_original_audio":false,"should_mute_audio":false,"should_mute_audio_reason":"","audio_id":"644362406005258"}},"postImg":"images/DJ2eVolPIIQ.jpg"},{"min":5,"max":8,"title":"The Fit Check King","desc":"You're all about style and swagger. Johnny Cash vibes with a DC twist. Looking good is feeling good!","post":{"id":"3754360800459982771","type":"Video","shortCode":"DQaK0GuEYez","caption":"Sarah, you continue to amaze me in every way. Throughout your whole life, you have managed so effortlessly to thrive in moments that would’ve broken most people while maintaining that humble, radiant light you share with the world. \n\nWhen we went from cousins to basically siblings just 12 years ago, not only did I get a sister but I got an inspiration and role model with it. You completed me in ways you can’t even imagine and I thank you for blessing my life with the gift of your presence. I’m so proud of you and congratulations on this milestone in your life! You and Dustin are a beautiful couple and I know you both will continue to be true partners in life that can navigate anything this world throws your way. \n\nI love you! \n\nYour brother Anthony","hashtags":[],"mentions":[],"url":"https://www.instagram.com/p/DQaK0GuEYez/","commentsCount":124,"firstComment":"Can’t wait to see the lucky twink you end up with Tone!","latestComments":[{"id":"17863409619512392","text":"Can’t wait to see the lucky twink you end up with Tone!","ownerUsername":"tony_gonsolin_is_a_bad_pitcher","ownerProfilePicUrl":"https://scontent-lga3-3.cdninstagram.com/v/t51.2885-19/294412602_133727162683510_2484699002908007466_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby40NTYuYzIifQ&_nc_ht=scontent-lga3-3.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=LApY9ffRoVIQ7kNvwG6Hs1t&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfuX9lY8eZI1JWqcZHyYNNCarDSgkVgofoH4Ze0jPPp5kQ&oe=6991BE8A&_nc_sid=10d13b","timestamp":"2025-11-09T06:44:51.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"54352330345","is_verified":false,"profile_pic_url":"https://scontent-lga3-3.cdninstagram.com/v/t51.2885-19/294412602_133727162683510_2484699002908007466_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby40NTYuYzIifQ&_nc_ht=scontent-lga3-3.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=LApY9ffRoVIQ7kNvwG6Hs1t&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfuX9lY8eZI1JWqcZHyYNNCarDSgkVgofoH4Ze0jPPp5kQ&oe=6991BE8A&_nc_sid=10d13b","username":"tony_gonsolin_is_a_bad_pitcher"}},{"id":"17864923758498579","text":"Congrats on the marriage Tone.","ownerUsername":"zachh19","ownerProfilePicUrl":"https://scontent-lga3-1.cdninstagram.com/v/t51.2885-19/75403216_1614475708695051_1273048544420298752_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDYyLmMyIn0&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=w2p-Y_bT2LEQ7kNvwFYTmnb&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsHy-JQpfUWyWvCgYlvAsWneETbtd0gHmVWXLoqamrjng&oe=6991EADA&_nc_sid=10d13b","timestamp":"2025-11-07T13:59:27.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"3585562","is_verified":false,"profile_pic_url":"https://scontent-lga3-1.cdninstagram.com/v/t51.2885-19/75403216_1614475708695051_1273048544420298752_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDYyLmMyIn0&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=w2p-Y_bT2LEQ7kNvwFYTmnb&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsHy-JQpfUWyWvCgYlvAsWneETbtd0gHmVWXLoqamrjng&oe=6991EADA&_nc_sid=10d13b","username":"zachh19"}},{"id":"18083927258073353","text":"Congrats to your sister, Tone!","ownerUsername":"aa423765","ownerProfilePicUrl":"https://scontent-lga3-1.cdninstagram.com/v/t51.2885-19/279015841_964049810940887_214219241763115993_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=9axnIgdITjIQ7kNvwGhbocS&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfufU9PkNGOyhxkeBmjs6Pnk2mxNwhY8Ekl0f-Se3yOT0A&oe=6991DF53&_nc_sid=10d13b","timestamp":"2025-11-05T23:43:39.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"7773891393","is_verified":false,"profile_pic_url":"https://scontent-lga3-1.cdninstagram.com/v/t51.2885-19/279015841_964049810940887_214219241763115993_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=9axnIgdITjIQ7kNvwGhbocS&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfufU9PkNGOyhxkeBmjs6Pnk2mxNwhY8Ekl0f-Se3yOT0A&oe=6991DF53&_nc_sid=10d13b","username":"aa423765"}},{"id":"18076245568932961","text":"Mazel","ownerUsername":"seancristoffersen","ownerProfilePicUrl":"https://scontent-lga3-2.cdninstagram.com/v/t51.2885-19/180740964_314729026913145_5497739177731405124_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby42NzIuYzIifQ&_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=S44HW-ewau8Q7kNvwGiCh-s&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfvAsWYWYYLOuNzaN3PxTYbTIDSGAQVXUq8uytIhe660bw&oe=6991E368&_nc_sid=10d13b","timestamp":"2025-11-02T08:37:00.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"1163778176","is_verified":false,"profile_pic_url":"https://scontent-lga3-2.cdninstagram.com/v/t51.2885-19/180740964_314729026913145_5497739177731405124_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby42NzIuYzIifQ&_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=S44HW-ewau8Q7kNvwGiCh-s&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfvAsWYWYYLOuNzaN3PxTYbTIDSGAQVXUq8uytIhe660bw&oe=6991E368&_nc_sid=10d13b","username":"seancristoffersen"}}],"dimensionsHeight":1136,"dimensionsWidth":640,"displayUrl":"https://scontent-lga3-3.cdninstagram.com/v/t51.2885-15/571027541_4255501541329650_1816696871797147706_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-lga3-3.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2QGTUeub_MXaO5F3isFIyyYNLFRW-tYE1P4toish-yXohgSZVYHS8D8m7asRb3P3wq4&_nc_ohc=VHfioKce3MoQ7kNvwHix6gr&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Aft-HdyMkRcwn9wH4UxbgvCdK9d-xCLwKBraOhrbqBRWWA&oe=6991BEC3&_nc_sid=10d13b","images":[],"videoUrl":"https://scontent-lga3-1.cdninstagram.com/o1/v/t16/f2/m86/AQOOial0YcerXhnQ_Cnili71bUTZqlKouAHg72MoeDgm6k41P1zmPogqkn03pTNed55K1wf-hYdQUuNwtt83aZuoV3ZUnWeSBHPwyv4.mp4?stp=dst-mp4&efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&_nc_cat=103&vs=25366047972981759_417984172&_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9GNjQ2MDNGMDNCRjI1MjA3QjM3NEJFODMxQkQ3OEZBOV92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYR2lnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC8yMTg1NTE1NzQxOTc0OTQ0XzMwOTA4Mzc1NTAzMTU3MDUxNjAubXA0FQICyAESACgAGAAbABUAACb8xsXR%2FPDYPxUCKAJDMywXQDMZmZmZmZoYEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA%3D&_nc_rid=c3d16f566a&ccb=9-4&oh=00_AfsuDFHn94-NF2oa83NauAEdNHcfrxaxo5UokjWvI94XPQ&oe=698DD5FE&_nc_sid=10d13b","likesCount":4416,"videoViewCount":115454,"timestamp":"2025-10-29T21:52:46.000Z","childPosts":[],"locationName":"Boston, Massachusetts","locationId":"206698624","ownerFullName":"Tony P","ownerUsername":"_tonypindc","ownerId":"1577274529","productType":"clips","isCommentsDisabled":false,"inputUrl":"https://www.instagram.com/_tonypindc/","audioUrl":"https://scontent-lga3-3.cdninstagram.com/o1/v/t2/f2/m86/AQMAOgqvtEGCOcKniys7FLIdDA4Q7yRBTH67o4OUjwu1U2hsLGKzBYaNxTg-4iPUKgLboPQT9n-ojjhRCZcRfJEg.mp4?_nc_cat=106&_nc_sid=9ca052&_nc_ht=scontent-lga3-3.cdninstagram.com&_nc_ohc=LVw3K5xodGMQ7kNvwGm0WJJ&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmMyLUMzLmRhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjoxNTk1NTI3OTMxODI1NTkwLCJhc3NldF9hZ2VfZGF5cyI6MTA0LCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6MTksImJpdHJhdGUiOjcyODQ1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=g4XmXo9D_cA5MOsj-FjeCw&_nc_zt=28&oh=00_Afuoo_2Uq7MzlPIaMZPKugSwvHnkt0jldpVv23eLQQxZBg&oe=698DD4DC","alt":null,"videoPlayCount":252710,"videoDuration":19.1,"musicInfo":{"artist_name":"James Taylor","song_name":"You've Got a Friend","uses_original_audio":false,"should_mute_audio":false,"should_mute_audio_reason":"","audio_id":"2179951745558814"}},"postImg":"images/DQaK0GuEYez.jpg"},{"min":9,"max":12,"title":"The Cooking Era Tony","desc":"You're in your domestic era — roasts, pasta, and frozen meals when needed. No judgment, just flavor!","post":{"id":"3821076800370462420","type":"Video","shortCode":"DUHMRrhkU7U","caption":"You’re not the only one who laughs 😉\n\n#datenight #cooking #relationships #dinner","hashtags":["datenight","cooking","relationships","dinner"],"mentions":[],"url":"https://www.instagram.com/p/DUHMRrhkU7U/","commentsCount":374,"firstComment":"Tony Toni Tone!","latestComments":[{"id":"18079677275028941","text":"Tony Toni Tone!","ownerUsername":"food.meds","ownerProfilePicUrl":"https://scontent-sea1-1.cdninstagram.com/v/t51.2885-19/573323465_1219825463302212_7278921664109726296_n.png?stp=dst-jpg_e0_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xNTAuYzIifQ&_nc_ht=scontent-sea1-1.cdninstagram.com&_nc_cat=1&_nc_oc=Q6cZ2QHzBiX1TWLiU9kWhgFYy6tITM6Sl7mecXe2fK8YDSoZDIg0Nfv6WQiY46AOkW0rOj8&_nc_ohc=THTqk62LIi0Q7kNvwFUnMmq&_nc_gid=zvK_wUS0I7hw_YrnRwGSpQ&edm=ALlQn9MBAAAA&ccb=7-5&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.3-ccb7-5&oh=00_Afv5uAL4dIkLf1RxG2iv_sh_pedotjWXLP_mbkJADE5j8Q&oe=6991B9AA&_nc_sid=e7f676","timestamp":"2026-02-10T10:07:36.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"58166302206","is_verified":false,"profile_pic_url":"https://scontent-sea1-1.cdninstagram.com/v/t51.2885-19/573323465_1219825463302212_7278921664109726296_n.png?stp=dst-jpg_e0_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xNTAuYzIifQ&_nc_ht=scontent-sea1-1.cdninstagram.com&_nc_cat=1&_nc_oc=Q6cZ2QHzBiX1TWLiU9kWhgFYy6tITM6Sl7mecXe2fK8YDSoZDIg0Nfv6WQiY46AOkW0rOj8&_nc_ohc=THTqk62LIi0Q7kNvwFUnMmq&_nc_gid=zvK_wUS0I7hw_YrnRwGSpQ&edm=ALlQn9MBAAAA&ccb=7-5&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.3-ccb7-5&oh=00_Afv5uAL4dIkLf1RxG2iv_sh_pedotjWXLP_mbkJADE5j8Q&oe=6991B9AA&_nc_sid=e7f676","username":"food.meds"}},{"id":"17961274608021575","text":"Let’s go Tone, happy to see you’ve go your mojo baby","ownerUsername":"garrettcardoso.mp3","ownerProfilePicUrl":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/576370758_18539603383039655_5967603567359436201_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=XWROiW602bwQ7kNvwEL2I8F&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfvdxKW7sU1R8MnLt7vNUt5bgHMS24uk02j6ELwA97Xe2g&oe=6991E0E8&_nc_sid=10d13b","timestamp":"2026-02-08T22:52:27.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"23143654","is_verified":false,"profile_pic_url":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/576370758_18539603383039655_5967603567359436201_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=XWROiW602bwQ7kNvwEL2I8F&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfvdxKW7sU1R8MnLt7vNUt5bgHMS24uk02j6ELwA97Xe2g&oe=6991E0E8&_nc_sid=10d13b","username":"garrettcardoso.mp3"}},{"id":"17888237235304332","text":"Why not? Sometimes ya gotta just say “In for a penny, in for a pound”.","ownerUsername":"jbonetothe","ownerProfilePicUrl":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/625947987_18559071076012038_811400103501361858_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=CBrgDkfwFx4Q7kNvwGdt0VJ&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfuQY4FIecRHUzQ5sQHaPNim5gCetxgURmcekWQ7QMrRkw&oe=6991DFBD&_nc_sid=10d13b","timestamp":"2026-02-05T14:07:17.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"54540037","is_verified":false,"profile_pic_url":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/625947987_18559071076012038_811400103501361858_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=CBrgDkfwFx4Q7kNvwGdt0VJ&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfuQY4FIecRHUzQ5sQHaPNim5gCetxgURmcekWQ7QMrRkw&oe=6991DFBD&_nc_sid=10d13b","username":"jbonetothe"}},{"id":"18065684003261746","text":"The obligatory laugh at the beginning so we know he’s actually with a woman 😂","ownerUsername":"joanna_coons","ownerProfilePicUrl":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/622458752_18081134063583854_2564757657780116614_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=NRVu6faO3LYQ7kNvwGK5p0m&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afs2b3ZjnQT_mKzSawDn4aToabovbrBMeFirybtYmqbQ-g&oe=6991D0B6&_nc_sid=10d13b","timestamp":"2026-02-04T16:16:29.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"47322303853","is_verified":false,"profile_pic_url":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/622458752_18081134063583854_2564757657780116614_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=NRVu6faO3LYQ7kNvwGK5p0m&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afs2b3ZjnQT_mKzSawDn4aToabovbrBMeFirybtYmqbQ-g&oe=6991D0B6&_nc_sid=10d13b","username":"joanna_coons"}},{"id":"18054197387695587","text":"Glad you got someone to hold the camera tone","ownerUsername":"bald.kawa","ownerProfilePicUrl":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/46208443_696924424041766_2021345470743314432_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xNTAuYzIifQ&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=8zzVW-Kq1jMQ7kNvwG8cNj8&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_Aft_6ykdEIeJyhhgj9jepkCfr4bORFPkIdlCx_tYIjd7Wg&oe=6991CD52&_nc_sid=10d13b","timestamp":"2026-02-03T17:46:07.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"6220056445","is_verified":false,"profile_pic_url":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/46208443_696924424041766_2021345470743314432_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xNTAuYzIifQ&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=8zzVW-Kq1jMQ7kNvwG8cNj8&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_Aft_6ykdEIeJyhhgj9jepkCfr4bORFPkIdlCx_tYIjd7Wg&oe=6991CD52&_nc_sid=10d13b","username":"bald.kawa"}},{"id":"17910707376302190","text":"Big time Tone.","ownerUsername":"danielpiento","ownerProfilePicUrl":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/368583224_507520041573478_5473315607634304234_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby44MTIuYzIifQ&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=FWh-YpduQicQ7kNvwEnBItT&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfvUuCBoqKNVZSOqM5wDI6khAJiwM0S7FInnHWiNDhIzbQ&oe=6991CEA1&_nc_sid=10d13b","timestamp":"2026-02-03T15:20:17.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"531138223","is_verified":false,"profile_pic_url":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/368583224_507520041573478_5473315607634304234_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby44MTIuYzIifQ&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=FWh-YpduQicQ7kNvwEnBItT&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfvUuCBoqKNVZSOqM5wDI6khAJiwM0S7FInnHWiNDhIzbQ&oe=6991CEA1&_nc_sid=10d13b","username":"danielpiento"}},{"id":"18065459114256380","text":"Show us the troll you kidnapped","ownerUsername":"poolebrianscott","ownerProfilePicUrl":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/481389105_1144054333827762_2395625795375271670_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=2ZvtI9sah1YQ7kNvwG4PVFN&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsJZw_Ufe97cMo-QLhzu0apI3ZXUbY462uX7HaRrdql9Q&oe=6991CD86&_nc_sid=10d13b","timestamp":"2026-02-03T15:00:35.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"41683788","is_verified":false,"profile_pic_url":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-19/481389105_1144054333827762_2395625795375271670_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=2ZvtI9sah1YQ7kNvwG4PVFN&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsJZw_Ufe97cMo-QLhzu0apI3ZXUbY462uX7HaRrdql9Q&oe=6991CD86&_nc_sid=10d13b","username":"poolebrianscott"}}],"dimensionsHeight":1136,"dimensionsWidth":640,"displayUrl":"https://scontent-phx1-1.cdninstagram.com/v/t51.2885-15/624626646_2071791283606622_1568001832385148541_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QEOioOQqdBG_908mDvBjiWO-Qfi7raUgCRWrNjkWHTW-hPmQKZ45JAu_gHKnd4g17Q&_nc_ohc=M5nIN7Xv92cQ7kNvwGc8ZYA&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afvr4HADMprTY7mw_nWaiEToun3gedsEi0nLYR4pLgVO8w&oe=6991DDB1&_nc_sid=10d13b","images":[],"videoUrl":"https://scontent-phx1-1.cdninstagram.com/o1/v/t16/f2/m86/AQNYDdqYLt9AaTfIljtLBJfcAHTTmVywQGPdbjvojlypN09DnKonU9_q4QkKfC14YepZ3Re0hbA6t9HuXXjMpoX-F_UDfVrC_y0ww7U.mp4?stp=dst-mp4&efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&_nc_cat=111&vs=1426914282131471_2100096845&_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9CNTQyOEZBQzZDNTQyM0Y4RDg1OTZCMjEzMERENzhBRV92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0NDNEY1QTM4NkJEOTY3N0M4OTk2OUVCRDY5QkU4MTg1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwAVAAAm%2FMOPidam3j8VAigCQzMsF0BKczMzMzMzGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHX%2BB2XmnQEA&_nc_rid=b02411763d&ccb=9-4&oh=00_Afs8a6VHtGtmWWTS4ei5CrrEcSst61-yAIrigjVC7qoZQA&oe=698DCAA7&_nc_sid=10d13b","likesCount":3903,"videoViewCount":175519,"timestamp":"2026-01-29T23:05:41.000Z","childPosts":[],"locationName":"Washington D.C.","locationId":"213480180","ownerFullName":"Tony P","ownerUsername":"_tonypindc","ownerId":"1577274529","productType":"clips","isCommentsDisabled":false,"inputUrl":"https://www.instagram.com/_tonypindc/","audioUrl":"https://scontent-phx1-1.cdninstagram.com/o1/v/t2/f2/m78/AQPFuQKTHF9CescWeEt5YxKZ17UGb9hq7mpKpXkStcNGv7m1FcmcGXBC1tRdEtNKnV9C1czLgWT4qXs0xDiUEGxJ2I310hAYVHkSCsU.mp4?_nc_cat=107&_nc_sid=9ca052&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_ohc=UqB1kWeHtdkQ7kNvwGUVENt&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmMyLUMyLmRhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjoxNzk0MDI5NjEwOTExMTIzMCwiYXNzZXRfYWdlX2RheXMiOjEyLCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6NTIsImJpdHJhdGUiOjc2MzA1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=2pLFnsZJssgHsrexhw4I1Q&_nc_zt=28&oh=00_Afuz64lrylf1p0HZPm7YF8yB-IUGQISoTuFUM8LV01S2Rw&oe=698DC8EC","alt":null,"videoPlayCount":402232,"videoDuration":52.9,"musicInfo":{"artist_name":"_tonypindc","song_name":"Original audio","uses_original_audio":true,"should_mute_audio":false,"should_mute_audio_reason":"","audio_id":"25879242595097973"}},"postImg":"images/DUHMRrhkU7U.jpg"},{"min":13,"max":20,"title":"The Cozy Vlogger","desc":"You're the behind-the-scenes Tony. Comfort food, nostalgic movies, and real talk. Authenticity is your brand!","post":{"id":"3765355276921801218","type":"Video","shortCode":"DRBOqy2EQoC","caption":"I couldn’t even give it a good politicians answer 😂\n\nI’m just blessed to be in a wonderful relationship with a truly inspiring, kind, ambitious and strong woman! All I’m focused on is being the best partner I can be each day. \n\n#tv #relationships #dating","hashtags":["tv","relationships","dating"],"mentions":[],"url":"https://www.instagram.com/p/DRBOqy2EQoC/","commentsCount":201,"firstComment":"@jackboyle10","latestComments":[{"id":"18098487166902756","text":"@jackboyle10","ownerUsername":"matt_masto","ownerProfilePicUrl":"https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/588183854_18389171920179570_147188598351422529_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby42NDUuYzIifQ&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=ZwbI4m47nRYQ7kNvwFdszGq&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AftoEvJj80-2sGaJRjJQuzbEFUox3KZUNtZEhJ3H5sMsGw&oe=6991D970&_nc_sid=10d13b","timestamp":"2026-02-09T17:06:53.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"5408883569","is_verified":false,"profile_pic_url":"https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/588183854_18389171920179570_147188598351422529_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby42NDUuYzIifQ&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=ZwbI4m47nRYQ7kNvwFdszGq&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AftoEvJj80-2sGaJRjJQuzbEFUox3KZUNtZEhJ3H5sMsGw&oe=6991D970&_nc_sid=10d13b","username":"matt_masto"}},{"id":"18417294421185922","text":"Tone always making 2 plates of dinner and yall didn’t think he was in a relationship 😭 pay attention to our man😭","ownerUsername":"peppermintbadd_y","ownerProfilePicUrl":"https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/580052170_18543231898012132_4793126307778934331_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=FysYBoSPwEIQ7kNvwEm9yQl&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AftPmSngYx7cE3cypqIY80B1tNl2QN-Dn9gMZUt2pLqTgg&oe=6991CA81&_nc_sid=10d13b","timestamp":"2026-01-11T08:42:40.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"33484131","is_verified":false,"profile_pic_url":"https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/580052170_18543231898012132_4793126307778934331_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=FysYBoSPwEIQ7kNvwEm9yQl&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AftPmSngYx7cE3cypqIY80B1tNl2QN-Dn9gMZUt2pLqTgg&oe=6991CA81&_nc_sid=10d13b","username":"peppermintbadd_y"}},{"id":"17965389302859541","text":"Speaking of crazy questions, Tone… why were you wearing high heels in that one video?","ownerUsername":"mikerawss","ownerProfilePicUrl":"https://scontent-atl3-3.cdninstagram.com/v/t51.2885-19/14052580_839607062807805_1465188720_a.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-atl3-3.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=9dA16Dq7nUsQ7kNvwGqfTJM&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AftlLq3i8REzfkyZ_lqgt7F0WG9pDVw2XmyhK7sVu-08iw&oe=6991C5F7&_nc_sid=10d13b","timestamp":"2026-01-04T00:39:41.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"545184761","is_verified":false,"profile_pic_url":"https://scontent-atl3-3.cdninstagram.com/v/t51.2885-19/14052580_839607062807805_1465188720_a.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-atl3-3.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=9dA16Dq7nUsQ7kNvwGqfTJM&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AftlLq3i8REzfkyZ_lqgt7F0WG9pDVw2XmyhK7sVu-08iw&oe=6991C5F7&_nc_sid=10d13b","username":"mikerawss"}},{"id":"18399187543122577","text":"Tone. You gotta shut that down","ownerUsername":"taylorcottrell.eth","ownerProfilePicUrl":"https://scontent-atl3-3.cdninstagram.com/v/t51.2885-19/426967814_767858441409487_6395094852225298178_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby43NjQuYzIifQ&_nc_ht=scontent-atl3-3.cdninstagram.com&_nc_cat=107&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=rZtoacSJ2fMQ7kNvwE9YOq0&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsmFT2MWzjI-rGOBNzBn-bHZWTIEGmyAdAAEPqY2hJSQQ&oe=6991BB44&_nc_sid=10d13b","timestamp":"2025-12-08T12:55:17.000Z","repliesCount":0,"replies":[],"likesCount":0,"owner":{"id":"14316180","is_verified":false,"profile_pic_url":"https://scontent-atl3-3.cdninstagram.com/v/t51.2885-19/426967814_767858441409487_6395094852225298178_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby43NjQuYzIifQ&_nc_ht=scontent-atl3-3.cdninstagram.com&_nc_cat=107&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=rZtoacSJ2fMQ7kNvwE9YOq0&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfsmFT2MWzjI-rGOBNzBn-bHZWTIEGmyAdAAEPqY2hJSQQ&oe=6991BB44&_nc_sid=10d13b","username":"taylorcottrell.eth"}}],"dimensionsHeight":1136,"dimensionsWidth":640,"displayUrl":"https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/581720714_870197892010503_2648047155325159816_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2QEcJs8D_4YMJoEiBjWoAw8rSWgdGotrWlLVNUoHoPmwIPmjSAW4igUQdxjP0VhMdGjSsSB4s-DSAWlx1GZQibek&_nc_ohc=mRjdQ1vyYqYQ7kNvwEWgA8d&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afs9OPBQtPbX8CcJhd1BTWmAFRtc_qCgkwCR2iIQ-JlDmg&oe=6991C248&_nc_sid=10d13b","images":[],"videoUrl":"https://scontent-atl3-3.cdninstagram.com/o1/v/t16/f2/m86/AQNrTfPuHUYCksf_8DaR4i9E_Rfz7db2JGh2mwsqXMqwuHvC9wbkvosPQ1CBIdd1_8sX1abyVZ0Yc57Yu7OTroTzXIs00pbqXJzzmkA.mp4?stp=dst-mp4&efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uY2xpcHMuYzIuNzIwLmJhc2VsaW5lIn0&_nc_cat=109&vs=1552053782592534_1173287170&_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9GRjRCNTE1MzQ2MUI5QUFDOURCRTM4QzVDRUI3NjdBNl92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYOnBhc3N0aHJvdWdoX2V2ZXJzdG9yZS9HQ3J2ckNKbzQ1cEdZY0VLQUhJZzNZaUwxUnRPYnN0VEFRQUYVAgLIARIAKAAYABsAFQAAJvzGm%2F3J0dk%2FFQIoAkMzLBdAMHdLxqfvnhgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2Fgdl5p0BAA%3D%3D&_nc_rid=a1c3e17682&ccb=9-4&oh=00_Afu6olh4XBCDqK_e2b_Y6e3egREhboo_jyCkkylJt_gy8g&oe=698DDC45&_nc_sid=10d13b","likesCount":4067,"videoViewCount":221075,"timestamp":"2025-11-14T01:56:11.000Z","childPosts":[],"locationName":"Washington D.C.","locationId":"213480180","ownerFullName":"Tony P","ownerUsername":"_tonypindc","ownerId":"1577274529","productType":"clips","isCommentsDisabled":false,"inputUrl":"https://www.instagram.com/_tonypindc/","audioUrl":"https://scontent-atl3-3.cdninstagram.com/o1/v/t16/f2/m69/AQOv-lCDF6DaeEFaYzxZmqBuWTeEotRw7GZrbUwT6_9vVhNUB81AnSJBP01HypRD6jI2uuMYZc2uYMXqcut0APCM.mp4?strext=1&_nc_cat=109&_nc_sid=9ca052&_nc_ht=scontent-atl3-3.cdninstagram.com&_nc_ohc=GLRyEHqd8BkQ7kNvwHdl96i&efg=eyJ2ZW5jb2RlX3RhZyI6ImlnLXhwdmRzLmNsaXBzLmMyLUMzLmRhc2hfbG5faGVhYWNfdmJyM19hdWRpbyIsInZpZGVvX2lkIjpudWxsLCJvaWxfdXJsZ2VuX2FwcF9pZCI6OTM2NjE5NzQzMzkyNDU5LCJjbGllbnRfbmFtZSI6ImlnIiwieHB2X2Fzc2V0X2lkIjo2ODY0MTE2MTEyMDc2MTQsImFzc2V0X2FnZV9kYXlzIjo4OSwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjE2LCJiaXRyYXRlIjo1MDk3OCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=VUBQgw9XnN6z6qwVoqbYxw&_nc_zt=28&oh=00_AfuizvrUH6K_n660stjuA7FmHLL9SBUJVeoVqh6LzQ52hQ&oe=6991CDBF","alt":null,"videoPlayCount":568493,"videoDuration":16.486,"musicInfo":{"artist_name":"_tonypindc","song_name":"Original audio","uses_original_audio":true,"should_mute_audio":false,"should_mute_audio_reason":"","audio_id":"1396240215429354"}},"postImg":"images/DRBOqy2EQoC.jpg"}];
-let quizStep = 0, quizScore = 0;
+const captions = [
+{prompt:"\"I'm back and here to...",correct:"keep you company 😊\"",wrong:["start a podcast\"","sell you something\"","show off my gains\""],ctx:"The pinned return post — 7,500 likes of pure love"},
+{prompt:"\"If I hope to stick with this, I have to...",correct:"do small things consistently!\"",wrong:["go viral every day\"","hire a tutor\"","move to Spain\""],ctx:"Tony on learning Spanish — one Duolingo lesson at a time 🦉"},
+{prompt:"\"No more...",correct:"copy and paste!\"",wrong:["quarter-zips!\"","bachelor life!\"","Diet Coke!\""],ctx:"The Super Bowl logo rant that the internet needed"},
+{prompt:"\"The only reason I watched the whole game was to...",correct:"take notes from the announcers!\"",wrong:["see the halftime show!\"","watch the commercials!\"","support my team!\""],ctx:"Broadcasting Tone studying the craft 📺"},
+{prompt:"\"I cooked, enjoyed some music, explored hobbies, met up with friends and...",correct:"learned real history… Pretty complete weekend!\"",wrong:["still felt lonely\"","forgot to post\"","ran out of salmon\""],ctx:"The most wholesome weekend recap ever"},
+{prompt:"\"My favorite part of this broadcasting journey has been learning to...",correct:"interview people...\"",wrong:["read a teleprompter\"","do my own makeup\"","wake up early\""],ctx:"Tony discovering his inner Ryan Seacrest 🎤"},
+{prompt:"\"The goal every time is to do two things: 1. Don't ask questions with too many parts...",correct:"2. Don't talk too much generally 🤷🏻\"",wrong:["2. Look good on camera\"","2. Get the ratings up\"","2. Plug my socials\""],ctx:"Honestly great broadcasting advice"},
+{prompt:"\"The stadiums we see today...",correct:"still come here for inspiration!\"",wrong:["are way too expensive\"","need better WiFi\"","remind me of high school\""],ctx:"Tony at the Coliseum being cultured 🏛️"},
+{prompt:"\"I guess committed bachelor was a bit confusing for some of us so...",correct:"let's try this one 😂\"",wrong:["I'm getting married\"","I'll stop saying it\"","here's a dictionary\""],ctx:"The 'taken bachelor' rebrand — 3,700 likes"},
+{prompt:"\"I try to look put together on here, mostly to convince myself...",correct:"I made the right call going out on my own...\"",wrong:["I'm a real adult\"","people still watch me\"","I don't miss consulting\""],ctx:"Vulnerable Tone hits different 💛"},
+{prompt:"\"You're not the only one who...",correct:"laughs 😉\"",wrong:["cooks like this\"","watches this\"","wears quarter-zips\""],ctx:"Date night cooking caption — smooth as that balsamic glaze"},
+{prompt:"\"Welcome to a week in my life as a...",correct:"26-year-old bachelor\"",wrong:["DC influencer\"","former consultant\"","wannabe chef\""],ctx:"The classic intro we all know and love"},
+];
 
-function renderQuiz() {
-  const container = document.getElementById('quiz-container');
-  if (quizStep >= quizData.length) {
-    const result = quizResults.find(r => quizScore >= r.min && quizScore <= r.max) || quizResults[quizResults.length - 1];
-    container.innerHTML = `
-      <div class="quiz-result">
-        <h3>You are: ${result.title}!</h3>
-        <img src="${result.postImg}" alt="">
-        <p>${result.desc}</p>
-        <p style="color:var(--dc-gold)">Score: ${quizScore}/${quizData.length * 3}</p>
-        <button class="btn" onclick="quizStep=0;quizScore=0;renderQuiz()">🔄 Retake Quiz</button>
-      </div>`;
-    return;
-  }
-  const q = quizData[quizStep];
-  container.innerHTML = `
-    <div class="quiz-progress">Question ${quizStep + 1} of ${quizData.length}</div>
-    <div class="quiz-question">${q.q}</div>
-    <div class="quiz-options">
-      ${q.options.map((opt, i) => `<div class="quiz-option" onclick="selectQuizOption(${i}, ${q.scores[i]})">${opt}</div>`).join('')}
-    </div>`;
-}
-function selectQuizOption(idx, score) {
-  quizScore += score;
-  quizStep++;
-  renderQuiz();
-}
-renderQuiz();
+const spanishCards = [
+{es:"Bienvenido de vuelta",en:"Welcome back",hint:"What fans said when Tony returned"},
+{es:"Soltero comprometido",en:"Committed bachelor",hint:"Tony's old intro"},
+{es:"Noche de cita",en:"Date night",hint:"Tony's cooking content vibe"},
+{es:"Razonablemente positivo",en:"Reasonably positive",hint:"Tony's brand/tagline"},
+{es:"Masculinidad vibrante",en:"Vibrant masculinity",hint:"Tony's philosophy"},
+{es:"¿Qué estoy haciendo?",en:"What am I doing?",hint:"Tony's entrepreneurial doubt"},
+{es:"Presentador de programa",en:"Talk show host",hint:"Tony's dream job"},
+{es:"Verificación de atuendo",en:"Fit check",hint:"Tony's OG content"},
+{es:"Salmón con glaseado balsámico",en:"Salmon with balsamic glaze",hint:"Tony's signature dish"},
+{es:"Mi novia",en:"My girlfriend",hint:"The 'taken bachelor' era"},
+{es:"Tú puedes",en:"You can do it",hint:"Fan encouragement in comments"},
+{es:"Un golden retriever",en:"A golden retriever",hint:"Tony's TikTok bio"},
+{es:"Cocina para uno",en:"Kitchen for one",hint:"Bachelor cooking era"},
+{es:"El hombre más amable",en:"The nicest man",hint:"What Slate called Tony"},
+{es:"No me rindo",en:"I don't give up",hint:"Tony's resilience"},
+{es:"Gafas de aviador",en:"Aviator sunglasses",hint:"Tony's signature accessory"},
+{es:"Cuarto zip",en:"Quarter-zip",hint:"Tony's iconic clothing"},
+{es:"Lanzamiento duro",en:"Hard launch",hint:"What fans demand about his girlfriend"},
+{es:"La sección de comentarios",en:"The comment section",hint:"Where the real show is"},
+{es:"Sal y pimienta",en:"Salt and pepper",hint:"Tony's cooking style"},
+];
 
-// Memory Game
-const memoryImages = ["images/DJ2eVolPIIQ.jpg","images/DQqDJU2kREE.jpg","images/DQaK0GuEYez.jpg","images/DSksS4DEbdk.jpg","images/DUHMRrhkU7U.jpg","images/DRBOqy2EQoC.jpg","images/DPm0WLjkX6a.jpg","images/DPudEEmkSeM.jpg"];
-let memoryState = { cards: [], flipped: [], matched: [], moves: 0 };
+const fitOutfits = [
+{name:"The Turquoisest Quarter Zip",desc:"Vibrant turquoise quarter-zip pullover with khakis and clean white sneakers. Aviator sunglasses on top.",era:"Bachelor",avg:8.2},
+{name:"Slate Blue Power Suit",desc:"Perfectly fitted slate-blue suit with a crisp white shirt and subtle patterned tie. Corporate energy radiating.",era:"Corporate",avg:9.1},
+{name:"Charcoal Half-Zip Interview Look",desc:"Charcoal half-zip over a collared shirt. The outfit he wore to the Slate interview — professional but approachable.",era:"Broadcasting",avg:7.8},
+{name:"Date Night Casual",desc:"Well-fitted dark jeans, a blue button-up ('blue when he was feeling fun!'), sleeves rolled to the elbow.",era:"Taken",avg:8.5},
+{name:"Fox News Ready",desc:"Fresh navy suit, red tie, pocket square. Camera-ready broadcasting fit for his Fox News segments.",era:"Broadcasting",avg:8.7},
+{name:"Secret Service Sunday",desc:"All black everything with those Secret Service-style sunglasses. Looking like he's protecting the president of vibes.",era:"Bachelor",avg:7.5},
+{name:"Weekend Golden Retriever",desc:"Quarter-zip (slightly wrinkled), joggers, fresh kicks. Looking like a golden retriever who just got groomed.",era:"Taken",avg:7.2},
+{name:"DNC Political Tone",desc:"Sharp charcoal suit, American flag pin, navy tie. The convention outfit nobody saw coming.",era:"Broadcasting",avg:8.0},
+{name:"Corporate Catalog Core",desc:"Navy suit, blue striped tie, brown dress shoes. Straight out of a J.Crew management consultant lookbook.",era:"Corporate",avg:6.8},
+{name:"Bachelor Fit Check #1",desc:"Slim chinos, tucked-in polo, aviators, fresh haircut. The original fit check energy that started it all.",era:"Bachelor",avg:8.9},
+];
 
-function initMemory() {
-  const pairs = [...memoryImages, ...memoryImages];
-  for (let i = pairs.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
-  }
-  memoryState = { cards: pairs, flipped: [], matched: [], moves: 0 };
-  renderMemory();
-}
-function renderMemory() {
-  const grid = document.getElementById('memory-grid');
-  document.getElementById('memory-moves').textContent = memoryState.moves;
-  document.getElementById('memory-matches').textContent = memoryState.matched.length / 2;
-  grid.innerHTML = memoryState.cards.map((img, i) => {
-    const isFlipped = memoryState.flipped.includes(i) || memoryState.matched.includes(i);
-    const isMatched = memoryState.matched.includes(i);
-    return `<div class="memory-card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}" onclick="flipCard(${i})">
-      <div class="memory-card-inner">
-        <div class="memory-front">🎤</div>
-        <div class="memory-back"><img src="${img}" alt="" loading="lazy"></div>
-      </div>
-    </div>`;
-  }).join('');
-}
-function flipCard(i) {
-  if (memoryState.flipped.length >= 2 || memoryState.flipped.includes(i) || memoryState.matched.includes(i)) return;
-  memoryState.flipped.push(i);
-  renderMemory();
-  if (memoryState.flipped.length === 2) {
-    memoryState.moves++;
-    const [a, b] = memoryState.flipped;
-    if (memoryState.cards[a] === memoryState.cards[b]) {
-      memoryState.matched.push(a, b);
-      memoryState.flipped = [];
-      renderMemory();
-      if (memoryState.matched.length === memoryState.cards.length) {
-        setTimeout(() => alert(`🎉 You won in ${memoryState.moves} moves!`), 300);
-      }
-    } else {
-      setTimeout(() => { memoryState.flipped = []; renderMemory(); }, 1000);
-    }
-  }
-}
-initMemory();
+const wouldTonyWear = [
+{item:"Graphic tee with a meme on it",answer:false},{item:"Turquoise quarter-zip",answer:true},
+{item:"Cargo shorts",answer:false},{item:"Aviator sunglasses",answer:true},
+{item:"Crocs (even ironically)",answer:false},{item:"Slim-fit blue suit",answer:true},
+{item:"Hawaiian shirt",answer:false},{item:"Charcoal half-zip pullover",answer:true},
+{item:"Yeezys",answer:false},{item:"Brown dress shoes with a navy suit",answer:true},
+{item:"A backwards baseball cap",answer:false},{item:"Crisp white button-up",answer:true},
+{item:"Neon green running shoes to dinner",answer:false},{item:"Classic navy tie",answer:true},
+{item:"Ed Hardy anything",answer:false},{item:"Pocket square",answer:true},
+];
 
-// Caption Guessing Game
-const captionData = [{"shortCode":"DRQpq2PERmM","caption":"I love cooking but those frozen meals are clutch these days "},{"shortCode":"DUllPoaEXxB","caption":"If I hope to stick with this, I have to do small things consistently! "},{"shortCode":"DUZK2_mESGt","caption":"This week was almost as packed as my weekends 😂"},{"shortCode":"DSsbecWEUqs","caption":"I really wanted to be up at 7:30! 😂"},{"shortCode":"DSGF7aqEduv","caption":"I’m just the messenger! "},{"shortCode":"DSgDDQ0ESm7","caption":"I guess my album could be called…Life of a Broadcaster"},{"shortCode":"DS1Z1HIjTro","caption":"Technically, I can celebrate until January 5th 😊"},{"shortCode":"DTLxpbCiRd3","caption":"I would be all in on a TB fit check 😊"},{"shortCode":"DS_l-SnjWPE","caption":"It brings the energy needed for a new year! "},{"shortCode":"DT1dnwikQlO","caption":"I think they list protein as the worst thing you could eat late at night before bed! "}];
-let captionIdx = 0;
-let captionRevealed = false;
+const pStandsFor = [
+"Pizza Break 🍕","present. Films entire rest of the weekend 📹","post-college Passion for residential real estate and automobiles 🏠",
+"probably going to post about this a few times then try the next thing 😂","Perfectly Pressed Quarter-Zip 👔","Positive energy only ☀️",
+"Please hard launch her already 📸","Podcast incoming 🎙️","Pretty good salmon 🐟","Professional golden retriever 🐕",
+"Putting the Diet in Diet Coke 🥤","Peak vibrant masculinity 💪","Probably at the DNC 🇺🇸","Props to the comment section 💬",
+];
 
-function renderCaption() {
-  const container = document.getElementById('caption-game');
-  if (captionIdx >= captionData.length) {
-    container.innerHTML = '<h3 style="color:var(--dc-gold)">🎉 You\'ve seen all the posts!</h3><button class="btn" onclick="captionIdx=0;renderCaption()">🔄 Play Again</button>';
-    return;
-  }
-  const c = captionData[captionIdx];
-  container.innerHTML = `
-    <p style="color:#888">Post ${captionIdx + 1} of ${captionData.length}</p>
-    <img src="images/${c.shortCode}.jpg" alt="">
-    <p style="margin:1rem 0;color:white;font-size:1.1rem">What did Tony P caption this post?</p>
-    ${captionRevealed ? `
-      <div class="caption-reveal">"${c.caption}"</div>
-      <button class="btn" style="margin-top:1rem" onclick="captionIdx++;captionRevealed=false;renderCaption()">Next Post →</button>
-    ` : `
-      <button class="btn" onclick="captionRevealed=true;renderCaption()">🔍 Reveal Caption</button>
-    `}`;
-}
-renderCaption();
+const catchphrases = [
+"Welcome to a week in my life as a 26-year-old taken bachelor 📱",
+"Reasonably Positive ☀️","Vibrant masculinity 💪","I'm back and here to keep you company 😊",
+"No more copy and paste! 🚫","HELL YEAH BUTTON —————-> 🔥",
+"Someone's wife is about to have the night of her life 😏",
+"Bring the camera closer I wanna good look at ya tone 📸",
+"Day 47 of asking Tone if he understands what bachelor means 🤔",
+"Does she know she's your girlfriend, Tone? 💀",
+"I can't wait to meet my new step dad! 👨‍👦",
+"I followed for the satire but now I'm just an actual fan 😂",
+"It's like watching LinkedIn 💼","The turquoisest quarter zip 👔",
+"Tony P and the P stands for EVERYTHING 😂",
+];
 
-// Smooth scroll
-document.querySelectorAll('nav a').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-  });
-});
+const easterEggs = [
+"🐗 THE HOG REMAINS HIDDEN","💀 Does she know she's your girlfriend, Tone?",
+"🦞 The Boston accent just slipped out","🐕 A golden retriever took you for a walk",
+"📺 It's like watching LinkedIn but wholesome","🧸 Nobody talk about the stuffed animals on the bed",
+"🥤 That's a Diet Coke and you know it","🎵 You Get What You Give playing softly...",
+];
+
+// ===== STATE =====
+let triviaState={idx:0,score:0,streak:0,maxStreak:0,timer:null,timeLeft:15,questions:[]};
+let datingState={idx:0,scores:[]};
+let captionState={idx:0,score:0,items:[]};
+let spanishState={idx:0,score:0,items:[]};
+let fitState={idx:0,wtwIdx:0,wtwScore:0,eraIdx:0,eraScore:0};
+let lastResult={};
+
+// ===== UTILS =====
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function $(id){return document.getElementById(id)}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0)}
+function goHome(){if(triviaState.timer)clearInterval(triviaState.timer);show('screen-home')}
+
+function toast(msg){let t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500)}
+function triggerEasterEgg(){if(Math.random()<0.08){let e=easterEggs[Math.floor(Math.random()*easterEggs.length)];let el=document.createElement('div');el.className='easter-egg';el.textContent=e;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)}}
+
+function confetti(){let c=document.createElement('div');c.className='confetti-container';for(let i=0;i<60;i++){let p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.background=['#ffc800','#ff6b6b','#4ade80','#60a5fa','#f472b6','#a78bfa'][Math.floor(Math.random()*6)];p.style.animationDelay=Math.random()*2+'s';p.style.animationDuration=(2+Math.random()*2)+'s';p.style.borderRadius=Math.random()>.5?'50%':'0';c.appendChild(p)}document.body.appendChild(c);setTimeout(()=>c.remove(),4000)}
+
+function shareResult(type){let txt='';
+if(type==='trivia')txt=`🎤 TONE CHECK: Tony P Trivia\n🧠 ${lastResult.score}/${lastResult.total} correct\n🔥 Best streak: ${lastResult.streak}\ntonecheck.fun`;
+else if(type==='dating')txt=`🎤 TONE CHECK: Would Tony Date Me?\n💛 ${lastResult.pct}% compatible with Tony P\n${lastResult.msg}\ntonecheck.fun`;
+else if(type==='caption')txt=`🎤 TONE CHECK: Complete the Caption\n✍️ ${lastResult.score}/${lastResult.total} captions nailed\ntonecheck.fun`;
+else if(type==='spanish')txt=`🎤 TONE CHECK: Spanish with Tony\n🇪🇸 ${lastResult.score}/${lastResult.total} phrases mastered\ntonecheck.fun`;
+navigator.clipboard.writeText(txt).then(()=>toast('Copied to clipboard! 📋')).catch(()=>toast('Could not copy'))}
+
+// ===== CATCHPHRASE ROTATOR =====
+let cpIdx=0;
+function rotateCatchphrase(){$('catchphrase').style.opacity=0;setTimeout(()=>{$('catchphrase').textContent='"'+catchphrases[cpIdx%catchphrases.length]+'"';$('catchphrase').style.opacity=1;cpIdx++},300)}
+rotateCatchphrase();setInterval(rotateCatchphrase,4000);
+
+// ===== TRIVIA =====
+function startTrivia(){
+triviaState={idx:0,score:0,streak:0,maxStreak:0,timer:null,timeLeft:15,questions:shuffle(triviaQuestions).slice(0,20)};
+show('screen-trivia');renderTrivia();triggerEasterEgg()}
+
+function renderTrivia(){
+let s=triviaState,q=s.questions[s.idx];
+$('trivia-progress').style.width=((s.idx/s.questions.length)*100)+'%';
+$('trivia-streak').textContent=s.streak>1?'🔥 Streak: '+s.streak:'';
+$('trivia-context').style.display='none';$('trivia-next').style.display='none';
+$('trivia-question').textContent=q.q;
+let opts=shuffle(q.o);
+$('trivia-options').innerHTML=opts.map((o,i)=>`<button class="option-btn" onclick="answerTrivia(this,'${o.replace(/'/g,"\\'")}')">${o}</button>`).join('');
+s.timeLeft=15;$('trivia-timer').textContent='15';$('trivia-timer').classList.remove('danger');
+if(s.timer)clearInterval(s.timer);
+s.timer=setInterval(()=>{s.timeLeft--;$('trivia-timer').textContent=s.timeLeft;if(s.timeLeft<=5)$('trivia-timer').classList.add('danger');if(s.timeLeft<=0){clearInterval(s.timer);timeoutTrivia()}},1000)}
+
+function answerTrivia(btn,ans){
+let s=triviaState,q=s.questions[s.idx];clearInterval(s.timer);
+document.querySelectorAll('.option-btn').forEach(b=>{b.classList.add('disabled');if(b.textContent===q.a)b.classList.add('correct')});
+if(ans===q.a){s.score++;s.streak++;s.maxStreak=Math.max(s.maxStreak,s.streak);btn.classList.add('correct')}
+else{s.streak=0;btn.classList.add('wrong')}
+$('trivia-context').textContent='💡 '+q.ctx;$('trivia-context').style.display='block';$('trivia-next').style.display='block'}
+
+function timeoutTrivia(){
+let q=triviaState.questions[triviaState.idx];triviaState.streak=0;
+document.querySelectorAll('.option-btn').forEach(b=>{b.classList.add('disabled');if(b.textContent===q.a)b.classList.add('correct')});
+$('trivia-context').textContent='⏰ Time\'s up! '+q.ctx;$('trivia-context').style.display='block';$('trivia-next').style.display='block'}
+
+function nextTrivia(){
+triviaState.idx++;
+if(triviaState.idx>=triviaState.questions.length){showTriviaResult();return}
+renderTrivia()}
+
+function showTriviaResult(){
+let s=triviaState;lastResult={score:s.score,total:s.questions.length,streak:s.maxStreak};
+$('trivia-score-big').textContent=s.score+'/'+s.questions.length;
+$('trivia-score-label').textContent='correct answers • Best streak: '+s.maxStreak;
+let pct=s.score/s.questions.length*100;let msg='';
+if(pct===100){msg="You ARE Tony P. Or maybe his burner account. 🏆";confetti()}
+else if(pct>=80)msg="You're a certified Tone superfan. Comment section regular for sure. 🔥";
+else if(pct>=60)msg="Solid knowledge! You've definitely watched a few vlogs. 👍";
+else if(pct>=40)msg="You know the basics but need more Tone in your life. 📱";
+else msg="Are you sure you follow Tony P? Time for a binge session. 😅";
+$('trivia-result-msg').textContent=msg;show('screen-trivia-result')}
+
+// ===== DATING QUIZ =====
+function startDating(){
+datingState={idx:0,scores:[]};show('screen-dating');renderDating();triggerEasterEgg()}
+
+function renderDating(){
+let s=datingState,q=datingQuiz[s.idx];
+$('dating-progress').style.width=((s.idx/datingQuiz.length)*100)+'%';
+$('dating-question').textContent=(s.idx+1)+'/'+datingQuiz.length+': '+q.q;
+let opts=shuffle(q.opts);
+$('dating-options').innerHTML=opts.map((o,i)=>`<button class="quiz-opt" onclick="answerDating(this,${o.s})">${o.t}</button>`).join('')}
+
+function answerDating(btn,score){
+datingState.scores.push(score);
+document.querySelectorAll('.quiz-opt').forEach(b=>b.classList.add('disabled'));
+btn.classList.add('selected');
+setTimeout(()=>{datingState.idx++;if(datingState.idx>=datingQuiz.length){showDatingResult()}else{renderDating()}},600)}
+
+function showDatingResult(){
+let total=datingState.scores.reduce((a,b)=>a+b,0);
+let pct=Math.round(total/(datingQuiz.length*10)*100);
+let msg='';
+if(pct>=90){msg="You ARE Tony P. Marry this person immediately. 💍";confetti()}
+else if(pct>=70)msg="Tony would 100% cook you salmon on a second date. 🐟💛";
+else if(pct>=50)msg="You'd be great friends. Tony would hype you up in the comments. 🙌";
+else if(pct>=30)msg="You're more of a comment section troll — but Tony loves you anyway. 😂";
+else msg="You're an Andrew Tate fan and you're in the wrong app. 🚪";
+lastResult={pct,msg};$('dating-score-big').textContent=pct+'%';$('dating-result-msg').textContent=msg;show('screen-dating-result')}
+
+// ===== CAPTION =====
+function startCaption(){
+captionState={idx:0,score:0,items:shuffle(captions)};show('screen-caption');renderCaption();triggerEasterEgg()}
+
+function renderCaption(){
+let s=captionState,c=s.items[s.idx];
+$('caption-progress').style.width=((s.idx/s.items.length)*100)+'%';
+$('caption-prompt').textContent=c.prompt;
+$('caption-context').style.display='none';$('caption-next').style.display='none';
+let opts=shuffle([c.correct,...c.wrong]);
+$('caption-options').innerHTML=opts.map(o=>`<button class="option-btn" onclick="answerCaption(this,'${o.replace(/'/g,"\\'")}')">${o}</button>`).join('')}
+
+function answerCaption(btn,ans){
+let c=captionState.items[captionState.idx];
+document.querySelectorAll('#caption-options .option-btn').forEach(b=>{b.classList.add('disabled');if(b.textContent===c.correct)b.classList.add('correct')});
+if(ans===c.correct){captionState.score++;btn.classList.add('correct')}else{btn.classList.add('wrong')}
+$('caption-context').textContent='📸 '+c.ctx;$('caption-context').style.display='block';$('caption-next').style.display='block'}
+
+function nextCaption(){
+captionState.idx++;if(captionState.idx>=captionState.items.length){showCaptionResult();return}renderCaption()}
+
+function showCaptionResult(){
+let s=captionState;lastResult={score:s.score,total:s.items.length};
+$('caption-score-big').textContent=s.score+'/'+s.items.length;
+let pct=s.score/s.items.length*100;
+if(pct===100){$('caption-result-msg').textContent="You could ghost-write Tony's captions. Motive LA, hire this person! 🏆";confetti()}
+else if(pct>=75)$('caption-result-msg').textContent="You've been reading every post. Tone would be proud. 📱";
+else if(pct>=50)$('caption-result-msg').textContent="Not bad! You clearly scroll the feed. Keep going. 👍";
+else $('caption-result-msg').textContent="Time to go back and actually read the captions, not just look at the fits. 👀";
+show('screen-caption-result')}
+
+// ===== SPANISH =====
+function startSpanish(){
+spanishState={idx:0,score:0,items:shuffle(spanishCards)};show('screen-spanish');renderSpanish();triggerEasterEgg()}
+
+function renderSpanish(){
+let s=spanishState,c=s.items[s.idx];
+$('spanish-progress').style.width=((s.idx/s.items.length)*100)+'%';
+$('spanish-score-display').textContent='✅ '+s.score+'/'+s.items.length;
+$('spanish-phrase').textContent=c.es;$('spanish-hint').textContent='💡 '+c.hint;
+$('spanish-next').style.display='none';
+let wrong=shuffle(spanishCards.filter(x=>x.en!==c.en)).slice(0,3).map(x=>x.en);
+let opts=shuffle([c.en,...wrong]);
+$('spanish-options').innerHTML=opts.map(o=>`<button class="fc-opt" onclick="answerSpanish(this,'${o.replace(/'/g,"\\'")}')">${o}</button>`).join('')}
+
+function answerSpanish(btn,ans){
+let c=spanishState.items[spanishState.idx];
+document.querySelectorAll('.fc-opt').forEach(b=>{b.classList.add('disabled');if(b.textContent===c.en)b.classList.add('correct')});
+if(ans===c.en){spanishState.score++;btn.classList.add('correct')}else{btn.classList.add('wrong')}
+$('spanish-next').style.display='block'}
+
+function nextSpanish(){
+spanishState.idx++;if(spanishState.idx>=spanishState.items.length){showSpanishResult();return}renderSpanish()}
+
+function showSpanishResult(){
+let s=spanishState;lastResult={score:s.score,total:s.items.length};
+$('spanish-score-big').textContent=s.score+'/'+s.items.length;
+let pct=s.score/s.items.length*100;
+if(pct===100){$('spanish-result-msg').textContent="¡Perfecto! Tony's Puerto Rican step-mamacita would be proud. 🇵🇷";confetti()}
+else if(pct>=75)$('spanish-result-msg').textContent="¡Muy bien! You and Tony can practice together. 🇪🇸";
+else if(pct>=50)$('spanish-result-msg').textContent="Keep that Duolingo streak going! 🦉";
+else $('spanish-result-msg').textContent="Bad Bunny would not be impressed. More practice needed! 🐰";
+show('screen-spanish-result')}
+
+// ===== FIT CHECK =====
+function startFit(){fitState={idx:0,wtwIdx:0,wtwScore:0,wtwTotal:0,eraIdx:0,eraScore:0};show('screen-fit');renderFitRate();triggerEasterEgg()}
+
+function fitTab(tab){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+event.target.classList.add('active');
+$('fit-rate').style.display=tab==='rate'?'block':'none';
+$('fit-wtw').style.display=tab==='wtw'?'block':'none';
+$('fit-era').style.display=tab==='era'?'block':'none';
+if(tab==='rate')renderFitRate();if(tab==='wtw')renderWTW();if(tab==='era')renderEra()}
+
+function renderFitRate(){
+let o=fitOutfits[fitState.idx%fitOutfits.length];
+$('fit-rate').innerHTML=`
+<div class="fit-desc"><div class="outfit-name">${o.name}</div><div class="outfit-detail">${o.desc}</div></div>
+<div class="slider-wrap"><div class="slider-val" id="fit-val">5</div><input type="range" min="1" max="10" value="5" oninput="$('fit-val').textContent=this.value"></div>
+<button class="btn" onclick="rateFit()">Rate This Fit 👔</button>`}
+
+function rateFit(){
+let o=fitOutfits[fitState.idx%fitOutfits.length];
+let val=parseInt($('fit-rate').querySelector('input').value);
+$('fit-rate').innerHTML=`
+<div class="fit-desc"><div class="outfit-name">${o.name}</div><div class="outfit-detail">${o.desc}</div></div>
+<div class="fit-compare"><div><span class="yours">${val}/10</span><small style="color:var(--gray)">Your Rating</small></div>
+<div><span class="community">${o.avg}/10</span><small style="color:var(--gray)">Community Avg</small></div></div>
+<p style="text-align:center;color:var(--gray);margin:12px 0">${Math.abs(val-o.avg)<1.5?'You and the community agree! 🤝':val>o.avg?'You rated higher than most! 🔥':'The community rated this higher! 👀'}</p>
+<button class="btn" onclick="fitState.idx++;renderFitRate()">Next Outfit →</button>`}
+
+function renderWTW(){
+let items=shuffle(wouldTonyWear);fitState.wtwItems=items;fitState.wtwIdx=0;fitState.wtwScore=0;fitState.wtwTotal=items.length;showWTWItem()}
+
+function showWTWItem(){
+if(fitState.wtwIdx>=fitState.wtwItems.length){
+$('fit-wtw').innerHTML=`<div class="result-card"><div class="score-big">${fitState.wtwScore}/${fitState.wtwTotal}</div>
+<div class="score-label">Would Tony Wear It?</div>
+<div class="result-msg">${fitState.wtwScore===fitState.wtwTotal?'You know Tony\'s closet better than he does! 👔':fitState.wtwScore>fitState.wtwTotal*.7?'Solid style sense! 🔥':'More fit checks needed! 👀'}</div></div>
+<button class="btn" onclick="renderWTW()">🔄 Play Again</button>`;
+if(fitState.wtwScore===fitState.wtwTotal)confetti();return}
+let item=fitState.wtwItems[fitState.wtwIdx];
+$('fit-wtw').innerHTML=`<div class="fit-desc"><div class="outfit-name">Would Tony Wear This? 🤔</div><div class="outfit-detail" style="font-size:1.1rem;margin-top:8px">${item.item}</div></div>
+<div style="text-align:center;color:var(--gray);margin:8px 0">${fitState.wtwIdx+1}/${fitState.wtwTotal}</div>
+<div class="wtw-btns"><button class="btn wtw-yes" onclick="answerWTW(true)">✅ Yes</button><button class="btn wtw-no" onclick="answerWTW(false)">❌ No</button></div>`}
+
+function answerWTW(ans){
+let item=fitState.wtwItems[fitState.wtwIdx];
+if(ans===item.answer)fitState.wtwScore++;
+fitState.wtwIdx++;showWTWItem()}
+
+function renderEra(){
+let items=shuffle(fitOutfits);fitState.eraItems=items;fitState.eraIdx=0;fitState.eraScore=0;showEraItem()}
+
+function showEraItem(){
+if(fitState.eraIdx>=fitState.eraItems.length){
+$('fit-era').innerHTML=`<div class="result-card"><div class="score-big">${fitState.eraScore}/${fitState.eraItems.length}</div>
+<div class="score-label">Eras Matched</div><div class="result-msg">${fitState.eraScore===fitState.eraItems.length?'Tony P fashion historian! 🏆':'Keep studying the eras! 📚'}</div></div>
+<button class="btn" onclick="renderEra()">🔄 Play Again</button>`;
+if(fitState.eraScore===fitState.eraItems.length)confetti();return}
+let o=fitState.eraItems[fitState.eraIdx];
+$('fit-era').innerHTML=`<div class="fit-desc"><div class="outfit-name">${o.name}</div><div class="outfit-detail">${o.desc}</div></div>
+<p style="text-align:center;color:var(--gray);margin:12px 0">Which era is this? ${fitState.eraIdx+1}/${fitState.eraItems.length}</p>
+<div class="era-btns">${['Corporate','Bachelor','Broadcasting','Taken'].map(e=>`<button class="era-btn" onclick="answerEra(this,'${e}')">${e}</button>`).join('')}</div>`}
+
+function answerEra(btn,ans){
+let o=fitState.eraItems[fitState.eraIdx];
+document.querySelectorAll('.era-btn').forEach(b=>{b.style.pointerEvents='none';if(b.textContent===o.era)b.classList.add('correct')});
+if(ans===o.era){fitState.eraScore++;btn.classList.add('correct')}else{btn.classList.add('wrong')}
+setTimeout(()=>{fitState.eraIdx++;showEraItem()},1000)}
+
+// ===== MEME GEN =====
+function startMeme(){show('screen-meme');renderMemeWall();randomCatchphrase();triggerEasterEgg()}
+
+function generateMeme(){
+let val=$('meme-input').value.trim();
+if(!val){randomMeme();return}
+$('meme-display').textContent='Tony P and the P stands for '+val;$('meme-input').value=''}
+
+function randomMeme(){
+let m=pStandsFor[Math.floor(Math.random()*pStandsFor.length)];
+$('meme-display').textContent='Tony P and the P stands for '+m}
+
+function randomCatchphrase(){
+$('catchphrase-display').textContent=catchphrases[Math.floor(Math.random()*catchphrases.length)]}
+
+function renderMemeWall(){
+$('meme-wall').innerHTML=pStandsFor.map(m=>`<span class="chip" onclick="$('meme-display').textContent='Tony P and the P stands for ${m.replace(/'/g,"\\'")}'">...${m}</span>`).join('')}
 </script>
 </body>
 </html>
