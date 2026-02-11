@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tony P in DC — The Ultimate Fan Site 🎤🏛️</title>
+<title>Tony P in DC — The ULTIMATE Fan Shrine 🐕🏛️</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
 :root {
   --dc-red: #BF0A30;
   --dc-blue: #002868;
@@ -12,29 +13,20 @@
   --dc-gold: #FFD700;
   --dc-white: #f8f9fa;
   --accent: #e63946;
+  --turquoise: #2dd4bf;
+  --pink: #ec4899;
+  --card: rgba(255,255,255,0.05);
+  --card-border: rgba(255,215,0,0.2);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: #050510;
-  color: #e0e0e0;
-  overflow-x: hidden;
-}
+body { font-family: 'Inter', system-ui, sans-serif; background: #050510; color: #e0e0e0; overflow-x: hidden; }
 
-/* ===== FLOATING TONY P BACKGROUND ===== */
-#floating-bg {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 0; overflow: hidden; pointer-events: none;
-}
+/* FLOATING BG */
+#floating-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; }
 .float-img {
-  position: absolute;
-  border-radius: 8px;
-  border: 2px solid rgba(255,215,0,0.3);
-  object-fit: cover;
-  opacity: 0;
-  animation: floatDrift linear infinite;
-  box-shadow: 0 0 15px rgba(255,215,0,0.15);
-  will-change: transform;
+  position: absolute; border-radius: 8px; border: 2px solid rgba(255,215,0,0.3);
+  object-fit: cover; opacity: 0; animation: floatDrift linear infinite;
+  box-shadow: 0 0 15px rgba(255,215,0,0.15); will-change: transform;
 }
 @keyframes floatDrift {
   0% { transform: translateY(110vh) rotate(var(--rot-start)) scale(var(--scale)); opacity: 0; }
@@ -42,224 +34,188 @@ body {
   90% { opacity: var(--max-opacity); }
   100% { transform: translateY(-120vh) rotate(var(--rot-end)) scale(var(--scale)); opacity: 0; }
 }
-
-/* Photo rain overlay */
-#photo-rain {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 0; overflow: hidden; pointer-events: none;
-}
+#photo-rain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; }
 .rain-img {
-  position: absolute; top: -150px;
-  width: 60px; height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  opacity: 0.15;
-  animation: rainFall linear infinite;
-  border: 1px solid rgba(255,215,0,0.2);
+  position: absolute; top: -150px; border-radius: 50%; object-fit: cover;
+  opacity: 0.15; animation: rainFall linear infinite; border: 1px solid rgba(255,215,0,0.2);
 }
-@keyframes rainFall {
-  0% { transform: translateY(-150px) rotate(0deg); }
-  100% { transform: translateY(calc(100vh + 150px)) rotate(360deg); }
-}
+@keyframes rainFall { 0% { transform: translateY(-150px) rotate(0deg); } 100% { transform: translateY(calc(100vh + 150px)) rotate(360deg); } }
 
-/* Dark overlay so content is readable */
-.content-wrapper {
-  position: relative; z-index: 1;
-}
+.content-wrapper { position: relative; z-index: 1; }
 .content-wrapper::before {
   content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(5,5,16,0.55);
-  z-index: -1; pointer-events: none;
+  background: rgba(5,5,16,0.55); z-index: -1; pointer-events: none;
 }
 
-/* ===== PHOTO STRIP / RIBBON ===== */
+/* PHOTO STRIPS */
 .photo-strip {
   overflow: hidden; white-space: nowrap; padding: 0.5rem 0;
   background: rgba(0,0,0,0.7); border-top: 2px solid var(--dc-gold); border-bottom: 2px solid var(--dc-gold);
   position: relative; z-index: 2;
 }
-.photo-strip-inner {
-  display: inline-flex; gap: 0.5rem;
-  animation: scrollStrip linear infinite;
-}
+.photo-strip-inner { display: inline-flex; gap: 0.5rem; animation: scrollStrip linear infinite; }
 .photo-strip-inner img {
   width: 80px; height: 80px; object-fit: cover; border-radius: 6px;
-  border: 2px solid rgba(255,215,0,0.4); flex-shrink: 0;
-  transition: transform 0.3s;
+  border: 2px solid rgba(255,215,0,0.4); flex-shrink: 0; transition: transform 0.3s;
 }
 .photo-strip-inner img:hover { transform: scale(1.3); z-index: 10; }
-@keyframes scrollStrip {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.photo-strip.reverse .photo-strip-inner {
-  animation-direction: reverse;
-}
+@keyframes scrollStrip { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.photo-strip.reverse .photo-strip-inner { animation-direction: reverse; }
 
-/* ===== NAV ===== */
+/* NAV */
 nav {
   position: fixed; top: 0; width: 100%; z-index: 1000;
-  background: rgba(5,5,16,0.92); backdrop-filter: blur(15px);
+  background: rgba(5,5,16,0.95); backdrop-filter: blur(15px);
   border-bottom: 3px solid var(--dc-gold);
-  padding: 0.8rem 2rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+  padding: 0.6rem 1rem; display: flex; justify-content: center; gap: 0.3rem; flex-wrap: wrap;
 }
 nav a {
-  color: var(--dc-gold); text-decoration: none; font-weight: 600; font-size: 0.85rem;
-  text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;
-  padding: 0.3rem 0.8rem; border-radius: 20px;
+  color: var(--dc-gold); text-decoration: none; font-weight: 600; font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s;
+  padding: 0.3rem 0.6rem; border-radius: 20px;
 }
-nav a:hover { background: var(--dc-gold); color: var(--dc-navy); }
+nav a:hover, nav a.active { background: var(--dc-gold); color: var(--dc-navy); }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero {
   min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 2rem; position: relative; overflow: hidden;
+  text-align: center; padding: 5rem 2rem 2rem; position: relative; overflow: hidden;
 }
 .hero-collage {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 3px;
   opacity: 0.25; z-index: 0;
 }
-.hero-collage img {
-  width: 100%; height: 100px; object-fit: cover;
-  animation: collagePulse 4s ease-in-out infinite alternate;
-}
-@keyframes collagePulse {
-  0% { filter: brightness(0.5) saturate(1.5); }
-  100% { filter: brightness(0.8) saturate(2); }
-}
+.hero-collage img { width: 100%; height: 100px; object-fit: cover; animation: collagePulse 4s ease-in-out infinite alternate; }
+@keyframes collagePulse { 0% { filter: brightness(0.5) saturate(1.5); } 100% { filter: brightness(0.8) saturate(2); } }
 .hero-content { position: relative; z-index: 2; }
-.hero-badge-ring {
-  position: relative; width: 200px; height: 200px; margin: 0 auto 1.5rem;
-}
+.hero-badge-ring { position: relative; width: 200px; height: 200px; margin: 0 auto 1.5rem; }
 .hero-badge-ring::before {
   content: ''; position: absolute; top: -8px; left: -8px; right: -8px; bottom: -8px;
-  border-radius: 50%; border: 4px solid var(--dc-gold);
-  animation: spinRing 8s linear infinite;
+  border-radius: 50%; animation: spinRing 8s linear infinite;
   background: conic-gradient(var(--dc-gold), transparent, var(--dc-gold), transparent, var(--dc-gold));
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
   mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 4px));
 }
 @keyframes spinRing { to { transform: rotate(360deg); } }
-.hero-badge {
-  width: 200px; height: 200px; border-radius: 50%; overflow: hidden;
-  box-shadow: 0 0 60px rgba(255,215,0,0.5), 0 0 120px rgba(255,215,0,0.2);
-}
+.hero-badge { width: 200px; height: 200px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 60px rgba(255,215,0,0.5); }
 .hero-badge img { width: 100%; height: 100%; object-fit: cover; }
-.hero h1 {
-  font-size: 4.5rem; color: var(--dc-gold);
-  text-shadow: 0 0 40px rgba(255,215,0,0.6), 0 0 80px rgba(255,215,0,0.3);
-  margin-bottom: 0.5rem;
-}
+.hero h1 { font-size: 4rem; color: var(--dc-gold); text-shadow: 0 0 40px rgba(255,215,0,0.6); margin-bottom: 0.5rem; }
 .hero h1 span { color: white; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
-.hero .subtitle { font-size: 1.4rem; color: #ccc; margin-bottom: 1rem; }
+.hero .subtitle { font-size: 1.2rem; color: #ccc; margin-bottom: 0.5rem; }
 .hero .tagline {
-  font-size: 1.1rem; color: var(--accent); font-style: italic;
+  font-size: 1rem; color: var(--accent); font-style: italic;
   padding: 0.5rem 1.5rem; border: 2px solid var(--accent); border-radius: 30px;
-  display: inline-block; margin-top: 0.5rem;
-  animation: taglinePulse 2s ease-in-out infinite;
+  display: inline-block; animation: taglinePulse 2s ease-in-out infinite;
 }
-@keyframes taglinePulse {
-  0%,100% { box-shadow: 0 0 10px rgba(230,57,70,0.3); }
-  50% { box-shadow: 0 0 30px rgba(230,57,70,0.6); }
-}
-.hero-stats {
-  display: flex; gap: 3rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center;
-}
+@keyframes taglinePulse { 0%,100% { box-shadow: 0 0 10px rgba(230,57,70,0.3); } 50% { box-shadow: 0 0 30px rgba(230,57,70,0.6); } }
+.hero-stats { display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center; }
 .hero-stat { text-align: center; }
-.hero-stat .num { font-size: 2.2rem; font-weight: 800; color: var(--dc-gold); text-shadow: 0 0 20px rgba(255,215,0,0.4); }
-.hero-stat .label { font-size: 0.8rem; text-transform: uppercase; color: #888; letter-spacing: 2px; }
-
-/* Orbiting photos around hero */
+.hero-stat .num { font-size: 2rem; font-weight: 800; color: var(--dc-gold); }
+.hero-stat .label { font-size: 0.75rem; text-transform: uppercase; color: #888; letter-spacing: 2px; }
 .orbit-ring {
   position: absolute; width: 500px; height: 500px; top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  animation: orbitSpin 30s linear infinite;
+  transform: translate(-50%,-50%); animation: orbitSpin 30s linear infinite;
   pointer-events: none; z-index: 1;
 }
-.orbit-img {
-  position: absolute; width: 60px; height: 60px; border-radius: 50%;
-  object-fit: cover; border: 2px solid var(--dc-gold);
-  box-shadow: 0 0 15px rgba(255,215,0,0.3);
-}
+.orbit-img { position: absolute; width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--dc-gold); box-shadow: 0 0 15px rgba(255,215,0,0.3); }
 @keyframes orbitSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
 
-/* ===== SECTIONS ===== */
-section {
-  padding: 4rem 2rem; max-width: 1200px; margin: 0 auto;
-  position: relative;
-}
-/* Section bg photo mosaic */
+/* SECTIONS */
+section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; position: relative; }
 .section-bg-photos {
   position: absolute; top: 0; left: -100px; right: -100px; bottom: 0;
   display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;
   opacity: 0.06; pointer-events: none; overflow: hidden; z-index: 0;
 }
-.section-bg-photos img {
-  width: 70px; height: 70px; object-fit: cover; border-radius: 4px;
-}
+.section-bg-photos img { width: 70px; height: 70px; object-fit: cover; border-radius: 4px; }
 section > *:not(.section-bg-photos) { position: relative; z-index: 1; }
-
-.section-title {
-  font-size: 2.5rem; color: var(--dc-gold); text-align: center; margin-bottom: 0.5rem;
-  text-shadow: 0 0 30px rgba(255,215,0,0.4);
-}
+.section-title { font-size: 2.5rem; color: var(--dc-gold); text-align: center; margin-bottom: 0.5rem; text-shadow: 0 0 30px rgba(255,215,0,0.4); }
 .section-subtitle { text-align: center; color: #888; margin-bottom: 2rem; font-size: 1rem; }
-.section-divider {
-  width: 80px; height: 3px; background: var(--dc-gold); margin: 0 auto 3rem;
-  box-shadow: 0 0 20px rgba(255,215,0,0.5);
-}
+.section-divider { width: 80px; height: 3px; background: var(--dc-gold); margin: 0 auto 3rem; box-shadow: 0 0 20px rgba(255,215,0,0.5); }
 
-/* ===== STATS ===== */
-.stats-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;
-  margin-bottom: 3rem;
+/* BUTTONS */
+.btn {
+  display: inline-block; padding: 0.75rem 1.5rem; border-radius: 30px; border: none; cursor: pointer;
+  font-weight: 700; font-size: 1rem; transition: all 0.3s; background: var(--dc-gold); color: var(--dc-navy);
 }
-.stat-card {
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,215,0,0.3);
-  border-radius: 16px; padding: 2rem; text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  backdrop-filter: blur(5px);
-  position: relative; overflow: hidden;
-}
-.stat-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, rgba(255,215,0,0.05), transparent);
-}
-.stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 40px rgba(255,215,0,0.2); }
-.stat-card .icon { font-size: 2rem; margin-bottom: 0.5rem; position: relative; }
-.stat-card .value { font-size: 2.2rem; font-weight: 800; color: var(--dc-gold); position: relative; }
-.stat-card .label { color: #888; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; position: relative; }
+.btn:hover { transform: scale(1.05); box-shadow: 0 5px 30px rgba(255,215,0,0.4); }
+.btn-outline { background: transparent; border: 2px solid var(--dc-gold); color: var(--dc-gold); }
+.btn-outline:hover { background: var(--dc-gold); color: var(--dc-navy); }
+.btn-pink { background: var(--pink); color: white; }
+.btn-pink:hover { background: #db2777; }
+.btn-turquoise { background: var(--turquoise); color: var(--dc-navy); }
+.btn-turquoise:hover { background: #14b8a6; }
 
-.hashtag-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
-.hashtag {
-  padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem;
-  background: rgba(255,215,0,0.1); color: var(--dc-gold); border: 1px solid rgba(255,215,0,0.3);
+/* CARD */
+.card {
+  background: var(--card); border-radius: 16px; padding: 1.5rem;
+  border: 1px solid var(--card-border); backdrop-filter: blur(5px); margin-bottom: 1rem;
   transition: all 0.3s;
 }
+.card:hover { border-color: var(--dc-gold); }
+
+/* STATS */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+.stat-card {
+  background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 2rem;
+  text-align: center; transition: transform 0.3s, box-shadow 0.3s; backdrop-filter: blur(5px);
+}
+.stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 40px rgba(255,215,0,0.2); }
+.stat-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.stat-card .value { font-size: 2.2rem; font-weight: 800; color: var(--dc-gold); }
+.stat-card .label { color: #888; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+.hashtag-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+.hashtag { padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; background: rgba(255,215,0,0.1); color: var(--dc-gold); border: 1px solid rgba(255,215,0,0.3); transition: all 0.3s; }
 .hashtag:hover { background: var(--dc-gold); color: var(--dc-navy); transform: scale(1.1); }
 
-/* ===== GALLERY ===== */
-.gallery-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;
+/* FIT CHECK RANKER */
+.fit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.fit-card {
+  background: var(--card); border-radius: 16px; overflow: hidden; border: 2px solid var(--card-border);
+  transition: all 0.3s; position: relative;
 }
+.fit-card:hover { border-color: var(--dc-gold); transform: translateY(-3px); box-shadow: 0 10px 40px rgba(255,215,0,0.2); }
+.fit-card img { width: 100%; height: 300px; object-fit: cover; }
+.fit-card video { width: 100%; height: 300px; object-fit: cover; }
+.fit-card-body { padding: 1rem; }
+.fit-card-caption { font-size: 0.85rem; color: #ccc; margin-bottom: 0.75rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fit-stars { display: flex; gap: 0.25rem; font-size: 1.8rem; cursor: pointer; justify-content: center; margin-bottom: 0.5rem; }
+.fit-stars span { color: #333; transition: color 0.15s; user-select: none; }
+.fit-stars span.lit { color: var(--dc-gold); text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+.fit-avg { text-align: center; color: var(--dc-gold); font-weight: 700; font-size: 0.9rem; }
+.fit-rank-badge {
+  position: absolute; top: 10px; left: 10px; background: var(--dc-gold); color: var(--dc-navy);
+  font-weight: 900; font-size: 0.85rem; padding: 0.3rem 0.7rem; border-radius: 20px; z-index: 2;
+}
+.fit-sort-bar { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+.fit-comments { margin-top: 0.75rem; border-top: 1px solid rgba(255,215,0,0.1); padding-top: 0.75rem; }
+.fit-comments input {
+  width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #333;
+  background: rgba(0,0,0,0.3); color: #ddd; font-size: 0.85rem;
+}
+.fit-comments input:focus { outline: none; border-color: var(--dc-gold); }
+.fit-comment-item { font-size: 0.8rem; color: #aaa; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.fit-comment-item strong { color: var(--dc-gold); }
+
+/* GALLERY */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.8rem; }
 .gallery-item {
   position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 1;
-  cursor: pointer; transition: transform 0.3s;
-  border: 2px solid rgba(255,215,0,0.2);
+  cursor: pointer; transition: transform 0.3s; border: 2px solid var(--card-border);
 }
-.gallery-item:hover { transform: scale(1.05); border-color: var(--dc-gold); box-shadow: 0 0 30px rgba(255,215,0,0.3); }
+.gallery-item:hover { transform: scale(1.05); border-color: var(--dc-gold); }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 .gallery-overlay {
   position: absolute; bottom: 0; left: 0; right: 0;
   background: linear-gradient(transparent, rgba(0,0,0,0.95));
-  padding: 1rem; opacity: 0; transition: opacity 0.3s;
+  padding: 0.8rem; opacity: 0; transition: opacity 0.3s;
 }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay .caption { font-size: 0.8rem; color: #ddd; }
-.gallery-overlay .stats { font-size: 0.75rem; color: var(--dc-gold); margin-top: 0.3rem; }
+.gallery-overlay .caption { font-size: 0.75rem; color: #ddd; }
+.gallery-overlay .stats { font-size: 0.7rem; color: var(--dc-gold); margin-top: 0.2rem; }
 
-/* ===== LIGHTBOX ===== */
+/* LIGHTBOX */
 .lightbox {
   display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.97); z-index: 2000; align-items: center; justify-content: center;
@@ -267,185 +223,179 @@ section > *:not(.section-bg-photos) { position: relative; z-index: 1; }
 }
 .lightbox.active { display: flex; }
 .lightbox img { max-width: 90%; max-height: 70vh; border-radius: 12px; object-fit: contain; border: 3px solid var(--dc-gold); }
-.lightbox .lb-caption { color: #ddd; margin-top: 1rem; max-width: 600px; text-align: center; font-size: 0.95rem; }
+.lightbox .lb-caption { color: #ddd; margin-top: 1rem; max-width: 600px; text-align: center; }
 .lightbox .lb-stats { color: var(--dc-gold); margin-top: 0.5rem; }
-.lightbox .lb-close {
-  position: absolute; top: 1rem; right: 2rem; font-size: 2rem; color: white;
-  cursor: pointer; background: none; border: none;
-}
+.lightbox .lb-close { position: absolute; top: 1rem; right: 2rem; font-size: 2rem; color: white; cursor: pointer; background: none; border: none; }
 
-/* ===== FLASHCARDS ===== */
-.flashcard-container { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
-.flashcard { width: 300px; height: 200px; perspective: 1000px; cursor: pointer; }
-.flashcard-inner {
-  width: 100%; height: 100%; position: relative; transition: transform 0.6s;
-  transform-style: preserve-3d;
+/* TRIVIA */
+.trivia-difficulty { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center; }
+.trivia-q { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; text-align: center; color: white; }
+.trivia-options { display: grid; gap: 0.5rem; max-width: 600px; margin: 0 auto; }
+.trivia-opt {
+  padding: 1rem; background: var(--card); border: 2px solid #475569;
+  border-radius: 0.75rem; cursor: pointer; font-size: 1rem; text-align: left;
+  transition: all 0.15s; color: #f1f5f9;
 }
-.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-.flashcard-front, .flashcard-back {
-  position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-  border-radius: 16px; display: flex; align-items: center; justify-content: center;
-  padding: 1.5rem; text-align: center; font-size: 1rem;
-}
-.flashcard-front {
-  background: linear-gradient(135deg, var(--dc-blue), #1a1a3e);
-  border: 2px solid var(--dc-gold); color: white;
-  box-shadow: 0 0 20px rgba(255,215,0,0.15);
-}
-.flashcard-front::before { content: '❓'; font-size: 1.5rem; position: absolute; top: 0.8rem; left: 1rem; }
-.flashcard-back {
-  background: linear-gradient(135deg, #1a3a1a, #0a2a0a);
-  border: 2px solid #4CAF50; color: #4CAF50; transform: rotateY(180deg); font-weight: 700;
-}
-.flashcard-back::before { content: '✅'; font-size: 1.5rem; position: absolute; top: 0.8rem; left: 1rem; }
+.trivia-opt:hover { border-color: var(--dc-gold); background: rgba(255,215,0,0.05); }
+.trivia-opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.15); }
+.trivia-opt.wrong { border-color: #ef4444; background: rgba(239,68,68,0.15); }
+.trivia-progress { height: 4px; background: #334155; border-radius: 2px; margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 1.5rem; }
+.trivia-progress-bar { height: 100%; background: var(--dc-gold); border-radius: 2px; transition: width 0.3s; }
+.trivia-score { font-size: 2rem; font-weight: 800; color: var(--dc-gold); }
 
-/* ===== QUIZ ===== */
-.quiz-container {
-  max-width: 700px; margin: 0 auto;
-  background: rgba(255,255,255,0.03); border-radius: 20px; padding: 2rem;
-  border: 1px solid rgba(255,215,0,0.3); backdrop-filter: blur(5px);
+/* DATING QUIZ */
+.quiz-container { max-width: 700px; margin: 0 auto; background: var(--card); border-radius: 20px; padding: 2rem; border: 1px solid var(--card-border); }
+.quiz-q { font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; text-align: center; color: white; }
+.quiz-opts { display: grid; gap: 0.5rem; }
+.quiz-opt {
+  padding: 1rem; background: rgba(255,255,255,0.03); border: 2px solid #475569;
+  border-radius: 12px; cursor: pointer; transition: all 0.15s; color: #f1f5f9; text-align: left;
 }
-.quiz-question { font-size: 1.3rem; color: white; margin-bottom: 1.5rem; text-align: center; }
-.quiz-progress { text-align: center; color: #888; margin-bottom: 1rem; font-size: 0.85rem; }
-.quiz-options { display: flex; flex-direction: column; gap: 0.8rem; }
-.quiz-option {
-  padding: 1rem 1.5rem; border-radius: 12px; cursor: pointer;
-  background: rgba(255,255,255,0.05); border: 2px solid rgba(255,215,0,0.2);
-  color: #ddd; font-size: 1rem; transition: all 0.3s; text-align: left;
-}
-.quiz-option:hover { border-color: var(--dc-gold); background: rgba(255,215,0,0.1); }
-.quiz-result { text-align: center; padding: 2rem; }
-.quiz-result h3 { font-size: 1.8rem; color: var(--dc-gold); margin-bottom: 1rem; }
-.quiz-result p { color: #bbb; margin-bottom: 1rem; }
-.quiz-result img { width: 200px; height: 200px; object-fit: cover; border-radius: 12px; margin: 1rem auto; display: block; border: 3px solid var(--dc-gold); }
-.btn {
-  padding: 0.8rem 2rem; border-radius: 30px; border: none; cursor: pointer;
-  font-weight: 700; font-size: 1rem; transition: all 0.3s;
-  background: var(--dc-gold); color: var(--dc-navy);
-}
-.btn:hover { transform: scale(1.05); box-shadow: 0 5px 30px rgba(255,215,0,0.4); }
+.quiz-opt:hover { border-color: var(--pink); background: rgba(236,72,153,0.1); }
 
-/* ===== COMMENTS ===== */
-.comments-carousel { display: flex; flex-direction: column; gap: 1rem; max-width: 700px; margin: 0 auto; }
-.comment-card {
-  background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1.5rem;
-  border-left: 4px solid var(--dc-gold); transition: transform 0.3s;
-  backdrop-filter: blur(5px);
+/* CAPTION GAME */
+.caption-box { background: var(--card); border-radius: 16px; padding: 2rem; text-align: center; border: 1px solid var(--card-border); }
+.caption-input {
+  width: 100%; padding: 0.85rem; border-radius: 12px; border: 2px solid #475569;
+  background: rgba(0,0,0,0.3); color: #f1f5f9; font-size: 1rem; margin-top: 1rem;
 }
-.comment-card:hover { transform: translateX(5px); }
-.comment-text { font-style: italic; color: #ddd; margin-bottom: 0.5rem; font-size: 1rem; }
-.comment-user { color: var(--dc-gold); font-size: 0.85rem; }
+.caption-input:focus { outline: none; border-color: var(--dc-gold); }
+.caption-reveal { margin-top: 1rem; font-weight: 700; color: var(--dc-gold); font-size: 1.1rem; }
 
-/* ===== MEMORY GAME ===== */
-.memory-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem;
-  max-width: 500px; margin: 0 auto;
+/* SPANISH */
+.spanish-card { background: var(--card); border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid var(--card-border); }
+.spanish-phrase { font-size: 1.8rem; font-weight: 700; color: var(--dc-gold); margin-bottom: 0.5rem; }
+.spanish-context { color: #888; font-size: 0.9rem; margin-bottom: 1rem; }
+.spanish-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.spanish-opt {
+  padding: 0.75rem; background: rgba(0,0,0,0.3); border: 2px solid #475569;
+  border-radius: 12px; cursor: pointer; transition: all 0.15s; color: #f1f5f9;
 }
-.memory-card { aspect-ratio: 1; border-radius: 12px; cursor: pointer; perspective: 1000px; position: relative; }
-.memory-card-inner {
-  width: 100%; height: 100%; position: relative; transition: transform 0.4s;
-  transform-style: preserve-3d;
-}
-.memory-card.flipped .memory-card-inner,
-.memory-card.matched .memory-card-inner { transform: rotateY(180deg); }
+.spanish-opt:hover { border-color: var(--dc-gold); }
+.spanish-opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.15); }
+.spanish-opt.wrong { border-color: #ef4444; background: rgba(239,68,68,0.15); }
+
+/* MEMORY GAME */
+.memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; max-width: 500px; margin: 0 auto; }
+.memory-card { aspect-ratio: 1; border-radius: 12px; cursor: pointer; perspective: 1000px; }
+.memory-card-inner { width: 100%; height: 100%; position: relative; transition: transform 0.4s; transform-style: preserve-3d; }
+.memory-card.flipped .memory-card-inner, .memory-card.matched .memory-card-inner { transform: rotateY(180deg); }
 .memory-card.matched { opacity: 0.7; pointer-events: none; }
-.memory-front, .memory-back {
-  position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px;
-}
-.memory-front {
-  background: linear-gradient(135deg, var(--dc-blue), var(--dc-navy));
-  border: 2px solid var(--dc-gold);
-  display: flex; align-items: center; justify-content: center; font-size: 2rem;
-}
+.memory-front, .memory-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; }
+.memory-front { background: linear-gradient(135deg, var(--dc-blue), var(--dc-navy)); border: 2px solid var(--dc-gold); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
 .memory-back { transform: rotateY(180deg); overflow: hidden; }
 .memory-back img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 .game-info { text-align: center; margin-bottom: 1.5rem; color: #888; }
 .game-info span { color: var(--dc-gold); font-weight: 700; }
 
-/* ===== CAPTION GAME ===== */
-.caption-game { max-width: 600px; margin: 0 auto; text-align: center; }
-.caption-game img { width: 250px; height: 250px; object-fit: cover; border-radius: 12px; margin: 1rem auto; border: 3px solid var(--dc-gold); }
-.caption-reveal {
-  background: rgba(255,215,0,0.1); border-radius: 12px; padding: 1rem; margin-top: 1rem;
-  border: 1px solid var(--dc-gold); color: var(--dc-gold);
+/* FAN COMMENTS */
+.comments-section { max-width: 700px; margin: 0 auto; }
+.comment-card {
+  background: var(--card); border-radius: 16px; padding: 1.5rem;
+  border-left: 4px solid var(--dc-gold); margin-bottom: 0.75rem; transition: transform 0.3s;
 }
+.comment-card:hover { transform: translateX(5px); }
+.comment-text { font-style: italic; color: #ddd; margin-bottom: 0.5rem; }
+.comment-user { color: var(--dc-gold); font-size: 0.85rem; }
+.fan-comment-form { margin-top: 2rem; }
+.fan-comment-form textarea {
+  width: 100%; padding: 1rem; border-radius: 12px; border: 2px solid #333;
+  background: rgba(0,0,0,0.3); color: #ddd; font-size: 1rem; min-height: 80px; resize: vertical;
+  font-family: inherit;
+}
+.fan-comment-form textarea:focus { outline: none; border-color: var(--dc-gold); }
+.fan-comment-form input {
+  width: 100%; padding: 0.75rem; border-radius: 12px; border: 2px solid #333;
+  background: rgba(0,0,0,0.3); color: #ddd; font-size: 1rem; margin-top: 0.5rem;
+  font-family: inherit;
+}
+.fan-comment-form input:focus { outline: none; border-color: var(--dc-gold); }
+.user-comments-list { margin-top: 1.5rem; }
 
-/* ===== TOP POSTS ===== */
-.top-posts { display: flex; flex-direction: column; gap: 1rem; }
+/* FLASHCARDS */
+.flashcard-container { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
+.flashcard { width: 280px; height: 180px; perspective: 1000px; cursor: pointer; }
+.flashcard-inner { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+  border-radius: 16px; display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem; text-align: center; font-size: 0.95rem;
+}
+.flashcard-front { background: linear-gradient(135deg, var(--dc-blue), #1a1a3e); border: 2px solid var(--dc-gold); color: white; }
+.flashcard-back { background: linear-gradient(135deg, #1a3a1a, #0a2a0a); border: 2px solid #4CAF50; color: #4CAF50; transform: rotateY(180deg); font-weight: 700; }
+
+/* TOP POSTS */
+.top-posts { display: flex; flex-direction: column; gap: 0.75rem; }
 .top-post {
   display: flex; gap: 1rem; align-items: center;
-  background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1rem;
+  background: var(--card); border-radius: 12px; padding: 1rem;
   border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s;
 }
-.top-post:hover { border-color: var(--dc-gold); box-shadow: 0 0 20px rgba(255,215,0,0.1); }
+.top-post:hover { border-color: var(--dc-gold); }
 .top-post .rank { font-size: 1.8rem; font-weight: 900; color: var(--dc-gold); min-width: 40px; text-align: center; }
 .top-post img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; border: 2px solid rgba(255,215,0,0.3); }
 .top-post .info { flex: 1; }
 .top-post .info .cap { font-size: 0.9rem; color: #ccc; }
 .top-post .info .nums { font-size: 0.8rem; color: var(--dc-gold); margin-top: 0.3rem; }
 
-/* ===== TABS ===== */
-.tab-container { margin-top: 2rem; }
+/* TABS */
 .tab-buttons { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .tab-btn {
-  padding: 0.6rem 1.5rem; border-radius: 30px; border: 2px solid rgba(255,215,0,0.3);
-  background: transparent; color: #aaa; cursor: pointer; font-size: 0.9rem; transition: all 0.3s;
+  padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid var(--card-border);
+  background: transparent; color: #aaa; cursor: pointer; font-size: 0.85rem; transition: all 0.3s;
 }
 .tab-btn.active { background: var(--dc-gold); color: var(--dc-navy); border-color: var(--dc-gold); }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 
-/* ===== FOOTER ===== */
-footer {
-  text-align: center; padding: 3rem 2rem;
-  border-top: 3px solid var(--dc-gold);
-  color: #666; font-size: 0.85rem;
-  position: relative; z-index: 1;
-  background: rgba(5,5,16,0.9);
-}
-footer a { color: var(--dc-gold); text-decoration: none; }
-
-/* ===== TONY P BORDER FRAMES ===== */
+/* TONY BORDER */
 .tony-border {
   display: flex; flex-wrap: wrap; gap: 3px; justify-content: center;
   padding: 0.5rem; background: rgba(0,0,0,0.5); position: relative; z-index: 1;
 }
-.tony-border img {
-  width: 50px; height: 50px; object-fit: cover; border-radius: 4px;
-  border: 1px solid rgba(255,215,0,0.3);
-  transition: transform 0.3s;
-}
+.tony-border img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid rgba(255,215,0,0.3); transition: transform 0.3s; }
 .tony-border img:hover { transform: scale(2); z-index: 10; }
 
-/* ===== RESPONSIVE ===== */
+/* GAME SECTION (for tab-based nav games) */
+.game-section { display: none; }
+.game-section.active { display: block; }
+
+footer {
+  text-align: center; padding: 3rem 2rem; border-top: 3px solid var(--dc-gold);
+  color: #666; font-size: 0.85rem; position: relative; z-index: 1; background: rgba(5,5,16,0.9);
+}
+footer a { color: var(--dc-gold); text-decoration: none; }
+
 @media (max-width: 768px) {
   .hero h1 { font-size: 2.5rem; }
-  .memory-grid { grid-template-columns: repeat(4, 1fr); max-width: 350px; }
+  .memory-grid { max-width: 350px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  nav { gap: 0.5rem; }
-  nav a { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+  .fit-grid { grid-template-columns: 1fr; }
+  nav a { font-size: 0.65rem; padding: 0.2rem 0.4rem; }
   .orbit-ring { width: 300px; height: 300px; }
-  .hero-collage { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); }
-  .photo-strip-inner img { width: 50px; height: 50px; }
+  .spanish-opts { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- FLOATING TONY P BACKGROUND -->
 <div id="floating-bg"></div>
 <div id="photo-rain"></div>
 
 <div class="content-wrapper">
 
-<nav>
+<nav id="main-nav">
   <a href="#hero">🏠 Home</a>
+  <a href="#fitcheck">👔 Fit Check</a>
   <a href="#stats">📊 Stats</a>
   <a href="#gallery">📸 Gallery</a>
   <a href="#trivia">🧠 Trivia</a>
-  <a href="#quiz">🎯 Quiz</a>
-  <a href="#comments">💬 Comments</a>
+  <a href="#dating">💕 Date Tony?</a>
+  <a href="#caption">✍️ Captions</a>
+  <a href="#spanish">🇪🇸 Spanish</a>
   <a href="#games">🎮 Games</a>
+  <a href="#comments">💬 Comments</a>
   <a href="#top">🏆 Top Posts</a>
 </nav>
 
@@ -455,12 +405,10 @@ footer a { color: var(--dc-gold); text-decoration: none; }
   <div class="orbit-ring" id="orbit-ring"></div>
   <div class="hero-content">
     <div class="hero-badge-ring">
-      <div class="hero-badge">
-        <img src="images/DJ2eVolPIIQ.jpg" alt="Tony P">
-      </div>
+      <div class="hero-badge"><img src="images/DJ2eVolPIIQ.jpg" alt="Tony P"></div>
     </div>
     <h1>Tony <span>P</span> in DC</h1>
-    <p class="subtitle">🎤 Aspiring Broadcaster · 🏛️ DC Native · 👨‍🍳 Home Chef · ⛳ Golfer · 💼 Consultant</p>
+    <p class="subtitle">🐕 Reasonably Positive · 🎤 Aspiring Broadcaster · 🏛️ DC Native · 👨‍🍳 Home Chef</p>
     <p class="tagline">@_tonypindc — The People's Broadcaster</p>
     <div class="hero-stats">
       <div class="hero-stat"><div class="num">186K</div><div class="label">Followers</div></div>
@@ -471,10 +419,26 @@ footer a { color: var(--dc-gold); text-decoration: none; }
   </div>
 </section>
 
-<!-- PHOTO STRIP 1 -->
 <div class="photo-strip" id="strip1"></div>
 
-<!-- STATS DASHBOARD -->
+<!-- FIT CHECK RANKER -->
+<section id="fitcheck">
+  <div class="section-bg-photos" id="fitcheck-bg"></div>
+  <h2 class="section-title">👔 Fit Check Ranker</h2>
+  <p class="section-subtitle">Rate Tony's fits! Star ratings are saved & ranked. Leave comments on each fit.</p>
+  <div class="section-divider"></div>
+  <div class="fit-sort-bar">
+    <button class="btn btn-outline" onclick="sortFits('recent')">Most Recent</button>
+    <button class="btn btn-outline" onclick="sortFits('top')">Top Rated</button>
+    <button class="btn btn-outline" onclick="sortFits('likes')">Most Liked</button>
+  </div>
+  <div class="fit-grid" id="fit-grid"></div>
+</section>
+
+<div class="photo-strip reverse" id="strip2"></div>
+<div class="tony-border" id="tony-border-1"></div>
+
+<!-- STATS -->
 <section id="stats">
   <div class="section-bg-photos" id="stats-bg"></div>
   <h2 class="section-title">📊 Stats Dashboard</h2>
@@ -492,124 +456,27 @@ footer a { color: var(--dc-gold); text-decoration: none; }
   </div>
   <h3 style="color:var(--dc-gold);text-align:center;margin-bottom:1rem">🏷️ Tony's Top Hashtags</h3>
   <div class="hashtag-cloud">
-    <span class="hashtag" title="39 uses">#vlog <small>(39)</small></span><span class="hashtag" title="21 uses">#news <small>(21)</small></span><span class="hashtag" title="20 uses">#broadcasting <small>(20)</small></span><span class="hashtag" title="18 uses">#dayinthelife <small>(18)</small></span><span class="hashtag" title="18 uses">#christmas <small>(18)</small></span><span class="hashtag" title="17 uses">#ootd <small>(17)</small></span><span class="hashtag" title="16 uses">#adulting <small>(16)</small></span><span class="hashtag" title="16 uses">#holidays <small>(16)</small></span><span class="hashtag" title="15 uses">#travel <small>(15)</small></span><span class="hashtag" title="13 uses">#fitcheck <small>(13)</small></span><span class="hashtag" title="12 uses">#headlines <small>(12)</small></span><span class="hashtag" title="11 uses">#bts <small>(11)</small></span><span class="hashtag" title="11 uses">#movies <small>(11)</small></span><span class="hashtag" title="10 uses">#fyp <small>(10)</small></span><span class="hashtag" title="9 uses">#cooking <small>(9)</small></span><span class="hashtag" title="9 uses">#weekend <small>(9)</small></span><span class="hashtag" title="9 uses">#dc <small>(9)</small></span><span class="hashtag" title="9 uses">#music <small>(9)</small></span><span class="hashtag" title="9 uses">#tv <small>(9)</small></span><span class="hashtag" title="8 uses">#rant <small>(8)</small></span>
+    <span class="hashtag">#vlog (39)</span><span class="hashtag">#news (21)</span><span class="hashtag">#broadcasting (20)</span>
+    <span class="hashtag">#dayinthelife (18)</span><span class="hashtag">#christmas (18)</span><span class="hashtag">#ootd (17)</span>
+    <span class="hashtag">#adulting (16)</span><span class="hashtag">#holidays (16)</span><span class="hashtag">#travel (15)</span>
+    <span class="hashtag">#fitcheck (13)</span><span class="hashtag">#headlines (12)</span><span class="hashtag">#bts (11)</span>
+    <span class="hashtag">#movies (11)</span><span class="hashtag">#fyp (10)</span><span class="hashtag">#cooking (9)</span>
+    <span class="hashtag">#weekend (9)</span><span class="hashtag">#dc (9)</span><span class="hashtag">#music (9)</span>
   </div>
 </section>
 
-<!-- PHOTO STRIP 2 -->
-<div class="photo-strip reverse" id="strip2"></div>
-
-<!-- TONY P BORDER -->
-<div class="tony-border" id="tony-border-1"></div>
+<div class="photo-strip" id="strip3"></div>
 
 <!-- GALLERY -->
 <section id="gallery">
   <div class="section-bg-photos" id="gallery-bg"></div>
   <h2 class="section-title">📸 The Gallery</h2>
-  <p class="section-subtitle">Tony P's greatest hits — click any photo to expand</p>
+  <p class="section-subtitle">All 200 Tony P photos — click to expand</p>
   <div class="section-divider"></div>
-  <div class="gallery-grid">
-    <div class="gallery-item" onclick="openLightbox('images/DJ2eVolPIIQ.jpg', `I'm back and here to keep you company 😊`, '❤️ 7,467 · 👁️ 23,799 · 💬 487')">
-      <img src="images/DJ2eVolPIIQ.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">I'm back and here to keep you company 😊</div><div class="stats">❤️ 7,467 · 💬 487</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQqDJU2kREE.jpg', `Always wanted to hold that mic`, '❤️ 5,420 · 👁️ 195,974 · 💬 217')">
-      <img src="images/DQqDJU2kREE.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Always wanted to hold that mic</div><div class="stats">❤️ 5,420 · 💬 217</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQaK0GuEYez.jpg', `Sarah, you continue to amaze me`, '❤️ 4,416 · 👁️ 115,454 · 💬 124')">
-      <img src="images/DQaK0GuEYez.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Sarah, you continue to amaze me</div><div class="stats">❤️ 4,416 · 💬 124</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSksS4DEbdk.jpg', `Shout out to the original Tony P`, '❤️ 4,036 · 👁️ 197,968 · 💬 348')">
-      <img src="images/DSksS4DEbdk.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Shout out to the original Tony P</div><div class="stats">❤️ 4,036 · 💬 348</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DUHMRrhkU7U.jpg', `You're not the only one who laughs 😉`, '❤️ 3,903 · 👁️ 175,519 · 💬 374')">
-      <img src="images/DUHMRrhkU7U.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">You're not the only one who laughs 😉</div><div class="stats">❤️ 3,903 · 💬 374</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRBOqy2EQoC.jpg', `I couldn't even give it a good politicians answer 😂`, '❤️ 4,067 · 👁️ 221,075 · 💬 201')">
-      <img src="images/DRBOqy2EQoC.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">I couldn't even give it a good politicians answer 😂</div><div class="stats">❤️ 4,067 · 💬 201</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPm0WLjkX6a.jpg', `I got a little disheveled this past year`, '❤️ 3,870 · 👁️ 161,415 · 💬 245')">
-      <img src="images/DPm0WLjkX6a.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">I got a little disheveled this past year</div><div class="stats">❤️ 3,870 · 💬 245</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPudEEmkSeM.jpg', `Little late on this one but here it is!`, '❤️ 3,789 · 👁️ 109,534 · 💬 241')">
-      <img src="images/DPudEEmkSeM.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Little late on this one but here it is!</div><div class="stats">❤️ 3,789 · 💬 241</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DURzLHJEYrT.jpg', `Committed bachelor was a bit confusing 😂`, '❤️ 3,749 · 👁️ 188,604 · 💬 252')">
-      <img src="images/DURzLHJEYrT.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Committed bachelor was a bit confusing 😂</div><div class="stats">❤️ 3,749 · 💬 252</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRqGcnWkR-N.jpg', `27 years in the making!`, '❤️ 3,611 · 👁️ 163,476 · 💬 186')">
-      <img src="images/DRqGcnWkR-N.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">27 years in the making!</div><div class="stats">❤️ 3,611 · 💬 186</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSgDDQ0ESm7.jpg', `Life of a Broadcaster`, '❤️ 2,701 · 👁️ 145,092 · 💬 148')">
-      <img src="images/DSgDDQ0ESm7.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Life of a Broadcaster</div><div class="stats">❤️ 2,701 · 💬 148</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPcm80CEQQ0.jpg', `Album drop 🤝 Sunday Football 🏈`, '❤️ 2,405 · 👁️ 171,142 · 💬 374')">
-      <img src="images/DPcm80CEQQ0.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Album drop 🤝 Sunday Football 🏈</div><div class="stats">❤️ 2,405 · 💬 374</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DS80OM3jajz.jpg', `Tv show at 9 and then party at 10:30`, '❤️ 2,595 · 👁️ 111,922 · 💬 167')">
-      <img src="images/DS80OM3jajz.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Tv show at 9 and then party at 10:30</div><div class="stats">❤️ 2,595 · 💬 167</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQVOK4rEVMj.jpg', `I would've been a hit in 1987 😂`, '❤️ 2,488 · 👁️ 146,097 · 💬 144')">
-      <img src="images/DQVOK4rEVMj.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">I would've been a hit in 1987 😂</div><div class="stats">❤️ 2,488 · 💬 144</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DStuqN2DRlt.jpg', `Like clockwork 🥹`, '❤️ 2,161 · 👁️ 72,119 · 💬 106')">
-      <img src="images/DStuqN2DRlt.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Like clockwork 🥹</div><div class="stats">❤️ 2,161 · 💬 106</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRQpq2PERmM.jpg', `Frozen meals are clutch these days`, '❤️ 2,099 · 👁️ 139,884 · 💬 150')">
-      <img src="images/DRQpq2PERmM.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Frozen meals are clutch these days</div><div class="stats">❤️ 2,099 · 💬 150</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DSc08AnkSm3.jpg', `The Hallmark movie fit 🤷🏻`, '❤️ 1,925 · 👁️ 62,007 · 💬 172')">
-      <img src="images/DSc08AnkSm3.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">The Hallmark movie fit 🤷🏻</div><div class="stats">❤️ 1,925 · 💬 172</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPkQ_BqkZr_.jpg', `Proud of These AP2's`, '❤️ 1,906 · 👁️ 79,691 · 💬 172')">
-      <img src="images/DPkQ_BqkZr_.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Proud of These AP2's</div><div class="stats">❤️ 1,906 · 💬 172</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPzEGr6EcEg.jpg', `Dark Tony can still be brought out 😌🥋`, '❤️ 1,719 · 👁️ 91,328 · 💬 303')">
-      <img src="images/DPzEGr6EcEg.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Dark Tony can still be brought out 😌🥋</div><div class="stats">❤️ 1,719 · 💬 303</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQ5eXOkEVeD.jpg', `Mingya!`, '❤️ 1,830 · 👁️ 75,201 · 💬 165')">
-      <img src="images/DQ5eXOkEVeD.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Mingya!</div><div class="stats">❤️ 1,830 · 💬 165</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DQ8Ta-CjU1B.jpg', `On this Veterans Day...`, '❤️ 1,940 · 👁️ 0 · 💬 29')">
-      <img src="images/DQ8Ta-CjU1B.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">On this Veterans Day...</div><div class="stats">❤️ 1,940 · 💬 29</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRVLn7akfcw.jpg', `I have to be truthful 😂`, '❤️ 1,809 · 👁️ 65,207 · 💬 125')">
-      <img src="images/DRVLn7akfcw.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">I have to be truthful 😂</div><div class="stats">❤️ 1,809 · 💬 125</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DPxQ4g8kXn3.jpg', `Still trying to prove I'm Penske material`, '❤️ 1,791 · 👁️ 105,840 · 💬 143')">
-      <img src="images/DPxQ4g8kXn3.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">Still trying to prove I'm Penske material</div><div class="stats">❤️ 1,791 · 💬 143</div></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox('images/DRzYx9HDNjf.jpg', `From across the Atlantic`, '❤️ 1,808 · 👁️ 43,093 · 💬 69')">
-      <img src="images/DRzYx9HDNjf.jpg" alt="Tony P" loading="lazy">
-      <div class="gallery-overlay"><div class="caption">From across the Atlantic</div><div class="stats">❤️ 1,808 · 💬 69</div></div>
-    </div>
-  </div>
+  <div class="gallery-grid" id="gallery-grid"></div>
 </section>
 
-<!-- PHOTO STRIP 3 -->
-<div class="photo-strip" id="strip3"></div>
+<div class="photo-strip reverse" id="strip4"></div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -619,56 +486,100 @@ footer a { color: var(--dc-gold); text-decoration: none; }
   <p class="lb-stats" id="lb-stats"></p>
 </div>
 
-<!-- TRIVIA FLASHCARDS -->
+<!-- TRIVIA -->
 <section id="trivia">
   <div class="section-bg-photos" id="trivia-bg"></div>
   <h2 class="section-title">🧠 Tony P Trivia</h2>
-  <p class="section-subtitle">Click a card to reveal the answer — how well do you know Tone?</p>
+  <p class="section-subtitle">40 questions across 3 difficulty levels</p>
   <div class="section-divider"></div>
-  <div class="flashcard-container">
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What does Tony P call his fans?</div><div class="flashcard-back">They call him 'Tone'!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">How many followers does Tony P have?</div><div class="flashcard-back">About 186,000!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What city is Tony P based in?</div><div class="flashcard-back">Washington DC!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What's Tony P's dream career?</div><div class="flashcard-back">Broadcaster / Talk Show Host!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What holiday dish did Tony P make?</div><div class="flashcard-back">A roast — his first time!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What does Tony P run besides content?</div><div class="flashcard-back">A small consulting company!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What 80s show is Tony P a fan of?</div><div class="flashcard-back">Stranger Things!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What sport does Tony P play?</div><div class="flashcard-back">Golf!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What cooking icon inspired Tony P?</div><div class="flashcard-back">Ina Garten!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What classic TV show helps him discover music?</div><div class="flashcard-back">The Sopranos!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What did Tony P dress as for Halloween?</div><div class="flashcard-back">Bob Ross (with ASMR)!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What European trip was 27 years in the making?</div><div class="flashcard-back">Brussels & Italy!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What's Tony P's guilty pleasure candy?</div><div class="flashcard-back">A chilled Reese's!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What did Tony P buy at HomeGoods?</div><div class="flashcard-back">Dropped 'the GDP of a small country' on decor!</div></div></div>
-    <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What's Tony P's fashion icon quote?</div><div class="flashcard-back">'I wear black because I'm comfortable in it' — Johnny Cash</div></div></div>
+  <div class="trivia-difficulty" id="trivia-menu">
+    <button class="btn btn-outline" onclick="startTrivia('easy')">Easy (10)</button>
+    <button class="btn btn-outline" onclick="startTrivia('medium')">Medium (10)</button>
+    <button class="btn btn-outline" onclick="startTrivia('hard')">Hard (20)</button>
+    <button class="btn" onclick="startTrivia('all')">All 40 🔥</button>
+  </div>
+  <div id="trivia-area"></div>
+</section>
+
+<div class="tony-border" id="tony-border-2"></div>
+
+<!-- DATING QUIZ -->
+<section id="dating">
+  <div class="section-bg-photos" id="dating-bg"></div>
+  <h2 class="section-title">💕 Would Tony Date You?</h2>
+  <p class="section-subtitle">15 questions to find your Tony P compatibility score</p>
+  <div class="section-divider"></div>
+  <div class="quiz-container" id="dating-area"></div>
+</section>
+
+<div class="photo-strip" id="strip5"></div>
+
+<!-- CAPTION GAME -->
+<section id="caption">
+  <div class="section-bg-photos" id="caption-bg"></div>
+  <h2 class="section-title">✍️ Guess the Caption</h2>
+  <p class="section-subtitle">Can you think like Tony P?</p>
+  <div class="section-divider"></div>
+  <div id="caption-area" style="max-width:600px;margin:0 auto;"></div>
+</section>
+
+<div class="photo-strip reverse" id="strip6"></div>
+
+<!-- SPANISH -->
+<section id="spanish">
+  <div class="section-bg-photos" id="spanish-bg"></div>
+  <h2 class="section-title">🇪🇸 Spanish with Tony</h2>
+  <p class="section-subtitle">Learn alongside Tone — from Duolingo to Bad Bunny</p>
+  <div class="section-divider"></div>
+  <div id="spanish-area" style="max-width:500px;margin:0 auto;"></div>
+</section>
+
+<div class="tony-border" id="tony-border-3"></div>
+
+<!-- GAMES -->
+<section id="games">
+  <div class="section-bg-photos" id="games-bg"></div>
+  <h2 class="section-title">🎮 More Games</h2>
+  <p class="section-subtitle">Memory Match & Flashcard Trivia</p>
+  <div class="section-divider"></div>
+  <div class="tab-buttons">
+    <button class="tab-btn active" onclick="switchGameTab('memory')">🃏 Memory Match</button>
+    <button class="tab-btn" onclick="switchGameTab('flashcards')">📇 Flashcards</button>
+  </div>
+  <div class="tab-content active" id="tab-memory">
+    <div class="game-info">
+      Moves: <span id="memory-moves">0</span> · Matches: <span id="memory-matches">0</span>/8
+      <br><button class="btn" style="margin-top:1rem;font-size:0.85rem" onclick="initMemory()">🔄 New Game</button>
+    </div>
+    <div class="memory-grid" id="memory-grid"></div>
+  </div>
+  <div class="tab-content" id="tab-flashcards">
+    <div class="flashcard-container">
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What does Tony P call his fans?</div><div class="flashcard-back">They call him 'Tone'!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">How many followers does Tony P have?</div><div class="flashcard-back">About 186,000!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What city is Tony P based in?</div><div class="flashcard-back">Washington DC!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What's Tony P's dream career?</div><div class="flashcard-back">Broadcaster / Talk Show Host!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What holiday dish did Tony P make?</div><div class="flashcard-back">A roast — his first time!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What does Tony P run besides content?</div><div class="flashcard-back">A small consulting company!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What sport does Tony P play?</div><div class="flashcard-back">Golf!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What cooking icon inspired Tony P?</div><div class="flashcard-back">Ina Garten!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What did Tony P dress as for Halloween?</div><div class="flashcard-back">Bob Ross (with ASMR)!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What European trip was 27 years in the making?</div><div class="flashcard-back">Brussels & Italy!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What's Tony P's guilty pleasure candy?</div><div class="flashcard-back">A chilled Reese's!</div></div></div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front">What did Tony P buy at HomeGoods?</div><div class="flashcard-back">Dropped 'the GDP of a small country' on decor!</div></div></div>
+    </div>
   </div>
 </section>
 
-<!-- TONY P BORDER 2 -->
-<div class="tony-border" id="tony-border-2"></div>
-
-<!-- PHOTO STRIP 4 -->
-<div class="photo-strip reverse" id="strip4"></div>
-
-<!-- QUIZ -->
-<section id="quiz">
-  <div class="section-bg-photos" id="quiz-bg"></div>
-  <h2 class="section-title">🎯 Which Tony P Post Are You?</h2>
-  <p class="section-subtitle">Answer 5 questions to find your inner Tone</p>
-  <div class="section-divider"></div>
-  <div class="quiz-container" id="quiz-container"></div>
-</section>
-
-<!-- PHOTO STRIP 5 -->
-<div class="photo-strip" id="strip5"></div>
+<div class="photo-strip" id="strip7"></div>
 
 <!-- FAN COMMENTS -->
 <section id="comments">
   <div class="section-bg-photos" id="comments-bg"></div>
-  <h2 class="section-title">💬 Fan Comment Highlights</h2>
-  <p class="section-subtitle">The best reactions from Tony's community</p>
+  <h2 class="section-title">💬 Fan Comments</h2>
+  <p class="section-subtitle">Real comments from Tony's community + leave your own!</p>
   <div class="section-divider"></div>
-  <div class="comments-carousel">
+  <div class="comments-section">
     <div class="comment-card"><div class="comment-text">"I can not imagine anyone having the slightest idea what the point of this video is"</div><div class="comment-user">— @mattrodgers818 · ❤️ 55</div></div>
     <div class="comment-card"><div class="comment-text">"No footage of you pretending to watch? Taking your cousins words to heart. That's growth king"</div><div class="comment-user">— @hitemup92 · ❤️ 48</div></div>
     <div class="comment-card"><div class="comment-text">"Do you have a different holiday you like celebrate on January 6th, Tone?"</div><div class="comment-user">— @thatramsdalekid · ❤️ 46</div></div>
@@ -676,48 +587,24 @@ footer a { color: var(--dc-gold); text-decoration: none; }
     <div class="comment-card"><div class="comment-text">"Tone is it true you thought all of the paintings on the walls were scratch and sniff?"</div><div class="comment-user">— @cole_parker24 · ❤️ 34</div></div>
     <div class="comment-card"><div class="comment-text">"Maybe this wedding shouldn't be content. Just a thought"</div><div class="comment-user">— @michaelcomeau · ❤️ 34</div></div>
     <div class="comment-card"><div class="comment-text">"Does anyone know how to delete someone else's account?"</div><div class="comment-user">— @mt.crushmore · ❤️ 27</div></div>
-    <div class="comment-card"><div class="comment-text">""Who needs alcohol when you got blow"- tone probably"</div><div class="comment-user">— @tomas_da_train_ · ❤️ 27</div></div>
     <div class="comment-card"><div class="comment-text">"An Instagram account about nothing"</div><div class="comment-user">— @cwallserino · ❤️ 24</div></div>
-    <div class="comment-card"><div class="comment-text">"Be sure to state your pronouns before addressing the guests 👍"</div><div class="comment-user">— @doubleoverankle · ❤️ 24</div></div>
-    <div class="comment-card"><div class="comment-text">"I was at the wedding. Hated seeing you present at what would have otherwise been an amazing time"</div><div class="comment-user">— @jon_youngblood · ❤️ 19</div></div>
     <div class="comment-card"><div class="comment-text">"Tony P and the P is for Putting ornaments on the Christmas tree"</div><div class="comment-user">— @hitemup92 · ❤️ 17</div></div>
     <div class="comment-card"><div class="comment-text">"Hi Tone! Quick question: is this mandated by your probation officer?"</div><div class="comment-user">— @by.vince · ❤️ 16</div></div>
-    <div class="comment-card"><div class="comment-text">"Brings in his own bucket to film — next level content creation"</div><div class="comment-user">— @steve101310 · ❤️ 16</div></div>
-  </div>
-</section>
 
-<!-- TONY P BORDER 3 -->
-<div class="tony-border" id="tony-border-3"></div>
-
-<!-- PHOTO STRIP 6 -->
-<div class="photo-strip reverse" id="strip6"></div>
-
-<!-- GAMES -->
-<section id="games">
-  <div class="section-bg-photos" id="games-bg"></div>
-  <h2 class="section-title">🎮 Fan Games</h2>
-  <p class="section-subtitle">Test your Tony P knowledge with these interactive games</p>
-  <div class="section-divider"></div>
-  <div class="tab-container">
-    <div class="tab-buttons">
-      <button class="tab-btn active" onclick="switchTab('memory')">🃏 Memory Match</button>
-      <button class="tab-btn" onclick="switchTab('caption')">✍️ Caption Guess</button>
-    </div>
-    <div class="tab-content active" id="tab-memory">
-      <div class="game-info">
-        Moves: <span id="memory-moves">0</span> · Matches: <span id="memory-matches">0</span>/8
-        <br><button class="btn" style="margin-top:1rem;font-size:0.85rem" onclick="initMemory()">🔄 New Game</button>
+    <h3 style="color:var(--dc-gold); margin-top: 2rem; text-align: center;">💬 Leave Your Comment</h3>
+    <div class="fan-comment-form">
+      <input type="text" id="fan-name" placeholder="Your name (or anonymous)...">
+      <textarea id="fan-comment" placeholder="What do you think about Tony P? Drop your take..."></textarea>
+      <div style="text-align:center; margin-top:0.75rem;">
+        <button class="btn" onclick="submitFanComment()">Post Comment 🐕</button>
       </div>
-      <div class="memory-grid" id="memory-grid"></div>
     </div>
-    <div class="tab-content" id="tab-caption">
-      <div class="caption-game" id="caption-game"></div>
-    </div>
+    <div class="user-comments-list" id="user-comments"></div>
   </div>
 </section>
 
-<!-- PHOTO STRIP 7 -->
-<div class="photo-strip" id="strip7"></div>
+<div class="tony-border" id="tony-border-4"></div>
+<div class="photo-strip reverse" id="strip8"></div>
 
 <!-- TOP POSTS -->
 <section id="top">
@@ -725,270 +612,486 @@ footer a { color: var(--dc-gold); text-decoration: none; }
   <h2 class="section-title">🏆 Top Posts</h2>
   <p class="section-subtitle">Tony P's most popular content</p>
   <div class="section-divider"></div>
-  <div class="tab-container">
-    <div class="tab-buttons">
-      <button class="tab-btn active" onclick="switchTopTab('likes')">❤️ Most Liked</button>
-      <button class="tab-btn" onclick="switchTopTab('views')">👁️ Most Viewed</button>
-      <button class="tab-btn" onclick="switchTopTab('comments')">💬 Most Discussed</button>
+  <div class="tab-buttons">
+    <button class="tab-btn active" onclick="switchTopTab('likes')">❤️ Most Liked</button>
+    <button class="tab-btn" onclick="switchTopTab('views')">👁️ Most Viewed</button>
+    <button class="tab-btn" onclick="switchTopTab('comments')">💬 Most Discussed</button>
+  </div>
+  <div class="tab-content active" id="top-likes">
+    <div class="top-posts">
+      <div class="top-post"><div class="rank">#1</div><img src="images/DJ2eVolPIIQ.jpg" loading="lazy"><div class="info"><div class="cap">I'm back and here to keep you company 😊</div><div class="nums">❤️ 7,467 · 👁️ 23,799 · 💬 487</div></div></div>
+      <div class="top-post"><div class="rank">#2</div><img src="images/DQqDJU2kREE.jpg" loading="lazy"><div class="info"><div class="cap">Always wanted to hold that mic</div><div class="nums">❤️ 5,420 · 👁️ 195,974 · 💬 217</div></div></div>
+      <div class="top-post"><div class="rank">#3</div><img src="images/DQaK0GuEYez.jpg" loading="lazy"><div class="info"><div class="cap">Sarah, you continue to amaze me</div><div class="nums">❤️ 4,416 · 👁️ 115,454 · 💬 124</div></div></div>
+      <div class="top-post"><div class="rank">#4</div><img src="images/DRBOqy2EQoC.jpg" loading="lazy"><div class="info"><div class="cap">I couldn't even give it a good politicians answer 😂</div><div class="nums">❤️ 4,067 · 👁️ 221,075 · 💬 201</div></div></div>
+      <div class="top-post"><div class="rank">#5</div><img src="images/DSksS4DEbdk.jpg" loading="lazy"><div class="info"><div class="cap">Shout out to the original Tony P</div><div class="nums">❤️ 4,036 · 👁️ 197,968 · 💬 348</div></div></div>
+      <div class="top-post"><div class="rank">#6</div><img src="images/DUHMRrhkU7U.jpg" loading="lazy"><div class="info"><div class="cap">You're not the only one who laughs 😉</div><div class="nums">❤️ 3,903 · 👁️ 175,519 · 💬 374</div></div></div>
+      <div class="top-post"><div class="rank">#7</div><img src="images/DPm0WLjkX6a.jpg" loading="lazy"><div class="info"><div class="cap">I got a little disheveled this past year</div><div class="nums">❤️ 3,870 · 👁️ 161,415 · 💬 245</div></div></div>
+      <div class="top-post"><div class="rank">#8</div><img src="images/DPudEEmkSeM.jpg" loading="lazy"><div class="info"><div class="cap">Little late on this one but here it is!</div><div class="nums">❤️ 3,789 · 👁️ 109,534 · 💬 241</div></div></div>
+      <div class="top-post"><div class="rank">#9</div><img src="images/DURzLHJEYrT.jpg" loading="lazy"><div class="info"><div class="cap">Committed bachelor was a bit confusing 😂</div><div class="nums">❤️ 3,749 · 👁️ 188,604 · 💬 252</div></div></div>
+      <div class="top-post"><div class="rank">#10</div><img src="images/DRqGcnWkR-N.jpg" loading="lazy"><div class="info"><div class="cap">27 years in the making!</div><div class="nums">❤️ 3,611 · 👁️ 163,476 · 💬 186</div></div></div>
     </div>
-    <div class="tab-content active" id="top-likes">
-      <div class="top-posts">
-        <div class="top-post"><div class="rank">#1</div><img src="images/DJ2eVolPIIQ.jpg" alt="" loading="lazy"><div class="info"><div class="cap">I'm back and here to keep you company 😊</div><div class="nums">❤️ 7,467 · 👁️ 23,799 · 💬 487</div></div></div>
-        <div class="top-post"><div class="rank">#2</div><img src="images/DQqDJU2kREE.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Always wanted to hold that mic</div><div class="nums">❤️ 5,420 · 👁️ 195,974 · 💬 217</div></div></div>
-        <div class="top-post"><div class="rank">#3</div><img src="images/DQaK0GuEYez.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Sarah, you continue to amaze me</div><div class="nums">❤️ 4,416 · 👁️ 115,454 · 💬 124</div></div></div>
-        <div class="top-post"><div class="rank">#4</div><img src="images/DRBOqy2EQoC.jpg" alt="" loading="lazy"><div class="info"><div class="cap">I couldn't even give it a good politicians answer 😂</div><div class="nums">❤️ 4,067 · 👁️ 221,075 · 💬 201</div></div></div>
-        <div class="top-post"><div class="rank">#5</div><img src="images/DSksS4DEbdk.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Shout out to the original Tony P</div><div class="nums">❤️ 4,036 · 👁️ 197,968 · 💬 348</div></div></div>
-        <div class="top-post"><div class="rank">#6</div><img src="images/DUHMRrhkU7U.jpg" alt="" loading="lazy"><div class="info"><div class="cap">You're not the only one who laughs 😉</div><div class="nums">❤️ 3,903 · 👁️ 175,519 · 💬 374</div></div></div>
-        <div class="top-post"><div class="rank">#7</div><img src="images/DPm0WLjkX6a.jpg" alt="" loading="lazy"><div class="info"><div class="cap">I got a little disheveled this past year</div><div class="nums">❤️ 3,870 · 👁️ 161,415 · 💬 245</div></div></div>
-        <div class="top-post"><div class="rank">#8</div><img src="images/DPudEEmkSeM.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Little late on this one but here it is!</div><div class="nums">❤️ 3,789 · 👁️ 109,534 · 💬 241</div></div></div>
-        <div class="top-post"><div class="rank">#9</div><img src="images/DURzLHJEYrT.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Committed bachelor was a bit confusing 😂</div><div class="nums">❤️ 3,749 · 👁️ 188,604 · 💬 252</div></div></div>
-        <div class="top-post"><div class="rank">#10</div><img src="images/DRqGcnWkR-N.jpg" alt="" loading="lazy"><div class="info"><div class="cap">27 years in the making!</div><div class="nums">❤️ 3,611 · 👁️ 163,476 · 💬 186</div></div></div>
-      </div>
+  </div>
+  <div class="tab-content" id="top-views">
+    <div class="top-posts">
+      <div class="top-post"><div class="rank">#1</div><img src="images/DRBOqy2EQoC.jpg" loading="lazy"><div class="info"><div class="cap">I couldn't even give it a good politicians answer 😂</div><div class="nums">👁️ 221,075 · ❤️ 4,067</div></div></div>
+      <div class="top-post"><div class="rank">#2</div><img src="images/DSksS4DEbdk.jpg" loading="lazy"><div class="info"><div class="cap">Shout out to the original Tony P</div><div class="nums">👁️ 197,968 · ❤️ 4,036</div></div></div>
+      <div class="top-post"><div class="rank">#3</div><img src="images/DQqDJU2kREE.jpg" loading="lazy"><div class="info"><div class="cap">Always wanted to hold that mic</div><div class="nums">👁️ 195,974 · ❤️ 5,420</div></div></div>
+      <div class="top-post"><div class="rank">#4</div><img src="images/DURzLHJEYrT.jpg" loading="lazy"><div class="info"><div class="cap">Committed bachelor was a bit confusing 😂</div><div class="nums">👁️ 188,604 · ❤️ 3,749</div></div></div>
+      <div class="top-post"><div class="rank">#5</div><img src="images/DUHMRrhkU7U.jpg" loading="lazy"><div class="info"><div class="cap">You're not the only one who laughs 😉</div><div class="nums">👁️ 175,519 · ❤️ 3,903</div></div></div>
     </div>
-    <div class="tab-content" id="top-views">
-      <div class="top-posts">
-        <div class="top-post"><div class="rank">#1</div><img src="images/DRBOqy2EQoC.jpg" alt="" loading="lazy"><div class="info"><div class="cap">I couldn't even give it a good politicians answer 😂</div><div class="nums">👁️ 221,075 · ❤️ 4,067</div></div></div>
-        <div class="top-post"><div class="rank">#2</div><img src="images/DSksS4DEbdk.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Shout out to the original Tony P</div><div class="nums">👁️ 197,968 · ❤️ 4,036</div></div></div>
-        <div class="top-post"><div class="rank">#3</div><img src="images/DQqDJU2kREE.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Always wanted to hold that mic</div><div class="nums">👁️ 195,974 · ❤️ 5,420</div></div></div>
-        <div class="top-post"><div class="rank">#4</div><img src="images/DURzLHJEYrT.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Committed bachelor was a bit confusing 😂</div><div class="nums">👁️ 188,604 · ❤️ 3,749</div></div></div>
-        <div class="top-post"><div class="rank">#5</div><img src="images/DUHMRrhkU7U.jpg" alt="" loading="lazy"><div class="info"><div class="cap">You're not the only one who laughs 😉</div><div class="nums">👁️ 175,519 · ❤️ 3,903</div></div></div>
-        <div class="top-post"><div class="rank">#6</div><img src="images/DPcm80CEQQ0.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Album drop 🤝 Sunday Football 🏈</div><div class="nums">👁️ 171,142 · ❤️ 2,405</div></div></div>
-        <div class="top-post"><div class="rank">#7</div><img src="images/DSlC1vrkVS2.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Bring back the classics</div><div class="nums">👁️ 165,424 · ❤️ 1,609</div></div></div>
-        <div class="top-post"><div class="rank">#8</div><img src="images/DRqGcnWkR-N.jpg" alt="" loading="lazy"><div class="info"><div class="cap">27 years in the making!</div><div class="nums">👁️ 163,476 · ❤️ 3,611</div></div></div>
-        <div class="top-post"><div class="rank">#9</div><img src="images/DPm0WLjkX6a.jpg" alt="" loading="lazy"><div class="info"><div class="cap">I got a little disheveled this past year</div><div class="nums">👁️ 161,415 · ❤️ 3,870</div></div></div>
-        <div class="top-post"><div class="rank">#10</div><img src="images/DQVOK4rEVMj.jpg" alt="" loading="lazy"><div class="info"><div class="cap">I would've been a hit in 1987 😂</div><div class="nums">👁️ 146,097 · ❤️ 2,488</div></div></div>
-      </div>
-    </div>
-    <div class="tab-content" id="top-comments">
-      <div class="top-posts">
-        <div class="top-post"><div class="rank">#1</div><img src="images/DJ2eVolPIIQ.jpg" alt="" loading="lazy"><div class="info"><div class="cap">I'm back and here to keep you company 😊</div><div class="nums">💬 487 · ❤️ 7,467</div></div></div>
-        <div class="top-post"><div class="rank">#2</div><img src="images/DUHMRrhkU7U.jpg" alt="" loading="lazy"><div class="info"><div class="cap">You're not the only one who laughs 😉</div><div class="nums">💬 374 · ❤️ 3,903</div></div></div>
-        <div class="top-post"><div class="rank">#3</div><img src="images/DPcm80CEQQ0.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Album drop 🤝 Sunday Football 🏈</div><div class="nums">💬 374 · ❤️ 2,405</div></div></div>
-        <div class="top-post"><div class="rank">#4</div><img src="images/DSksS4DEbdk.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Shout out to the original Tony P</div><div class="nums">💬 348 · ❤️ 4,036</div></div></div>
-        <div class="top-post"><div class="rank">#5</div><img src="images/DPzEGr6EcEg.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Dark Tony can still be brought out 😌🥋</div><div class="nums">💬 303 · ❤️ 1,719</div></div></div>
-        <div class="top-post"><div class="rank">#6</div><img src="images/DURzLHJEYrT.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Committed bachelor was a bit confusing 😂</div><div class="nums">💬 252 · ❤️ 3,749</div></div></div>
-        <div class="top-post"><div class="rank">#7</div><img src="images/DPm0WLjkX6a.jpg" alt="" loading="lazy"><div class="info"><div class="cap">I got a little disheveled this past year</div><div class="nums">💬 245 · ❤️ 3,870</div></div></div>
-        <div class="top-post"><div class="rank">#8</div><img src="images/DPudEEmkSeM.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Little late on this one but here it is!</div><div class="nums">💬 241 · ❤️ 3,789</div></div></div>
-        <div class="top-post"><div class="rank">#9</div><img src="images/DSlC1vrkVS2.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Bring back the classics</div><div class="nums">💬 226 · ❤️ 1,609</div></div></div>
-        <div class="top-post"><div class="rank">#10</div><img src="images/DQqDJU2kREE.jpg" alt="" loading="lazy"><div class="info"><div class="cap">Always wanted to hold that mic</div><div class="nums">💬 217 · ❤️ 5,420</div></div></div>
-      </div>
+  </div>
+  <div class="tab-content" id="top-comments">
+    <div class="top-posts">
+      <div class="top-post"><div class="rank">#1</div><img src="images/DJ2eVolPIIQ.jpg" loading="lazy"><div class="info"><div class="cap">I'm back and here to keep you company 😊</div><div class="nums">💬 487 · ❤️ 7,467</div></div></div>
+      <div class="top-post"><div class="rank">#2</div><img src="images/DUHMRrhkU7U.jpg" loading="lazy"><div class="info"><div class="cap">You're not the only one who laughs 😉</div><div class="nums">💬 374 · ❤️ 3,903</div></div></div>
+      <div class="top-post"><div class="rank">#3</div><img src="images/DPcm80CEQQ0.jpg" loading="lazy"><div class="info"><div class="cap">Album drop 🤝 Sunday Football 🏈</div><div class="nums">💬 374 · ❤️ 2,405</div></div></div>
+      <div class="top-post"><div class="rank">#4</div><img src="images/DSksS4DEbdk.jpg" loading="lazy"><div class="info"><div class="cap">Shout out to the original Tony P</div><div class="nums">💬 348 · ❤️ 4,036</div></div></div>
+      <div class="top-post"><div class="rank">#5</div><img src="images/DPzEGr6EcEg.jpg" loading="lazy"><div class="info"><div class="cap">Dark Tony can still be brought out 😌🥋</div><div class="nums">💬 303 · ❤️ 1,719</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- FINAL PHOTO STRIP -->
-<div class="photo-strip" id="strip8"></div>
-<div class="tony-border" id="tony-border-4"></div>
+<div class="photo-strip" id="strip9"></div>
 
 <footer>
-  <p>🎤 Tony P in DC — Fan Site 🏛️</p>
-  <p style="margin-top:0.5rem">Made with ❤️ for the Tone community · <a href="https://instagram.com/_tonypindc" target="_blank">@_tonypindc</a></p>
-  <p style="margin-top:0.3rem;font-size:0.75rem">This is an unofficial fan site. All content belongs to Tony P.</p>
+  <p>🐕 Tony P in DC — The Ultimate Fan Shrine 🏛️</p>
+  <p style="margin-top:0.5rem">Made with ❤️ by <a href="https://mvp-studio.onrender.com">MVP Studio</a> & the Tone community · <a href="https://instagram.com/_tonypindc" target="_blank">@_tonypindc</a></p>
+  <p style="margin-top:0.3rem;font-size:0.75rem">This is an unofficial fan site. All content belongs to Tony P. Reasonably Positive™</p>
 </footer>
 
-</div><!-- /content-wrapper -->
+</div>
 
 <script>
-// ALL 200 IMAGES
+// ============ ALL 200 IMAGES ============
 const ALL_IMAGES = ["DJ2eVolPIIQ.jpg","DP1pdBakQR9.jpg","DP2bMIykZJh.jpg","DP4Uy-VkdA1.jpg","DP7jhwZkVfO.jpg","DPcm80CEQQ0.jpg","DPeiAzgkWzd.jpg","DPgyhRSjVLn.jpg","DPjOUmsDe6A.jpg","DPkQ_BqkZr_.jpg","DPm0WLjkX6a.jpg","DPmPoJvkdXq.jpg","DPpEXHykT2e.jpg","DPsI3KRkTyq.jpg","DPudEEmkSeM.jpg","DPUF-yRkf8y.jpg","DPUxR2kkctp.jpg","DPWRuyUkfC3.jpg","DPxQ4g8kXn3.jpg","DPZ3hJREZ4a.jpg","DPz3oiikcst.jpg","DPzEGr6EcEg.jpg","DQ-3BjjDXam.jpg","DQ-Os3GERF9.jpg","DQ21J-3kVX7.jpg","DQ5eXOkEVeD.jpg","DQ7R1sWEcFi.jpg","DQ8Ta-CjU1B.jpg","DQAhTiEEYSf.jpg","DQaK0GuEYez.jpg","DQcjdgQkTXe.jpg","DQDJRPqkeiy.jpg","DQF3gPciR8o.jpg","DQfWIddkT1v.jpg","DQH2frJEZCi.jpg","DQhf_vgEcpN.jpg","DQIdkIUERNd.jpg","DQk0IkgEWRM.jpg","DQMs0rEERa2.jpg","DQMUY2WkczD.jpg","DQmy3KmkSvK.jpg","DQndCP7ETwr.jpg","DQNV1Y5EWc0.jpg","DQqDJU2kREE.jpg","DQQICu5kQQj.jpg","DQsnMToEXx3.jpg","DQvK9BwkW6d.jpg","DQVOK4rEVMj.jpg","DQXJKajkXFL.jpg","DQxwrD6kb_6.jpg","DQz83gNEYrh.jpg","DR0mYAKiE6Y.jpg","DR3JV23iMqA.jpg","DR53I3piBBF.jpg","DR8HDaHkb-4.jpg","DRa5aNlEUXo.jpg","DRaYwVOkcHh.jpg","DRBOqy2EQoC.jpg","DRckh9mkULL.jpg","DRdWFctEa8P.jpg","DRDzyWLDU58.jpg","DRe8M4Ikc3r.jpg","DRexCfpji3j.jpg","DRfL-69ESLa.jpg","DRgIMKDEZ1r.jpg","DRGZEaykSDo.jpg","DRhoRS2EbVT.jpg","DRiAmRkEZUM.jpg","DRIeP6MkUkV.jpg","DRIEpxlkZMG.jpg","DRiqvxbEQYp.jpg","DRK2pE2kcOv.jpg","DRkckCiEfLE.jpg","DRkJbpEERUa.jpg","DRLbZJjkeq1.jpg","DRlXz_wjUt0.jpg","DRNSIxNEaGH.jpg","DRnWsBGEYNI.jpg","DRNxwKEkYxv.jpg","DROBPOnEe0C.jpg","DRPU3z0EUSo.jpg","DRpv4TsEVHd.jpg","DRqGcnWkR-N.jpg","DRQJJ2XkUUr.jpg","DRQpq2PERmM.jpg","DRSc8EIkWxQ.jpg","DRsFGhBCKpg.jpg","DRTPPo9kayr.jpg","DRvJPpQkutL.jpg","DRVLn7akfcw.jpg","DRVtb2UkfCp.jpg","DRXe_vYkf4f.jpg","DRxgrMliBwn.jpg","DRYNSQHkb4F.jpg","DRzYx9HDNjf.jpg","DR_IO35jXSn.jpg","DS-4Cj7EWea.jpg","DS0w89LkXJ8.jpg","DS1Z1HIjTro.jpg","DS2uY44kRce.jpg","DS3wleKDWal.jpg","DS5rlChkW96.jpg","DS6PpyOkUNM.jpg","DS80OM3jajz.jpg","DS8E0N6kfrl.jpg","DSa7B_0kWdf.jpg","DSbhuD7Dfn_.jpg","DSBjcNnkdGh.jpg","DSc08AnkSm3.jpg","DSDVbf4iRzy.jpg","DSdypozEceW.jpg","DSEKNQTDq2E.jpg","DSG9VYkjY9D.jpg","DSgDDQ0ESm7.jpg","DSgeh7tkVjk.jpg","DSGF7aqEduv.jpg","DSGh0BREe3T.jpg","DSi73X8EZPq.jpg","DSIOLKpkecv.jpg","DSIx763Eayz.jpg","DSiXPHSkSVN.jpg","DSJUznykT50.jpg","DSksS4DEbdk.jpg","DSL0XqQkaHM.jpg","DSlC1vrkVS2.jpg","DSll4u_EejZ.jpg","DSLNgaHESxu.jpg","DSm-okwEbqC.jpg","DSn5QG8ESin.jpg","DSNmMRmEcm0.jpg","DSnPDCGkb4Z.jpg","DSOMwVIkcI8.jpg","DSOongMDRix.jpg","DSp7QbIEYmi.jpg","DSplByTkevT.jpg","DSq0wtckQAU.jpg","DSQKZ7QEfbG.jpg","DSQx-2Fkfm0.jpg","DSs1ZNvEdAR.jpg","DSsbecWEUqs.jpg","DStJo2RERku.jpg","DSTmkVekXuF.jpg","DStuqN2DRlt.jpg","DSV4e7SkSck.jpg","DSvQMKGEb45.jpg","DSvuDfqEcC7.jpg","DSVY4H1kUiS.jpg","DSx4ADeEVai.jpg","DSXy4yhEYcX.jpg","DSYVyjDEeY5.jpg","DSyXqU7EXNn.jpg","DSY_8PBDfqZ.jpg","DS_l-SnjWPE.jpg","DT1dnwikQlO.jpg","DT3jHunkata.jpg","DTb5yIdDQHE.jpg","DTbP2IkEfnu.jpg","DTBqzrpEY0s.jpg","DTDpLN2kWz7.jpg","DTeFC2tEeDP.jpg","DTgxH2dkfcQ.jpg","DTgZHcdkQU0.jpg","DTHS48MjXB8.jpg","DTi66HokVRp.jpg","DTIvTghEfFy.jpg","DTJoTYkEeRt.jpg","DTjpOpijRCA.jpg","DTl-6O-DoN9.jpg","DTLazsSCUw7.jpg","DTLxpbCiRd3.jpg","DTlYUf0iVKW.jpg","DTMPRCfjhpQ.jpg","DToFdTECROi.jpg","DTOS7EwkfJz.jpg","DTOuhOkkYYV.jpg","DTqsuCCkdem.jpg","DTRCi5BEdZZ.jpg","DTTbdL3kZrK.jpg","DTtigB0kdc_.jpg","DTUJT3HjX6f.jpg","DTvOsYRkf65.jpg","DTvxSs_Eb__.jpg","DTWj9MUkefg.jpg","DTwQj7hkY0K.jpg","DTx3qflkdfG.jpg","DTYfXVqkboM.jpg","DTySK44kcnC.jpg","DTZEo4JEQP8.jpg","DUbnAwbkXyr.jpg","DUE3-_REe07.jpg","DUgXvAxkbaj.jpg","DUHMRrhkU7U.jpg","DUjYbSJkRH3.jpg","DUkDV2tDRhf.jpg","DUllPoaEXxB.jpg","DUQsFBMkZhl.jpg","DURzLHJEYrT.jpg","DUUJxFokSLz.jpg","DUW6fNwkcrd.jpg","DUZK2_mESGt.jpg"];
 
-function imgPath(name) { return 'images/' + name; }
-function shuffle(arr) { const a = [...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function imgPath(n) { return 'images/' + n; }
+function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
-// ===== FLOATING BACKGROUND (60 photos) =====
+// ===== FIT CHECK RANKER DATA (selected posts with fit-check vibes) =====
+const FIT_POSTS = [
+  {code:"DJ2eVolPIIQ",cap:"I'm back and here to keep you company 😊",likes:7467,views:23799,comments:487},
+  {code:"DQqDJU2kREE",cap:"Always wanted to hold that mic",likes:5420,views:195974,comments:217},
+  {code:"DQaK0GuEYez",cap:"Sarah, you continue to amaze me",likes:4416,views:115454,comments:124},
+  {code:"DSksS4DEbdk",cap:"Shout out to the original Tony P",likes:4036,views:197968,comments:348},
+  {code:"DUHMRrhkU7U",cap:"You're not the only one who laughs 😉",likes:3903,views:175519,comments:374},
+  {code:"DRBOqy2EQoC",cap:"I couldn't even give it a good politicians answer 😂",likes:4067,views:221075,comments:201},
+  {code:"DPm0WLjkX6a",cap:"I got a little disheveled this past year",likes:3870,views:161415,comments:245},
+  {code:"DPudEEmkSeM",cap:"Little late on this one but here it is!",likes:3789,views:109534,comments:241},
+  {code:"DURzLHJEYrT",cap:"Committed bachelor was a bit confusing 😂",likes:3749,views:188604,comments:252},
+  {code:"DRqGcnWkR-N",cap:"27 years in the making!",likes:3611,views:163476,comments:186},
+  {code:"DSgDDQ0ESm7",cap:"Life of a Broadcaster",likes:2701,views:145092,comments:148},
+  {code:"DS80OM3jajz",cap:"Tv show at 9 and then party at 10:30",likes:2595,views:111922,comments:167},
+  {code:"DSc08AnkSm3",cap:"The Hallmark movie fit 🤷🏻",likes:1925,views:62007,comments:172},
+  {code:"DQVOK4rEVMj",cap:"I would've been a hit in 1987 😂",likes:2488,views:146097,comments:144},
+  {code:"DStuqN2DRlt",cap:"Like clockwork 🥹",likes:2161,views:72119,comments:106},
+  {code:"DRQpq2PERmM",cap:"Frozen meals are clutch these days",likes:2099,views:139884,comments:150},
+  {code:"DPkQ_BqkZr_",cap:"Proud of These AP2's",likes:1906,views:79691,comments:172},
+  {code:"DPzEGr6EcEg",cap:"Dark Tony can still be brought out 😌🥋",likes:1719,views:91328,comments:303},
+  {code:"DQ5eXOkEVeD",cap:"Mingya!",likes:1830,views:75201,comments:165},
+  {code:"DRVLn7akfcw",cap:"I have to be truthful 😂",likes:1809,views:65207,comments:125},
+  {code:"DPxQ4g8kXn3",cap:"Still trying to prove I'm Penske material",likes:1791,views:105840,comments:143},
+  {code:"DRzYx9HDNjf",cap:"From across the Atlantic",likes:1808,views:43093,comments:69},
+  {code:"DQ8Ta-CjU1B",cap:"On this Veterans Day...",likes:1940,views:0,comments:29},
+  {code:"DPcm80CEQQ0",cap:"Album drop 🤝 Sunday Football 🏈",likes:2405,views:171142,comments:374},
+  {code:"DTLxpbCiRd3",cap:"I would be all in on a TB fit check 😊",likes:1200,views:50000,comments:80},
+  {code:"DUjYbSJkRH3",cap:"The only reason I watched the whole game was to take notes from the announcers!",likes:800,views:30000,comments:54},
+  {code:"DUllPoaEXxB",cap:"If I hope to stick with this, I have to do small things consistently!",likes:700,views:25000,comments:40},
+  {code:"DUZK2_mESGt",cap:"This week was almost as packed as my weekends 😂",likes:650,views:22000,comments:35},
+  {code:"DS1Z1HIjTro",cap:"Technically, I can celebrate until January 5th 😊",likes:1100,views:45000,comments:60},
+  {code:"DS_l-SnjWPE",cap:"It brings the energy needed for a new year!",likes:900,views:35000,comments:45},
+];
+
+// Load/save fit ratings from localStorage
+function getFitRatings() { try { return JSON.parse(localStorage.getItem('tonyp_fit_ratings')||'{}'); } catch(e) { return {}; } }
+function saveFitRating(code, rating) { const r = getFitRatings(); if(!r[code]) r[code]={total:0,count:0}; r[code].total+=rating; r[code].count++; localStorage.setItem('tonyp_fit_ratings',JSON.stringify(r)); }
+function getFitComments() { try { return JSON.parse(localStorage.getItem('tonyp_fit_comments')||'{}'); } catch(e) { return {}; } }
+function saveFitComment(code, name, text) { const c=getFitComments(); if(!c[code]) c[code]=[]; c[code].push({name:name||'Anonymous',text,time:Date.now()}); localStorage.setItem('tonyp_fit_comments',JSON.stringify(c)); }
+
+let currentSort = 'likes';
+function sortFits(by) {
+  currentSort = by;
+  document.querySelectorAll('.fit-sort-bar .btn').forEach(b => b.classList.remove('active'));
+  renderFitCheck();
+}
+
+function renderFitCheck() {
+  const grid = document.getElementById('fit-grid');
+  const ratings = getFitRatings();
+  const comments = getFitComments();
+  let posts = [...FIT_POSTS];
+  if (currentSort === 'top') posts.sort((a,b) => { const ra=ratings[a.code], rb=ratings[b.code]; const aa=ra?ra.total/ra.count:0; const bb=rb?rb.total/rb.count:0; return bb-aa; });
+  else if (currentSort === 'likes') posts.sort((a,b) => b.likes-a.likes);
+
+  grid.innerHTML = posts.map((p,i) => {
+    const r = ratings[p.code];
+    const avg = r ? (r.total/r.count).toFixed(1) : '—';
+    const votes = r ? r.count : 0;
+    const pc = comments[p.code] || [];
+    return `<div class="fit-card">
+      <div class="fit-rank-badge">#${i+1}</div>
+      <img src="images/${p.code}.jpg" alt="${p.cap}" loading="lazy">
+      <div class="fit-card-body">
+        <div class="fit-card-caption">${p.cap}</div>
+        <div class="fit-stars" id="stars-${p.code}">
+          ${[1,2,3,4,5].map(s => `<span onclick="rateFit('${p.code}',${s})">★</span>`).join('')}
+        </div>
+        <div class="fit-avg">${avg === '—' ? 'Not rated yet' : `⭐ ${avg}/5 (${votes} votes)`}</div>
+        <div style="text-align:center;margin-top:0.3rem;font-size:0.75rem;color:#666">❤️ ${p.likes.toLocaleString()} · 💬 ${p.comments}</div>
+        <div class="fit-comments">
+          ${pc.slice(-3).map(c => `<div class="fit-comment-item"><strong>${c.name}:</strong> ${c.text}</div>`).join('')}
+          <input placeholder="Leave a comment..." onkeydown="if(event.key==='Enter'){saveFitComment('${p.code}',prompt('Your name?')||'Anonymous',this.value);renderFitCheck();}">
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function rateFit(code, stars) {
+  saveFitRating(code, stars);
+  renderFitCheck();
+}
+
+// ===== FLOATING BACKGROUND =====
 (function() {
   const bg = document.getElementById('floating-bg');
-  const imgs = shuffle(ALL_IMAGES).slice(0, 60);
-  imgs.forEach((name, i) => {
+  shuffle(ALL_IMAGES).slice(0,60).forEach(name => {
     const img = document.createElement('img');
-    img.src = imgPath(name);
-    img.className = 'float-img';
-    img.loading = 'lazy';
-    const size = 60 + Math.random() * 100;
-    const left = Math.random() * 100;
-    const duration = 20 + Math.random() * 40;
-    const delay = Math.random() * -60;
-    const rotStart = Math.random() * 360;
-    const rotEnd = rotStart + (Math.random() - 0.5) * 180;
-    const scale = 0.5 + Math.random() * 0.8;
-    const opacity = 0.1 + Math.random() * 0.2;
-    img.style.cssText = `width:${size}px;height:${size}px;left:${left}%;--rot-start:${rotStart}deg;--rot-end:${rotEnd}deg;--scale:${scale};--max-opacity:${opacity};animation-duration:${duration}s;animation-delay:${delay}s;`;
+    img.src = imgPath(name); img.className = 'float-img'; img.loading = 'lazy';
+    const size = 60+Math.random()*100, left = Math.random()*100, dur = 20+Math.random()*40, delay = Math.random()*-60;
+    const rs = Math.random()*360, re = rs+(Math.random()-0.5)*180, sc = 0.5+Math.random()*0.8, op = 0.1+Math.random()*0.2;
+    img.style.cssText = `width:${size}px;height:${size}px;left:${left}%;--rot-start:${rs}deg;--rot-end:${re}deg;--scale:${sc};--max-opacity:${op};animation-duration:${dur}s;animation-delay:${delay}s;`;
     bg.appendChild(img);
   });
 })();
 
-// ===== PHOTO RAIN (30 tiny circles) =====
+// ===== PHOTO RAIN =====
 (function() {
   const rain = document.getElementById('photo-rain');
-  const imgs = shuffle(ALL_IMAGES).slice(0, 30);
-  imgs.forEach((name, i) => {
+  shuffle(ALL_IMAGES).slice(0,30).forEach(name => {
     const img = document.createElement('img');
-    img.src = imgPath(name);
-    img.className = 'rain-img';
-    img.loading = 'lazy';
-    const left = Math.random() * 100;
-    const duration = 15 + Math.random() * 25;
-    const delay = Math.random() * -40;
-    const size = 30 + Math.random() * 40;
-    img.style.cssText = `left:${left}%;width:${size}px;height:${size}px;animation-duration:${duration}s;animation-delay:${delay}s;`;
+    img.src = imgPath(name); img.className = 'rain-img'; img.loading = 'lazy';
+    const left = Math.random()*100, dur = 15+Math.random()*25, delay = Math.random()*-40, size = 30+Math.random()*40;
+    img.style.cssText = `left:${left}%;width:${size}px;height:${size}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
     rain.appendChild(img);
   });
 })();
 
-// ===== HERO COLLAGE (fill with ALL images) =====
+// ===== HERO COLLAGE =====
 (function() {
   const collage = document.getElementById('hero-collage');
   shuffle(ALL_IMAGES).forEach(name => {
-    const img = document.createElement('img');
-    img.src = imgPath(name);
-    img.loading = 'lazy';
-    img.style.animationDelay = (Math.random() * 4) + 's';
+    const img = document.createElement('img'); img.src = imgPath(name); img.loading = 'lazy';
+    img.style.animationDelay = (Math.random()*4)+'s';
     collage.appendChild(img);
   });
 })();
 
-// ===== ORBIT RING (8 photos orbiting hero) =====
+// ===== ORBIT RING =====
 (function() {
   const ring = document.getElementById('orbit-ring');
-  const imgs = shuffle(ALL_IMAGES).slice(0, 8);
-  imgs.forEach((name, i) => {
-    const img = document.createElement('img');
-    img.src = imgPath(name);
-    img.className = 'orbit-img';
-    img.loading = 'lazy';
-    const angle = (i / 8) * Math.PI * 2;
-    const x = 250 + Math.cos(angle) * 220 - 30;
-    const y = 250 + Math.sin(angle) * 220 - 30;
-    img.style.cssText = `left:${x}px;top:${y}px;`;
+  shuffle(ALL_IMAGES).slice(0,8).forEach((name,i) => {
+    const img = document.createElement('img'); img.src = imgPath(name); img.className = 'orbit-img'; img.loading = 'lazy';
+    const angle = (i/8)*Math.PI*2;
+    img.style.cssText = `left:${250+Math.cos(angle)*220-30}px;top:${250+Math.sin(angle)*220-30}px;`;
     ring.appendChild(img);
   });
 })();
 
-// ===== PHOTO STRIPS (scrolling ribbons between sections) =====
+// ===== PHOTO STRIPS =====
 function createStrip(id, count, speed) {
-  const strip = document.getElementById(id);
-  if(!strip) return;
-  const inner = document.createElement('div');
-  inner.className = 'photo-strip-inner';
-  const imgs = shuffle(ALL_IMAGES).slice(0, count);
-  // Double for seamless loop
-  const doubled = [...imgs, ...imgs];
-  doubled.forEach(name => {
-    const img = document.createElement('img');
-    img.src = imgPath(name);
-    img.loading = 'lazy';
-    inner.appendChild(img);
-  });
-  inner.style.animationDuration = speed + 's';
-  strip.appendChild(inner);
+  const strip = document.getElementById(id); if(!strip) return;
+  const inner = document.createElement('div'); inner.className = 'photo-strip-inner';
+  const imgs = shuffle(ALL_IMAGES).slice(0,count);
+  [...imgs,...imgs].forEach(name => { const img = document.createElement('img'); img.src = imgPath(name); img.loading = 'lazy'; inner.appendChild(img); });
+  inner.style.animationDuration = speed+'s'; strip.appendChild(inner);
 }
-createStrip('strip1', 40, 30);
-createStrip('strip2', 40, 35);
-createStrip('strip3', 40, 25);
-createStrip('strip4', 40, 40);
-createStrip('strip5', 40, 28);
-createStrip('strip6', 40, 33);
-createStrip('strip7', 40, 26);
-createStrip('strip8', 40, 38);
+[['strip1',40,30],['strip2',40,35],['strip3',40,25],['strip4',40,40],['strip5',40,28],['strip6',40,33],['strip7',40,26],['strip8',40,38],['strip9',40,32]].forEach(s => createStrip(...s));
 
-// ===== TONY P BORDERS =====
-function createBorder(id, count) {
-  const border = document.getElementById(id);
-  if(!border) return;
-  shuffle(ALL_IMAGES).slice(0, count).forEach(name => {
-    const img = document.createElement('img');
-    img.src = imgPath(name);
-    img.loading = 'lazy';
-    border.appendChild(img);
-  });
+// ===== TONY BORDERS =====
+function createBorder(id,count) {
+  const b = document.getElementById(id); if(!b) return;
+  shuffle(ALL_IMAGES).slice(0,count).forEach(name => { const img = document.createElement('img'); img.src = imgPath(name); img.loading = 'lazy'; b.appendChild(img); });
 }
-createBorder('tony-border-1', 50);
-createBorder('tony-border-2', 50);
-createBorder('tony-border-3', 50);
-createBorder('tony-border-4', 50);
+['tony-border-1','tony-border-2','tony-border-3','tony-border-4'].forEach(id => createBorder(id,50));
 
-// ===== SECTION BACKGROUND MOSAICS =====
-function createSectionBg(id, count) {
-  const bg = document.getElementById(id);
-  if(!bg) return;
-  shuffle(ALL_IMAGES).slice(0, count).forEach(name => {
-    const img = document.createElement('img');
-    img.src = imgPath(name);
-    img.loading = 'lazy';
-    bg.appendChild(img);
-  });
+// ===== SECTION BG MOSAICS =====
+function createSectionBg(id,count) {
+  const bg = document.getElementById(id); if(!bg) return;
+  shuffle(ALL_IMAGES).slice(0,count).forEach(name => { const img = document.createElement('img'); img.src = imgPath(name); img.loading = 'lazy'; bg.appendChild(img); });
 }
-createSectionBg('stats-bg', 80);
-createSectionBg('gallery-bg', 80);
-createSectionBg('trivia-bg', 80);
-createSectionBg('quiz-bg', 80);
-createSectionBg('comments-bg', 80);
-createSectionBg('games-bg', 80);
-createSectionBg('top-bg', 80);
+['fitcheck-bg','stats-bg','gallery-bg','trivia-bg','dating-bg','caption-bg','spanish-bg','games-bg','comments-bg','top-bg'].forEach(id => createSectionBg(id,60));
+
+// ===== GALLERY (all 200) =====
+(function() {
+  const grid = document.getElementById('gallery-grid');
+  // Top posts data for overlays
+  const postData = {
+    'DJ2eVolPIIQ': {cap:"I'm back and here to keep you company 😊",stats:"❤️ 7,467 · 💬 487"},
+    'DQqDJU2kREE': {cap:"Always wanted to hold that mic",stats:"❤️ 5,420 · 💬 217"},
+    'DQaK0GuEYez': {cap:"Sarah, you continue to amaze me",stats:"❤️ 4,416 · 💬 124"},
+    'DRBOqy2EQoC': {cap:"I couldn't even give it a good politicians answer 😂",stats:"❤️ 4,067 · 💬 201"},
+    'DSksS4DEbdk': {cap:"Shout out to the original Tony P",stats:"❤️ 4,036 · 💬 348"},
+    'DUHMRrhkU7U': {cap:"You're not the only one who laughs 😉",stats:"❤️ 3,903 · 💬 374"},
+  };
+  ALL_IMAGES.forEach(name => {
+    const code = name.replace('.jpg','');
+    const data = postData[code];
+    const item = document.createElement('div'); item.className = 'gallery-item';
+    item.onclick = () => openLightbox('images/'+name, data?data.cap:'Tony P 🐕', data?data.stats:'');
+    item.innerHTML = `<img src="images/${name}" alt="Tony P" loading="lazy">${data ? `<div class="gallery-overlay"><div class="caption">${data.cap}</div><div class="stats">${data.stats}</div></div>` : ''}`;
+    grid.appendChild(item);
+  });
+})();
 
 // ===== LIGHTBOX =====
-function openLightbox(src, caption, stats) {
+function openLightbox(src,caption,stats) {
   document.getElementById('lb-img').src = src;
   document.getElementById('lb-caption').textContent = caption;
   document.getElementById('lb-stats').textContent = stats;
   document.getElementById('lightbox').classList.add('active');
 }
 function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
 
-// ===== TABS =====
-function switchTab(id) {
-  document.querySelectorAll('#games .tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('#games .tab-content').forEach(c => c.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('tab-' + id).classList.add('active');
+// ===== TRIVIA (40 questions from Kah's version) =====
+const triviaData = {
+  easy: [
+    {q:"What city does Tony P live in?",opts:["New York","D.C.","Los Angeles","Boston"],a:1},
+    {q:"Where is Tony originally from?",opts:["New York","Philadelphia","Boston","Miami"],a:2},
+    {q:"What is Tony's brand name?",opts:["Vibing Only","Reasonably Positive","Good Vibes Guy","Stay Golden"],a:1},
+    {q:"Approximately how many Instagram followers does Tony have?",opts:["50K","186K","500K","1M"],a:1},
+    {q:"What do fans call Tony for short?",opts:["TP","Tone","T-Money","Antonio"],a:1},
+    {q:"What is Tony's ethnicity?",opts:["Irish","Italian","Greek","Portuguese"],a:1},
+    {q:"What is Tony's current relationship status (2026)?",opts:["Single","It's complicated","Taken","Married"],a:2},
+    {q:"What language is Tony learning?",opts:["French","Japanese","Spanish","Italian"],a:2},
+    {q:"Which artist does Tony love listening to?",opts:["Drake","Bad Bunny","Taylor Swift","The Weeknd"],a:1},
+    {q:"What app does Tony use to learn languages?",opts:["Babbel","Rosetta Stone","Duolingo","Memrise"],a:2},
+  ],
+  medium: [
+    {q:"What was Tony's career before becoming a creator?",opts:["Investment banker","Management consultant","Software engineer","Teacher"],a:1},
+    {q:"Which TV host does Tony aspire to be like?",opts:["Jimmy Fallon","Ryan Seacrest","James Corden","Jimmy Kimmel"],a:1},
+    {q:"Tony appeared on which local news channel?",opts:["ABC","NBC","CBS","Fox News"],a:3},
+    {q:"What term does Tony use for positive masculinity?",opts:["Sigma grindset","Vibrant masculinity","Soft king energy","New age man"],a:1},
+    {q:"Tony endorsed which presidential candidate?",opts:["Trump","Biden","Kamala Harris","RFK Jr"],a:2},
+    {q:"Which Barstool show has Tony appeared on?",opts:["Pardon My Take","The Yak","Spittin' Chiclets","KFC Radio"],a:1},
+    {q:"What animal meme is associated with Tony's comment section?",opts:["Dawg","Hog","Goat","Bear"],a:1},
+    {q:"What surprising fact about Tony relates to alcohol?",opts:["He's a sommelier","He brews beer","He doesn't actually drink","He only drinks wine"],a:2},
+    {q:"What song is on Tony's pinned Instagram post?",opts:["Mr. Brightside","You Get What You Give","Don't Stop Believin'","September"],a:1},
+    {q:"What's the 'Tony P and the P stands for ___' format?",opts:["A quiz question","A meme his fans do","His merch slogan","A podcast segment"],a:1},
+  ],
+  hard: [
+    {q:"What is Tony's TikTok bio?",opts:["Reasonably positive since '97","A golden retriever taking you for a walk","Your internet best friend","The nicest guy in D.C."],a:1},
+    {q:"What did Tony drink with the Slate reporter during his interview?",opts:["Craft beer","Espresso martini","Diet Coke","Sparkling water"],a:2},
+    {q:"What personal struggle has Tony's mother overcome?",opts:["Cancer","Opioid recovery","Divorce","Job loss"],a:1},
+    {q:"Who manages Tony on Instagram?",opts:["UTA","CLR Management","Motive LA","CAA"],a:2},
+    {q:"Who manages Tony on TikTok?",opts:["Motive LA","CLR Management","Night Media","Underscore Talent"],a:1},
+    {q:"What iconic quarter-zip color is Tony known for?",opts:["Navy","Charcoal","Turquoise","Burgundy"],a:2},
+    {q:"Which publication called Tony 'possibly the nicest man on the internet'?",opts:["The Atlantic","BuzzFeed","Slate","Vox"],a:2},
+    {q:"What copypasta did fans adapt for Tony's comments?",opts:["Navy Seal","American Psycho","Bee Movie","Shrek"],a:1},
+    {q:"What is Tony's full name?",opts:["Anthony Palazzo","Anthony Polcari","Anthony Pellegrino","Anthony Picasso"],a:1},
+    {q:"How old is Tony approximately?",opts:["24","27-28","31","34"],a:1},
+    {q:"What comment got the most likes on Tony's posts (~3,335)?",opts:["HELL YEAH BUTTON","Someone's wife is about to have the night of her life","Day X of asking what bachelor means","The P stands for Perfect"],a:1},
+    {q:"The 'HELL YEAH BUTTON' comment got approximately how many likes?",opts:["500","1,310","2,800","5,000"],a:1},
+    {q:"What recurring comment asks Tony about his relationship status?",opts:["When's the hard launch?","Does she know she's your girlfriend, Tone?","Who is she??","Day X of asking Tone if he understands what bachelor means"],a:3},
+    {q:"What did Tony's follower count reportedly peak at?",opts:["150K","186K","200K+","300K"],a:2},
+    {q:"What type of content does 'Taken Bachelor' represent?",opts:["His merch line","His new content era about being in a relationship","A podcast","A YouTube series"],a:1},
+    {q:"What is Tony's signature dish he makes on date nights?",opts:["Pasta carbonara","Salmon with balsamic glaze","Steak and potatoes","Chicken parm"],a:1},
+    {q:"What phrase do fans use to describe a rare bad Tony take?",opts:["Massive L","Common L / Rare W format","Cringe alert","Not reasonably positive"],a:1},
+    {q:"One fan comment said: 'I followed for the ___ but now I'm just an actual fan'",opts:["Comedy","Satire","Fit checks","Cringe"],a:1},
+    {q:"What is Tony's 'fill in the blank' caption format?",opts:["Day in my life as a ___","Welcome to a ___ in my life as a ___-year-old ___","POV: you're dating ___","Reasons why ___ is the best city"],a:1},
+    {q:"Tony's style era when he was doing Fox News is called?",opts:["Corporate Tone","Bachelor Tone","Broadcasting Tone","Taken Tone"],a:2},
+  ]
+};
+let triviaState = {};
+function startTrivia(diff) {
+  let qs = diff==='all' ? [...triviaData.easy,...triviaData.medium,...triviaData.hard] : [...triviaData[diff]];
+  for(let i=qs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[qs[i],qs[j]]=[qs[j],qs[i]];}
+  triviaState = {qs,idx:0,score:0,answered:false};
+  renderTrivia();
 }
-function switchTopTab(id) {
-  document.querySelectorAll('#top .tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('#top .tab-content').forEach(c => c.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('top-' + id).classList.add('active');
-}
-
-// ===== QUIZ =====
-const quizData = [{"q":"It's Saturday morning. You:","options":["Hit the gym, then brunch","Sleep in, cozy vibes","Already filming content","Exploring a new neighborhood"],"scores":[1,3,0,2]},{"q":"Your ideal dinner is:","options":["Homemade pasta from scratch","Frozen meal (no shame)","Fancy restaurant date night","Leftover magic"],"scores":[2,3,0,1]},{"q":"Your fashion style is:","options":["All black everything","Preppy with a twist","Comfortable but put together","Whatever's clean"],"scores":[0,2,1,3]},{"q":"On a snow day, you:","options":["Rant about school closings","Build a snowman","Stay inside with hot cocoa","Content creation time"],"scores":[1,3,2,0]},{"q":"Your dream job:","options":["Sports broadcaster","Chef with a show","Travel vlogger","Talk show host"],"scores":[1,2,3,0]}];
-const quizResults = [
-  {min:0,max:4,title:"The Super Bowl Analyst",desc:"You're the Tony P who breaks down every announcer's move!",postImg:"images/DJ2eVolPIIQ.jpg"},
-  {min:5,max:8,title:"The Fit Check King",desc:"You're all about style and swagger. Johnny Cash vibes!",postImg:"images/DQaK0GuEYez.jpg"},
-  {min:9,max:12,title:"The Cooking Era Tony",desc:"You're in your domestic era — roasts, pasta, and frozen meals!",postImg:"images/DUHMRrhkU7U.jpg"},
-  {min:13,max:20,title:"The Cozy Vlogger",desc:"Comfort food, nostalgic movies, and real talk. Authenticity is your brand!",postImg:"images/DRBOqy2EQoC.jpg"}
-];
-let quizStep = 0, quizScore = 0;
-function renderQuiz() {
-  const container = document.getElementById('quiz-container');
-  if (quizStep >= quizData.length) {
-    const result = quizResults.find(r => quizScore >= r.min && quizScore <= r.max) || quizResults[quizResults.length - 1];
-    container.innerHTML = `<div class="quiz-result"><h3>You are: ${result.title}!</h3><img src="${result.postImg}" alt=""><p>${result.desc}</p><p style="color:var(--dc-gold)">Score: ${quizScore}/${quizData.length * 3}</p><button class="btn" onclick="quizStep=0;quizScore=0;renderQuiz()">🔄 Retake Quiz</button></div>`;
+function renderTrivia() {
+  const {qs,idx,score} = triviaState;
+  const area = document.getElementById('trivia-area');
+  if(idx>=qs.length) {
+    const pct = Math.round(score/qs.length*100);
+    const msg = pct>=90?"You ARE Tony P 🐕":pct>=70?"Certified Tone Fan 🔥":pct>=50?"Casual follower vibes 👀":"Do you even follow Tony? 😅";
+    area.innerHTML = `<div class="card" style="text-align:center;"><div class="trivia-score">${score}/${qs.length} (${pct}%)</div><p style="font-size:1.3rem;margin:1rem 0;">${msg}</p><button class="btn" onclick="startTrivia('all')">Play Again</button></div>`;
     return;
   }
-  const q = quizData[quizStep];
-  container.innerHTML = `<div class="quiz-progress">Question ${quizStep+1} of ${quizData.length}</div><div class="quiz-question">${q.q}</div><div class="quiz-options">${q.options.map((opt,i) => `<div class="quiz-option" onclick="selectQuizOption(${i},${q.scores[i]})">${opt}</div>`).join('')}</div>`;
+  const q = qs[idx];
+  area.innerHTML = `<div class="trivia-progress"><div class="trivia-progress-bar" style="width:${(idx/qs.length)*100}%"></div></div>
+    <p style="color:#888;text-align:center;margin-bottom:0.5rem;">Question ${idx+1} of ${qs.length} · Score: ${score}</p>
+    <div class="trivia-q">${q.q}</div>
+    <div class="trivia-options">${q.opts.map((o,i) => `<button class="trivia-opt" onclick="answerTrivia(${i})">${o}</button>`).join('')}</div>`;
 }
-function selectQuizOption(idx, score) { quizScore += score; quizStep++; renderQuiz(); }
-renderQuiz();
+function answerTrivia(i) {
+  if(triviaState.answered) return;
+  triviaState.answered = true;
+  const q = triviaState.qs[triviaState.idx];
+  const btns = document.querySelectorAll('.trivia-opt');
+  btns[q.a].classList.add('correct');
+  if(i===q.a) triviaState.score++; else btns[i].classList.add('wrong');
+  btns.forEach(b => b.style.pointerEvents='none');
+  setTimeout(() => {triviaState.idx++;triviaState.answered=false;renderTrivia();},1200);
+}
+
+// ===== DATING QUIZ =====
+const datingQs = [
+  {q:"It's Friday night. What are you doing?",opts:["Clubbing til 3 AM","Cooking dinner at home","Binge-watching alone","Game night with friends"],scores:[0,3,1,2]},
+  {q:"Pick a drink:",opts:["Vodka soda","Diet Coke","Craft IPA","Matcha latte"],scores:[0,3,1,2]},
+  {q:"How do you handle conflict?",opts:["Yell it out","Talk it through calmly","Avoid it completely","Post a vague tweet"],scores:[0,3,1,0]},
+  {q:"Your ideal date activity?",opts:["Fancy restaurant","Cooking together at home","Netflix and takeout","Adventure / outdoors"],scores:[1,3,2,2]},
+  {q:"What's your take on therapy?",opts:["Everyone should try it","It's for weak people","Never thought about it","I've been, it helped"],scores:[3,0,1,3]},
+  {q:"Describe your style:",opts:["Athleisure always","Quarter-zips and clean fits","Streetwear / hype","Whatever's clean"],scores:[1,3,1,0]},
+  {q:"How do you feel about vulnerability?",opts:["Strength, not weakness","Uncomfortable but necessary","I'm an open book","What does that mean?"],scores:[3,2,3,0]},
+  {q:"Pick a love language:",opts:["Words of affirmation","Quality time","Physical touch","Acts of service"],scores:[2,3,2,2]},
+  {q:"Your opinion on social media:",opts:["I barely use it","It's a tool for connection","I post everything","Toxic but addictive"],scores:[1,3,0,1]},
+  {q:"What's your cooking level?",opts:["Can't boil water","Basics — eggs, pasta","I can follow a recipe","Salt, pepper, fresh garlic is my mantra"],scores:[0,1,2,3]},
+  {q:"How important is family?",opts:["Everything","Very important","It's complicated","Not really my thing"],scores:[3,3,2,0]},
+  {q:"Pick a language to learn:",opts:["French","Spanish","Japanese","None, English is fine"],scores:[1,3,1,0]},
+  {q:"Your take on masculinity?",opts:["Traditional / alpha","Be yourself, be kind","Don't think about it","It's a spectrum"],scores:[0,3,1,2]},
+  {q:"What animal are you?",opts:["Wolf","Golden retriever","Cat","Hawk"],scores:[0,3,1,0]},
+  {q:"What's your morning routine?",opts:["Snooze 5 times","Gym, shower, go","Coffee and Duolingo","Check my phone for an hour"],scores:[0,2,3,1]},
+];
+let datingState = {};
+function initDating() { datingState={idx:0,score:0}; renderDating(); }
+function renderDating() {
+  const {idx,score} = datingState;
+  const area = document.getElementById('dating-area');
+  if(idx>=datingQs.length) {
+    const max=datingQs.length*3, pct=Math.round(score/max*100);
+    let result,color;
+    if(pct>=85){result="🐕 You ARE Tony P's soulmate. Start planning the wedding.";color="var(--dc-gold)";}
+    else if(pct>=65){result="💚 Strong match! Tony would definitely swipe right.";color="var(--turquoise)";}
+    else if(pct>=45){result="👀 Friend zone — you'd be great buddies though.";color="var(--dc-gold)";}
+    else if(pct>=25){result="😬 Not quite. Maybe watch more of his content?";color="var(--pink)";}
+    else{result="🚫 You're an Andrew Tate fan and you're in the wrong app.";color="var(--pink)";}
+    area.innerHTML = `<div style="text-align:center;"><div style="font-size:2.5rem;font-weight:900;color:${color};">${pct}% Compatible</div><p style="font-size:1.2rem;margin:1rem 0;">${result}</p><button class="btn btn-pink" onclick="initDating()">Try Again</button></div>`;
+    return;
+  }
+  const q = datingQs[idx];
+  area.innerHTML = `<div class="trivia-progress"><div class="trivia-progress-bar" style="width:${(idx/datingQs.length)*100}%;background:var(--pink);"></div></div>
+    <p style="color:#888;text-align:center;">Question ${idx+1} of ${datingQs.length}</p>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-opts">${q.opts.map((o,i) => `<button class="quiz-opt" onclick="answerDating(${i})">${o}</button>`).join('')}</div>`;
+}
+function answerDating(i) { datingState.score+=datingQs[datingState.idx].scores[i]; datingState.idx++; renderDating(); }
+
+// ===== CAPTION GAME =====
+const captions = [
+  {context:"Tony posts a video of his morning routine in D.C.",answer:"Welcome to a Monday in my life as a 28-year-old taken bachelor in Washington, D.C."},
+  {context:"Tony cooking salmon for date night",answer:"Date night dinner: salmon with a balsamic glaze. Salt, pepper, fresh garlic. Keep it simple."},
+  {context:"Tony doing a fit check in a turquoise quarter-zip",answer:"Fit check. Rate 1-10. Be honest, I can take it."},
+  {context:"Tony at the Coliseum in Rome",answer:"Reasonably positive about this view."},
+  {context:"Tony after his Fox News appearance",answer:"Mom I'm on TV."},
+  {context:"Tony reflecting on his journey from corporate to creator",answer:"Quit my consulting job a year ago. Best decision I ever made. Bet on yourself."},
+  {context:"Tony on the morning of Super Bowl Sunday",answer:"Super Bowl Sunday as a taken bachelor hits different."},
+  {context:"Tony posting about learning Spanish on Duolingo",answer:"Day 47 of Duolingo. My Spanish is… razonablemente positivo."},
+  {context:"Tony responding to the 'bachelor' comments",answer:"For the last time — I KNOW what bachelor means. I'm redefining it."},
+  {context:"Tony's most vulnerable post about mental health",answer:"Therapy isn't weak. Talking about your feelings isn't weak. You know what's weak? Pretending you're fine when you're not."},
+  {context:"Tony posting a gym selfie",answer:"Reasonably positive about this pump."},
+  {context:"Tony at a Wizards game in D.C.",answer:"Taken bachelor at the game. She said I could go."},
+];
+let captionState = {};
+function initCaption() { captionState={idx:0,score:0}; renderCaptionGame(); }
+function renderCaptionGame() {
+  const {idx,score} = captionState;
+  const area = document.getElementById('caption-area');
+  if(idx>=captions.length) {
+    area.innerHTML = `<div class="card" style="text-align:center;"><div class="trivia-score">${score}/${captions.length} close matches</div><p style="margin:1rem 0;">${score>=8?"You think EXACTLY like Tony 🐕":score>=5?"Solid Tony energy! 🔥":"Tony would not approve 😅"}</p><button class="btn" onclick="initCaption()">Play Again</button></div>`;
+    return;
+  }
+  const c = captions[idx];
+  area.innerHTML = `<div class="trivia-progress"><div class="trivia-progress-bar" style="width:${(idx/captions.length)*100}%;background:var(--dc-gold);"></div></div>
+    <p style="color:#888;text-align:center;">Caption ${idx+1} of ${captions.length}</p>
+    <div class="caption-box"><div style="color:#888;font-size:0.9rem;margin-bottom:0.75rem;">📸 ${c.context}</div><p style="font-weight:600;color:white;">What would Tony caption this?</p>
+    <input class="caption-input" id="caption-input" placeholder="Type your caption..." onkeydown="if(event.key==='Enter')revealCaption()"></div>
+    <div style="text-align:center;margin-top:1rem;"><button class="btn" onclick="revealCaption()">Reveal Tony's Caption</button></div>
+    <div id="caption-reveal-area"></div>`;
+  setTimeout(() => document.getElementById('caption-input')?.focus(),100);
+}
+function revealCaption() {
+  const c = captions[captionState.idx];
+  const input = (document.getElementById('caption-input').value||'').toLowerCase();
+  const answer = c.answer.toLowerCase();
+  const inputWords = new Set(input.split(/\s+/).filter(w=>w.length>3));
+  const answerWords = new Set(answer.split(/\s+/).filter(w=>w.length>3));
+  let matches = 0; inputWords.forEach(w=>{if(answerWords.has(w))matches++;});
+  const close = matches>=3;
+  if(close) captionState.score++;
+  document.getElementById('caption-reveal-area').innerHTML = `<div class="card" style="text-align:center;margin-top:1rem;">
+    <p style="font-weight:700;color:${close?'var(--turquoise)':'var(--pink)'};">${close?'🎯 Close match!':'😅 Not quite!'}</p>
+    <p class="caption-reveal">Tony's actual caption:<br>"${c.answer}"</p>
+    <button class="btn" style="margin-top:1rem;" onclick="captionState.idx++;renderCaptionGame();">Next →</button></div>`;
+}
+
+// ===== SPANISH =====
+const spanishData = [
+  {phrase:"Soltero comprometido",context:"Tony's 'taken bachelor' brand in Spanish",opts:["Single forever","Committed bachelor","Happy single","Dating around"],a:1},
+  {phrase:"Noche de cita",context:"What Tony calls his cooking content nights",opts:["Night out","Date night","Movie night","Boys' night"],a:1},
+  {phrase:"Razonablemente positivo",context:"Tony's brand translated",opts:["Really positive","Kind of positive","Reasonably positive","Always positive"],a:2},
+  {phrase:"Salmón con glaseado balsámico",context:"Tony's signature date night dish",opts:["Salmon with lemon","Salmon with balsamic glaze","Grilled salmon","Salmon pasta"],a:1},
+  {phrase:"Perro dorado",context:"What Tony's fans call him (translated)",opts:["Good boy","Party animal","Golden retriever","Loyal friend"],a:2},
+  {phrase:"Buenos días",context:"Tony's morning routine posts",opts:["Good night","Good morning","Good afternoon","Goodbye"],a:1},
+  {phrase:"Me encanta cocinar",context:"Tony talking about his passion",opts:["I love dancing","I love cooking","I love running","I love singing"],a:1},
+  {phrase:"Salud mental",context:"A topic Tony talks about openly",opts:["Physical health","Mental health","Heart health","Public health"],a:1},
+  {phrase:"Terapia",context:"Tony openly advocates for this",opts:["Meditation","Exercise","Therapy","Journaling"],a:2},
+  {phrase:"Apuesta por ti mismo",context:"Tony's career advice translated",opts:["Bet on yourself","Trust the process","Follow your heart","Dream big"],a:0},
+  {phrase:"La vida es bella",context:"Tony's general outlook",opts:["Life is short","Life is hard","Life is beautiful","Life is a game"],a:2},
+  {phrase:"Ajo fresco",context:"Tony's essential cooking ingredient",opts:["Fresh onion","Fresh garlic","Fresh herbs","Fresh pepper"],a:1},
+  {phrase:"Tengo una novia",context:"Tony's relationship status update",opts:["I have a job","I have a dog","I have a girlfriend","I have plans"],a:2},
+  {phrase:"Sal y pimienta",context:"Tony's cooking basics",opts:["Oil and vinegar","Salt and pepper","Bread and butter","Sugar and spice"],a:1},
+  {phrase:"Soy presentador",context:"Tony's dream career",opts:["I'm a chef","I'm a broadcaster","I'm a model","I'm a teacher"],a:1},
+  {phrase:"Mi madre es fuerte",context:"Tony talking about his family",opts:["My mom is kind","My mom is funny","My mom is strong","My mom is smart"],a:2},
+  {phrase:"Dilo con cariño",context:"Tony's communication style",opts:["Say it loud","Say it with love","Say it fast","Say it once"],a:1},
+  {phrase:"¡Vamos!",context:"Tony hyping himself up",opts:["Goodbye!","Let's go!","Help me!","Watch out!"],a:1},
+  {phrase:"Lo mejor está por venir",context:"Tony's optimistic outlook",opts:["The worst is over","The best is yet to come","Everything happens for a reason","Time heals all"],a:1},
+  {phrase:"Caballero moderno",context:"What Tony represents",opts:["Modern gentleman","Old school guy","Young professional","Cool dude"],a:0},
+];
+let spanishState = {};
+function initSpanish() { spanishState={idx:0,score:0,answered:false}; renderSpanish(); }
+function renderSpanish() {
+  const {idx,score} = spanishState;
+  const area = document.getElementById('spanish-area');
+  if(idx>=spanishData.length) {
+    const pct=Math.round(score/spanishData.length*100);
+    const msg = pct>=90?"¡Perfecto! Tony would be impressed 🇪🇸":pct>=60?"¡Muy bien! Keep studying with Tone 📚":pct>=30?"Necesitas más Duolingo 🦉":"Tony's Duolingo owl is coming for you 💀";
+    area.innerHTML = `<div class="card" style="text-align:center;"><div class="trivia-score">${score}/${spanishData.length} (${pct}%)</div><p style="font-size:1.2rem;margin:1rem 0;">${msg}</p><button class="btn" onclick="initSpanish()">¡Otra vez!</button></div>`;
+    return;
+  }
+  const s = spanishData[idx];
+  area.innerHTML = `<div class="trivia-progress"><div class="trivia-progress-bar" style="width:${(idx/spanishData.length)*100}%;background:var(--dc-gold);"></div></div>
+    <p style="color:#888;text-align:center;">Phrase ${idx+1} of ${spanishData.length} · Score: ${score}</p>
+    <div class="spanish-card"><div class="spanish-phrase">${s.phrase}</div><div class="spanish-context">${s.context}</div>
+    <div class="spanish-opts">${s.opts.map((o,i) => `<button class="spanish-opt" onclick="answerSpanish(${i})">${o}</button>`).join('')}</div></div>`;
+}
+function answerSpanish(i) {
+  if(spanishState.answered) return;
+  spanishState.answered = true;
+  const s = spanishData[spanishState.idx];
+  const btns = document.querySelectorAll('.spanish-opt');
+  btns[s.a].classList.add('correct');
+  if(i===s.a) spanishState.score++; else btns[i].classList.add('wrong');
+  btns.forEach(b => b.style.pointerEvents='none');
+  setTimeout(() => {spanishState.idx++;spanishState.answered=false;renderSpanish();},1000);
+}
 
 // ===== MEMORY GAME =====
 const memoryImages = ["images/DJ2eVolPIIQ.jpg","images/DQqDJU2kREE.jpg","images/DQaK0GuEYez.jpg","images/DSksS4DEbdk.jpg","images/DUHMRrhkU7U.jpg","images/DRBOqy2EQoC.jpg","images/DPm0WLjkX6a.jpg","images/DPudEEmkSeM.jpg"];
-let memoryState = { cards: [], flipped: [], matched: [], moves: 0 };
+let memoryState = {cards:[],flipped:[],matched:[],moves:0};
 function initMemory() {
-  const pairs = [...memoryImages, ...memoryImages];
+  const pairs=[...memoryImages,...memoryImages];
   for(let i=pairs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pairs[i],pairs[j]]=[pairs[j],pairs[i]];}
-  memoryState = { cards: pairs, flipped: [], matched: [], moves: 0 };
-  renderMemory();
+  memoryState={cards:pairs,flipped:[],matched:[],moves:0}; renderMemory();
 }
 function renderMemory() {
-  const grid = document.getElementById('memory-grid');
-  document.getElementById('memory-moves').textContent = memoryState.moves;
-  document.getElementById('memory-matches').textContent = memoryState.matched.length / 2;
-  grid.innerHTML = memoryState.cards.map((img,i) => {
-    const isFlipped = memoryState.flipped.includes(i) || memoryState.matched.includes(i);
-    const isMatched = memoryState.matched.includes(i);
-    return `<div class="memory-card ${isFlipped?'flipped':''} ${isMatched?'matched':''}" onclick="flipCard(${i})"><div class="memory-card-inner"><div class="memory-front">🎤</div><div class="memory-back"><img src="${img}" alt="" loading="lazy"></div></div></div>`;
+  const grid=document.getElementById('memory-grid');
+  document.getElementById('memory-moves').textContent=memoryState.moves;
+  document.getElementById('memory-matches').textContent=memoryState.matched.length/2;
+  grid.innerHTML=memoryState.cards.map((img,i) => {
+    const f=memoryState.flipped.includes(i)||memoryState.matched.includes(i), m=memoryState.matched.includes(i);
+    return `<div class="memory-card ${f?'flipped':''} ${m?'matched':''}" onclick="flipCard(${i})"><div class="memory-card-inner"><div class="memory-front">🐕</div><div class="memory-back"><img src="${img}" loading="lazy"></div></div></div>`;
   }).join('');
 }
 function flipCard(i) {
@@ -1003,29 +1106,58 @@ function flipCard(i) {
     } else { setTimeout(()=>{memoryState.flipped=[];renderMemory();},1000); }
   }
 }
-initMemory();
 
-// ===== CAPTION GAME =====
-const captionData = [{"shortCode":"DRQpq2PERmM","caption":"I love cooking but those frozen meals are clutch these days"},{"shortCode":"DUllPoaEXxB","caption":"If I hope to stick with this, I have to do small things consistently!"},{"shortCode":"DUZK2_mESGt","caption":"This week was almost as packed as my weekends 😂"},{"shortCode":"DSsbecWEUqs","caption":"I really wanted to be up at 7:30! 😂"},{"shortCode":"DSGF7aqEduv","caption":"I'm just the messenger!"},{"shortCode":"DSgDDQ0ESm7","caption":"I guess my album could be called…Life of a Broadcaster"},{"shortCode":"DS1Z1HIjTro","caption":"Technically, I can celebrate until January 5th 😊"},{"shortCode":"DTLxpbCiRd3","caption":"I would be all in on a TB fit check 😊"},{"shortCode":"DS_l-SnjWPE","caption":"It brings the energy needed for a new year!"},{"shortCode":"DT1dnwikQlO","caption":"I think they list protein as the worst thing you could eat late at night!"}];
-let captionIdx = 0, captionRevealed = false;
-function renderCaption() {
-  const container = document.getElementById('caption-game');
-  if(captionIdx >= captionData.length){
-    container.innerHTML = '<h3 style="color:var(--dc-gold)">🎉 You\'ve seen all the posts!</h3><button class="btn" onclick="captionIdx=0;renderCaption()">🔄 Play Again</button>';
-    return;
-  }
-  const c = captionData[captionIdx];
-  container.innerHTML = `<p style="color:#888">Post ${captionIdx+1} of ${captionData.length}</p><img src="images/${c.shortCode}.jpg" alt=""><p style="margin:1rem 0;color:white;font-size:1.1rem">What did Tony P caption this post?</p>${captionRevealed?`<div class="caption-reveal">"${c.caption}"</div><button class="btn" style="margin-top:1rem" onclick="captionIdx++;captionRevealed=false;renderCaption()">Next Post →</button>`:`<button class="btn" onclick="captionRevealed=true;renderCaption()">🔍 Reveal Caption</button>`}`;
+// ===== FAN COMMENTS (localStorage) =====
+function getFanComments() { try { return JSON.parse(localStorage.getItem('tonyp_fan_comments')||'[]'); } catch(e) { return []; } }
+function submitFanComment() {
+  const name = document.getElementById('fan-name').value.trim() || 'Anonymous';
+  const text = document.getElementById('fan-comment').value.trim();
+  if(!text) return;
+  const comments = getFanComments();
+  comments.unshift({name,text,time:Date.now()});
+  localStorage.setItem('tonyp_fan_comments',JSON.stringify(comments));
+  document.getElementById('fan-name').value='';
+  document.getElementById('fan-comment').value='';
+  renderFanComments();
 }
-renderCaption();
+function renderFanComments() {
+  const comments = getFanComments();
+  const el = document.getElementById('user-comments');
+  if(!comments.length) { el.innerHTML='<p style="text-align:center;color:#666;margin-top:1rem;">No fan comments yet. Be the first! 🐕</p>'; return; }
+  el.innerHTML = '<h4 style="color:var(--dc-gold);margin-bottom:0.75rem;">Fan Comments</h4>' +
+    comments.slice(0,20).map(c => `<div class="comment-card"><div class="comment-text">"${c.text}"</div><div class="comment-user">— ${c.name} · ${new Date(c.time).toLocaleDateString()}</div></div>`).join('');
+}
 
-// Smooth scroll
+// ===== TABS =====
+function switchGameTab(id) {
+  document.querySelectorAll('#games .tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#games .tab-content').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+function switchTopTab(id) {
+  document.querySelectorAll('#top .tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#top .tab-content').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('top-'+id).classList.add('active');
+}
+
+// ===== SMOOTH SCROLL =====
 document.querySelectorAll('nav a').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
-    document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth'});
   });
 });
+
+// ===== INIT =====
+renderFitCheck();
+initDating();
+initCaption();
+initSpanish();
+initMemory();
+renderFanComments();
 </script>
 </body>
 </html>
