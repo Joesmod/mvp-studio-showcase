@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FFF8F0">
+<title>Reasonably Positive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FFF8F0;
+  --card: #FFFFFF;
+  --text: #2D2A26;
+  --text-secondary: #7A756E;
+  --accent: #E8734A;
+  --accent-light: #FFF0EB;
+  --green: #5B9A6F;
+  --green-light: #EDF7F0;
+  --blue: #5B8FA6;
+  --blue-light: #EBF4F8;
+  --purple: #8B7BA6;
+  --purple-light: #F3F0F8;
+  --border: #F0EBE4;
+  --shadow: 0 2px 12px rgba(45,42,38,0.06);
+  --shadow-lg: 0 8px 30px rgba(45,42,38,0.1);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --nav-height: 72px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+  height: 100%; overflow: hidden;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg); color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+body { display: flex; flex-direction: column; }
+
+/* Toast */
+.toast {
+  position: fixed; top: calc(12px + var(--safe-top)); left: 16px; right: 16px;
+  background: linear-gradient(135deg, var(--accent), #D4623E);
+  color: white; padding: 16px 20px; border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); z-index: 100;
+  display: flex; align-items: center; gap: 12px;
+  transform: translateY(-120%); transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+  font-size: 14px; line-height: 1.5; font-weight: 500;
+}
+.toast.show { transform: translateY(0); }
+.toast .close-toast { background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-left: auto; opacity: .8; }
+.toast .toast-icon { font-size: 22px; flex-shrink: 0; }
+
+/* Header */
+.header {
+  padding: calc(16px + var(--safe-top)) 20px 12px;
+  text-align: center; flex-shrink: 0;
+}
+.header h1 {
+  font-family: 'DM Serif Display', serif; font-size: 24px;
+  background: linear-gradient(135deg, var(--accent), #D4623E);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.header .subtitle { font-size: 12px; color: var(--text-secondary); margin-top: 2px; letter-spacing: .5px; }
+
+/* Main scroll area */
+.main {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 0 16px 16px; -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Tabs */
+.tab-content { display: none; animation: fadeIn .3s ease; }
+.tab-content.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Bottom Nav */
+.nav {
+  flex-shrink: 0; display: flex; background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 8px 0 calc(8px + var(--safe-bottom));
+  box-shadow: 0 -2px 12px rgba(0,0,0,.04);
+}
+.nav button {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  background: none; border: none; color: var(--text-secondary);
+  font-size: 10px; font-weight: 500; cursor: pointer;
+  padding: 6px 0; transition: color .2s;
+}
+.nav button .nav-icon { font-size: 22px; transition: transform .2s; }
+.nav button.active { color: var(--accent); }
+.nav button.active .nav-icon { transform: scale(1.15); }
+
+/* Cards */
+.card {
+  background: var(--card); border-radius: var(--radius);
+  padding: 20px; margin-bottom: 12px; box-shadow: var(--shadow);
+}
+.card-title { font-family: 'DM Serif Display', serif; font-size: 18px; margin-bottom: 12px; }
+
+/* Inputs */
+.input-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.input-row input {
+  flex: 1; padding: 12px 16px; border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
+  background: var(--bg); outline: none; transition: border-color .2s;
+}
+.input-row input:focus { border-color: var(--accent); }
+.btn {
+  padding: 12px 20px; border: none; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  background: var(--accent); color: white; font-family: inherit;
+  transition: transform .15s, opacity .15s;
+}
+.btn:active { transform: scale(.96); opacity: .9; }
+.btn-outline {
+  background: transparent; color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+
+/* Routine items */
+.routine-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+  transition: opacity .3s;
+}
+.routine-item:last-child { border-bottom: none; }
+.routine-item .grip { cursor: grab; color: var(--text-secondary); font-size: 16px; user-select: none; }
+.routine-item .check {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 2px solid var(--border); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .25s; flex-shrink: 0;
+}
+.routine-item .check.done { background: var(--green); border-color: var(--green); }
+.routine-item .check.done::after { content: '✓'; color: white; font-size: 13px; font-weight: 700; }
+.routine-item .label { flex: 1; font-size: 14px; }
+.routine-item .check.done + .label { text-decoration: line-through; color: var(--text-secondary); }
+.routine-item .delete-item { background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 16px; opacity: .5; }
+
+/* Segment tabs */
+.segment { display: flex; gap: 4px; background: var(--bg); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 16px; }
+.segment button {
+  flex: 1; padding: 10px; border: none; border-radius: 8px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  background: transparent; color: var(--text-secondary);
+  font-family: inherit; transition: all .2s;
+}
+.segment button.active { background: var(--card); color: var(--accent); box-shadow: var(--shadow); }
+
+/* Affirmation */
+.affirmation-display {
+  text-align: center; padding: 32px 8px;
+}
+.affirmation-display .aff-icon { font-size: 40px; margin-bottom: 16px; }
+.affirmation-display .aff-text {
+  font-family: 'DM Serif Display', serif; font-size: 22px;
+  line-height: 1.5; color: var(--text); margin-bottom: 20px;
+}
+.affirmation-display .aff-actions { display: flex; gap: 12px; justify-content: center; }
+.aff-btn {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid var(--border); background: var(--card);
+  font-size: 20px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.aff-btn.fav { border-color: #E84A6F; color: #E84A6F; background: #FFF0F3; }
+.fav-list-item {
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+  font-size: 14px; line-height: 1.6; display: flex; align-items: center; gap: 8px;
+}
+.fav-list-item .remove-fav { background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-secondary);margin-left:auto; }
+
+/* Habits */
+.habit-grid { display: grid; gap: 10px; }
+.habit-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px; background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow); cursor: pointer; transition: transform .15s;
+}
+.habit-card:active { transform: scale(.98); }
+.habit-icon { font-size: 28px; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.habit-info { flex: 1; }
+.habit-info .habit-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+.habit-info .habit-streak { font-size: 12px; color: var(--text-secondary); }
+.habit-check-mark {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2.5px solid var(--border); display: flex;
+  align-items: center; justify-content: center; transition: all .3s;
+  flex-shrink: 0;
+}
+.habit-check-mark.done { background: var(--green); border-color: var(--green); }
+.habit-check-mark.done::after { content: '✓'; color: white; font-weight: 700; font-size: 15px; }
+
+/* Calendar mini */
+.calendar-mini { margin-top: 16px; }
+.cal-month { font-weight: 600; font-size: 13px; margin-bottom: 8px; color: var(--text-secondary); }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+.cal-day {
+  aspect-ratio: 1; border-radius: 6px; font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-secondary); background: var(--bg);
+}
+.cal-day.done { background: var(--green-light); color: var(--green); font-weight: 700; }
+.cal-day.today { border: 1.5px solid var(--accent); }
+.cal-day.empty { background: transparent; }
+
+/* Add habit */
+.add-habit-section { margin-top: 12px; }
+.habit-presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.habit-preset {
+  padding: 8px 14px; border-radius: 20px; border: 1.5px solid var(--border);
+  background: var(--card); font-size: 13px; cursor: pointer; transition: all .2s;
+}
+.habit-preset:hover, .habit-preset.selected { border-color: var(--accent); background: var(--accent-light); }
+
+/* Reflect */
+.reflect-prompt {
+  font-family: 'DM Serif Display', serif; font-size: 20px;
+  line-height: 1.5; text-align: center; margin-bottom: 20px;
+  padding: 16px 0;
+}
+.reflect-textarea {
+  width: 100%; min-height: 160px; padding: 16px; border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
+  line-height: 1.7; resize: vertical; background: var(--bg); outline: none;
+  transition: border-color .2s;
+}
+.reflect-textarea:focus { border-color: var(--accent); }
+.past-reflections { margin-top: 20px; }
+.past-entry { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.past-entry .pe-date { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .5px; }
+.past-entry .pe-prompt { font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+.past-entry .pe-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+
+/* Progress bar */
+.progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--blue)); border-radius: 3px; transition: width .5s ease; }
+
+/* Utility */
+.empty-state { text-align: center; padding: 32px 16px; color: var(--text-secondary); font-size: 14px; }
+.empty-state .empty-icon { font-size: 40px; margin-bottom: 12px; }
+.section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 10px; font-weight: 600; }
+
+/* Scrollbar */
+.main::-webkit-scrollbar { width: 0; }
+</style>
+</head>
+<body>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon">☀️</span>
+  <span id="toast-msg"></span>
+  <button class="close-toast" onclick="hideToast()">×</button>
+</div>
+
+<!-- Header -->
+<div class="header">
+  <h1>Reasonably Positive</h1>
+  <div class="subtitle">small steps, real progress</div>
+</div>
+
+<!-- Main Content -->
+<div class="main" id="main">
+
+  <!-- ROUTINES TAB -->
+  <div class="tab-content active" id="tab-routines">
+    <div class="segment">
+      <button class="active" onclick="switchRoutine('morning',this)">🌅 Morning</button>
+      <button onclick="switchRoutine('evening',this)">🌙 Evening</button>
+    </div>
+    <div class="card">
+      <div class="card-title" id="routine-title">Morning Routine</div>
+      <div class="input-row">
+        <input type="text" id="routine-input" placeholder="Add a step…" maxlength="80">
+        <button class="btn" onclick="addRoutineItem()">+</button>
+      </div>
+      <div id="routine-progress"></div>
+      <div id="routine-list"></div>
+      <div id="routine-empty" class="empty-state" style="display:none">
+        <div class="empty-icon">📋</div>
+        Start building your routine!
+      </div>
+    </div>
+  </div>
+
+  <!-- AFFIRMATIONS TAB -->
+  <div class="tab-content" id="tab-affirmations">
+    <div class="segment">
+      <button class="active" onclick="switchAffView('today',this)">Today</button>
+      <button onclick="switchAffView('favorites',this)">♥ Favorites</button>
+    </div>
+    <div id="aff-today">
+      <div class="card">
+        <div class="affirmation-display">
+          <div class="aff-icon">🌿</div>
+          <div class="aff-text" id="aff-text"></div>
+          <div class="aff-actions">
+            <button class="aff-btn" id="aff-fav-btn" onclick="toggleFavAff()">♥</button>
+            <button class="aff-btn" onclick="nextAff()">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="aff-favorites" style="display:none">
+      <div class="card">
+        <div class="card-title">Saved Affirmations</div>
+        <div id="fav-list"></div>
+        <div id="fav-empty" class="empty-state" style="display:none">
+          <div class="empty-icon">💛</div>
+          Tap ♥ to save affirmations you love
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HABITS TAB -->
+  <div class="tab-content" id="tab-habits">
+    <div class="section-label">Today's Habits</div>
+    <div class="habit-grid" id="habit-grid"></div>
+    <div id="habit-empty" class="empty-state" style="display:none">
+      <div class="empty-icon">🌱</div>
+      Add your first habit below!
+    </div>
+    <div class="add-habit-section">
+      <div class="section-label" style="margin-top:20px">Add a Habit</div>
+      <div class="habit-presets" id="habit-presets"></div>
+      <div class="input-row">
+        <input type="text" id="habit-input" placeholder="Custom habit…" maxlength="40">
+        <button class="btn" onclick="addCustomHabit()">+</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="card-title">This Month</div>
+      <div class="calendar-mini" id="habit-calendar"></div>
+    </div>
+  </div>
+
+  <!-- REFLECT TAB -->
+  <div class="tab-content" id="tab-reflect">
+    <div class="card">
+      <div class="section-label">This Week's Prompt</div>
+      <div class="reflect-prompt" id="reflect-prompt"></div>
+      <textarea class="reflect-textarea" id="reflect-text" placeholder="Write your thoughts…"></textarea>
+      <div style="margin-top:12px;text-align:right">
+        <button class="btn" onclick="saveReflection()">Save Reflection</button>
+      </div>
+    </div>
+    <div class="past-reflections" id="past-reflections">
+      <div class="section-label">Past Reflections</div>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Nav -->
+<nav class="nav">
+  <button class="active" onclick="switchTab('routines',this)"><span class="nav-icon">📋</span>Routines</button>
+  <button onclick="switchTab('affirmations',this)"><span class="nav-icon">💛</span>Affirm</button>
+  <button onclick="switchTab('habits',this)"><span class="nav-icon">🌱</span>Habits</button>
+  <button onclick="switchTab('reflect',this)"><span class="nav-icon">✍️</span>Reflect</button>
+</nav>
+
+<script>
+// ── DATA ──
+const AFFIRMATIONS = [
+  "You don't have to be productive to be worthy.",
+  "Rest is not a reward. It's a requirement.",
+  "You're allowed to be a work in progress and still be loved.",
+  "Healing isn't linear, and that's perfectly okay.",
+  "Your best today might look different from yesterday's best.",
+  "You don't need to earn your right to take a break.",
+  "Small steps still move you forward.",
+  "It's okay to outgrow the version of yourself others are comfortable with.",
+  "You are more than what you accomplish.",
+  "Being gentle with yourself is not being lazy.",
+  "Not every day needs to be exceptional. Some days just need to be survived.",
+  "You are allowed to take up space.",
+  "Progress looks different for everyone. Stop comparing your chapter 3 to someone's chapter 20.",
+  "The most productive thing you can do today might be rest.",
+  "You don't owe anyone a transformation montage.",
+  "Showing up imperfectly still counts as showing up.",
+  "Your worth isn't measured in output.",
+  "It's okay to say no to things that drain you, even good things.",
+  "You are not behind. You are exactly where you need to be.",
+  "Boundaries are a form of self-love.",
+  "You deserve the same compassion you give to others.",
+  "Not everything that weighs on you is yours to carry.",
+  "You're doing better than you think you are.",
+  "Growth doesn't always look like more. Sometimes it looks like less.",
+  "You don't have to have it all figured out to move forward.",
+  "Your feelings are valid, even the inconvenient ones.",
+  "You are enough, even on the days you don't feel like it.",
+  "Celebrate the small wins. They add up.",
+  "It's okay to ask for help. That's strength, not weakness.",
+  "You are worthy of the love you keep trying to give everyone else.",
+  "Some days the bravest thing you can do is try again.",
+  "Your timeline is yours. There's no deadline for becoming yourself.",
+  "You don't need permission to prioritize your wellbeing.",
+  "The world needs the version of you that takes care of yourself first.",
+  "Slow progress is still progress."
+];
+
+const TOASTS = [
+  "Hey, you showed up today. That counts. ☀️",
+  "Reminder: you're doing better than you think. 💛",
+  "Today is a fresh page. Write something kind on it. 📝",
+  "You don't have to be perfect today. Just present. 🌿",
+  "One small good thing today is enough. 🌻",
+  "Be gentle with yourself this morning. ☕",
+  "You've survived 100% of your hardest days. 💪",
+  "This is your sign to drink some water. 💧",
+  "Breathe. You've got this. 🌊",
+  "Something good is coming. Stay open to it. 🌅"
+];
+
+const REFLECTIONS = [
+  "What's one thing you did this week that you're proud of, even if it felt small?",
+  "When did you feel most at peace this week?",
+  "What's something you're learning to let go of?",
+  "Who made you smile this week, and why?",
+  "What boundary did you set or wish you had set?",
+  "What does 'enough' look like for you right now?",
+  "What's one thing you'd tell your younger self about this week?",
+  "Where did you notice growth, even if it was tiny?",
+  "What drained your energy this week? What restored it?",
+  "If this week were a chapter title, what would it be?",
+  "What's one kind thing you did for yourself?",
+  "What are you grateful for that you usually overlook?",
+  "What would you do differently, and what would you keep the same?",
+  "How did you show up for someone else this week?",
+  "What are you carrying that you could put down?"
+];
+
+const HABIT_PRESETS = [
+  { name: 'Gym', icon: '💪', color: 'var(--accent-light)' },
+  { name: 'Cook a Meal', icon: '🍳', color: 'var(--green-light)' },
+  { name: 'Self-Care', icon: '🧖', color: 'var(--purple-light)' },
+  { name: 'Faith / Prayer', icon: '🙏', color: 'var(--blue-light)' },
+  { name: 'Dating', icon: '💕', color: 'var(--accent-light)' },
+  { name: 'Read', icon: '📖', color: 'var(--blue-light)' },
+  { name: 'Journal', icon: '📝', color: 'var(--green-light)' },
+  { name: 'Walk Outside', icon: '🚶', color: 'var(--green-light)' },
+  { name: 'Meditate', icon: '🧘', color: 'var(--purple-light)' },
+  { name: 'No Phone Hour', icon: '📵', color: 'var(--blue-light)' },
+];
+
+// ── STORAGE ──
+const ls = {
+  get(k, d) { try { const v = localStorage.getItem('rp_'+k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { localStorage.setItem('rp_'+k, JSON.stringify(v)); }
+};
+const today = () => new Date().toISOString().slice(0,10);
+const weekNum = () => { const d = new Date(); return Math.floor((d.getTime() / 604800000)); };
+
+// ── TAB SWITCHING ──
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('main').scrollTop = 0;
+}
+
+// ── TOAST ──
+function showToast() {
+  const msg = TOASTS[Math.floor(Math.random() * TOASTS.length)];
+  document.getElementById('toast-msg').textContent = msg;
+  document.getElementById('toast').classList.add('show');
+  setTimeout(hideToast, 5000);
+}
+function hideToast() { document.getElementById('toast').classList.remove('show'); }
+
+// ── ROUTINES ──
+let currentRoutine = 'morning';
+
+function switchRoutine(type, btn) {
+  currentRoutine = type;
+  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('routine-title').textContent = type === 'morning' ? 'Morning Routine' : 'Evening Routine';
+  renderRoutine();
+}
+
+function getRoutineData() {
+  return ls.get('routine_'+currentRoutine, []);
+}
+
+function saveRoutineData(items) {
+  ls.set('routine_'+currentRoutine, items);
+}
+
+function addRoutineItem() {
+  const input = document.getElementById('routine-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const items = getRoutineData();
+  items.push({ id: Date.now(), text, done: false, doneDate: null });
+  saveRoutineData(items);
+  input.value = '';
+  renderRoutine();
+}
+
+function toggleRoutineItem(id) {
+  const items = getRoutineData();
+  const item = items.find(i => i.id === id);
+  if (item) { item.done = !item.done; item.doneDate = item.done ? today() : null; }
+  saveRoutineData(items);
+  renderRoutine();
+}
+
+function deleteRoutineItem(id) {
+  saveRoutineData(getRoutineData().filter(i => i.id !== id));
+  renderRoutine();
+}
+
+function renderRoutine() {
+  const items = getRoutineData();
+  // Reset checks if it's a new day
+  items.forEach(i => { if (i.doneDate && i.doneDate !== today()) i.done = false; });
+  saveRoutineData(items);
+
+  const list = document.getElementById('routine-list');
+  const empty = document.getElementById('routine-empty');
+  const prog = document.getElementById('routine-progress');
+
+  if (items.length === 0) {
+    list.innerHTML = ''; empty.style.display = 'block'; prog.innerHTML = '';
+    return;
+  }
+  empty.style.display = 'none';
+  const done = items.filter(i => i.done).length;
+  prog.innerHTML = `<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary);margin-bottom:4px"><span>${done}/${items.length} done</span><span>${Math.round(done/items.length*100)}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${done/items.length*100}%"></div></div>`;
+
+  list.innerHTML = items.map(i => `
+    <div class="routine-item">
+      <span class="grip">⠿</span>
+      <div class="check ${i.done?'done':''}" onclick="toggleRoutineItem(${i.id})"></div>
+      <span class="label">${esc(i.text)}</span>
+      <button class="delete-item" onclick="deleteRoutineItem(${i.id})">×</button>
+    </div>
+  `).join('');
+}
+
+document.getElementById('routine-input').addEventListener('keydown', e => { if (e.key === 'Enter') addRoutineItem(); });
+
+// ── AFFIRMATIONS ──
+let affIdx = ls.get('aff_idx', 0);
+
+function renderAff() {
+  document.getElementById('aff-text').textContent = AFFIRMATIONS[affIdx % AFFIRMATIONS.length];
+  const favs = ls.get('aff_favs', []);
+  const btn = document.getElementById('aff-fav-btn');
+  btn.className = favs.includes(affIdx % AFFIRMATIONS.length) ? 'aff-btn fav' : 'aff-btn';
+}
+
+function nextAff() {
+  affIdx = (affIdx + 1) % AFFIRMATIONS.length;
+  ls.set('aff_idx', affIdx);
+  const el = document.getElementById('aff-text');
+  el.style.opacity = '0'; el.style.transform = 'translateY(10px)';
+  setTimeout(() => { renderAff(); el.style.transition = 'all .3s'; el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 150);
+  setTimeout(() => { el.style.transition = ''; }, 500);
+}
+
+function toggleFavAff() {
+  const favs = ls.get('aff_favs', []);
+  const idx = affIdx % AFFIRMATIONS.length;
+  if (favs.includes(idx)) favs.splice(favs.indexOf(idx), 1);
+  else favs.push(idx);
+  ls.set('aff_favs', favs);
+  renderAff();
+}
+
+function switchAffView(view, btn) {
+  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('aff-today').style.display = view === 'today' ? '' : 'none';
+  document.getElementById('aff-favorites').style.display = view === 'favorites' ? '' : 'none';
+  if (view === 'favorites') renderFavList();
+}
+
+function renderFavList() {
+  const favs = ls.get('aff_favs', []);
+  const list = document.getElementById('fav-list');
+  const empty = document.getElementById('fav-empty');
+  if (favs.length === 0) { list.innerHTML = ''; empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  list.innerHTML = favs.map(i => `
+    <div class="fav-list-item">
+      <span>💛</span> ${esc(AFFIRMATIONS[i])}
+      <button class="remove-fav" onclick="removeFav(${i})">×</button>
+    </div>
+  `).join('');
+}
+
+function removeFav(idx) {
+  const favs = ls.get('aff_favs', []).filter(i => i !== idx);
+  ls.set('aff_favs', favs);
+  renderFavList(); renderAff();
+}
+
+// ── HABITS ──
+function getHabits() { return ls.get('habits', []); }
+function saveHabits(h) { ls.set('habits', h); }
+function getHabitLog() { return ls.get('habit_log', {}); }
+function saveHabitLog(l) { ls.set('habit_log', l); }
+
+function toggleHabit(id) {
+  const log = getHabitLog();
+  const key = id + '_' + today();
+  if (log[key]) delete log[key]; else log[key] = true;
+  saveHabitLog(log);
+  renderHabits();
+}
+
+function getStreak(id) {
+  const log = getHabitLog();
+  let streak = 0;
+  let d = new Date();
+  while (true) {
+    const key = id + '_' + d.toISOString().slice(0,10);
+    if (log[key]) { streak++; d.setDate(d.getDate()-1); }
+    else break;
+  }
+  return streak;
+}
+
+function addHabitFromPreset(preset) {
+  const habits = getHabits();
+  if (habits.find(h => h.name === preset.name)) return;
+  habits.push({ id: Date.now(), name: preset.name, icon: preset.icon, color: preset.color });
+  saveHabits(habits);
+  renderHabits(); renderPresets();
+}
+
+function addCustomHabit() {
+  const input = document.getElementById('habit-input');
+  const name = input.value.trim();
+  if (!name) return;
+  const habits = getHabits();
+  habits.push({ id: Date.now(), name, icon: '⭐', color: 'var(--accent-light)' });
+  saveHabits(habits);
+  input.value = '';
+  renderHabits();
+}
+
+function renderPresets() {
+  const habits = getHabits();
+  const el = document.getElementById('habit-presets');
+  el.innerHTML = HABIT_PRESETS.filter(p => !habits.find(h => h.name === p.name)).map(p =>
+    `<button class="habit-preset" onclick="addHabitFromPreset(${esc(JSON.stringify(p)).replace(/"/g,'&quot;')})">${p.icon} ${p.name}</button>`
+  ).join('');
+}
+
+// Fix: ensure preset click works
+window.addHabitFromPreset = function(p) {
+  if (typeof p === 'string') p = JSON.parse(p);
+  const habits = getHabits();
+  if (habits.find(h => h.name === p.name)) return;
+  habits.push({ id: Date.now(), name: p.name, icon: p.icon, color: p.color });
+  saveHabits(habits);
+  renderHabits(); renderPresets();
+};
+
+function renderHabits() {
+  const habits = getHabits();
+  const log = getHabitLog();
+  const grid = document.getElementById('habit-grid');
+  const empty = document.getElementById('habit-empty');
+
+  if (habits.length === 0) { grid.innerHTML = ''; empty.style.display = ''; renderCalendar([]); renderPresets(); return; }
+  empty.style.display = 'none';
+
+  grid.innerHTML = habits.map(h => {
+    const done = log[h.id + '_' + today()];
+    const streak = getStreak(h.id);
+    return `
+      <div class="habit-card" onclick="toggleHabit(${h.id})">
+        <div class="habit-icon" style="background:${h.color}">${h.icon}</div>
+        <div class="habit-info">
+          <div class="habit-name">${esc(h.name)}</div>
+          <div class="habit-streak">${streak > 0 ? '🔥 ' + streak + ' day streak' : 'Start today!'}</div>
+        </div>
+        <div class="habit-check-mark ${done?'done':''}"></div>
+      </div>
+    `;
+  }).join('');
+
+  renderCalendar(habits);
+  renderPresets();
+}
+
+function renderCalendar(habits) {
+  const el = document.getElementById('habit-calendar');
+  if (habits.length === 0) { el.innerHTML = ''; return; }
+  const log = getHabitLog();
+  const now = new Date();
+  const year = now.getFullYear(), month = now.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const todayDate = now.getDate();
+  const monthName = now.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+  let html = `<div class="cal-month">${monthName}</div><div class="cal-grid">`;
+  ['S','M','T','W','T','F','S'].forEach(d => html += `<div class="cal-day empty" style="font-weight:600;color:var(--text-secondary);background:transparent">${d}</div>`);
+  for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const anyDone = habits.some(h => log[h.id + '_' + dateStr]);
+    const isToday = d === todayDate;
+    html += `<div class="cal-day${anyDone?' done':''}${isToday?' today':''}">${d}</div>`;
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+document.getElementById('habit-input').addEventListener('keydown', e => { if (e.key === 'Enter') addCustomHabit(); });
+
+// ── REFLECT ──
+function getWeekPrompt() {
+  return REFLECTIONS[weekNum() % REFLECTIONS.length];
+}
+
+function renderReflect() {
+  document.getElementById('reflect-prompt').textContent = getWeekPrompt();
+  const saved = ls.get('reflect_' + weekNum(), '');
+  document.getElementById('reflect-text').value = saved;
+  renderPastReflections();
+}
+
+function saveReflection() {
+  const text = document.getElementById('reflect-text').value.trim();
+  if (!text) return;
+  ls.set('reflect_' + weekNum(), text);
+  ls.set('reflect_prompt_' + weekNum(), getWeekPrompt());
+  // Save to history
+  const history = ls.get('reflect_history', []);
+  const existing = history.find(h => h.week === weekNum());
+  if (existing) { existing.text = text; existing.prompt = getWeekPrompt(); }
+  else history.unshift({ week: weekNum(), text, prompt: getWeekPrompt(), date: today() });
+  ls.set('reflect_history', history);
+  renderPastReflections();
+  // Quick feedback
+  const btn = event.target;
+  btn.textContent = '✓ Saved!';
+  setTimeout(() => btn.textContent = 'Save Reflection', 1500);
+}
+
+function renderPastReflections() {
+  const history = ls.get('reflect_history', []);
+  const el = document.getElementById('past-reflections');
+  if (history.length === 0) { el.innerHTML = '<div class="section-label">Past Reflections</div><div class="empty-state"><div class="empty-icon">📖</div>Your reflections will appear here</div>'; return; }
+  el.innerHTML = '<div class="section-label">Past Reflections</div>' + history.slice(0, 10).map(h => `
+    <div class="past-entry">
+      <div class="pe-date">${h.date || 'Earlier'}</div>
+      <div class="pe-prompt">${esc(h.prompt)}</div>
+      <div class="pe-text">${esc(h.text)}</div>
+    </div>
+  `).join('');
+}
+
+// ── UTILS ──
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// ── INIT ──
+function init() {
+  renderRoutine();
+  renderAff();
+  renderHabits();
+  renderReflect();
+  setTimeout(showToast, 600);
+}
+
+// Fix preset buttons to use data attributes
+function renderPresets() {
+  const habits = getHabits();
+  const el = document.getElementById('habit-presets');
+  const available = HABIT_PRESETS.filter(p => !habits.find(h => h.name === p.name));
+  el.innerHTML = '';
+  available.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'habit-preset';
+    btn.textContent = p.icon + ' ' + p.name;
+    btn.onclick = () => {
+      const habits = getHabits();
+      if (habits.find(h => h.name === p.name)) return;
+      habits.push({ id: Date.now(), name: p.name, icon: p.icon, color: p.color });
+      saveHabits(habits);
+      renderHabits();
+    };
+    el.appendChild(btn);
+  });
+}
+
+init();
+</script>
+</body>
+</html>
