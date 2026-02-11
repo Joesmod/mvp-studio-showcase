@@ -419,6 +419,48 @@ footer a { color: var(--dc-gold); text-decoration: none; }
   </div>
 </section>
 
+<!-- 🐷 HOG REVEAL COUNTDOWN 🐷 -->
+<section id="hog-reveal" style="padding:2rem 1rem;text-align:center;position:relative;overflow:hidden;">
+  <style>
+    @keyframes hogPulse { 0%,100% { transform:scale(1); text-shadow:0 0 20px rgba(255,105,180,0.6),0 0 40px rgba(255,105,180,0.3); } 50% { transform:scale(1.05); text-shadow:0 0 40px rgba(255,105,180,0.9),0 0 80px rgba(255,105,180,0.5),0 0 120px rgba(255,105,180,0.2); } }
+    @keyframes hogGlow { 0%,100% { box-shadow:0 0 30px rgba(255,105,180,0.4),0 0 60px rgba(255,105,180,0.2),inset 0 0 30px rgba(255,105,180,0.1); border-color:rgba(255,105,180,0.6); } 50% { box-shadow:0 0 50px rgba(255,105,180,0.7),0 0 100px rgba(255,105,180,0.4),0 0 150px rgba(255,105,180,0.2),inset 0 0 50px rgba(255,105,180,0.15); border-color:rgba(255,105,180,1); } }
+    @keyframes hogBounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+    .hog-title { font-size:3rem; font-weight:900; color:#ff69b4; animation:hogPulse 2s ease-in-out infinite; margin-bottom:0.5rem; }
+    .hog-subtitle { color:#ccc; font-size:1.1rem; margin-bottom:1.5rem; }
+    .hog-timer-box { display:inline-flex; gap:1rem; flex-wrap:wrap; justify-content:center; padding:2rem 2.5rem; border-radius:20px; border:3px solid rgba(255,105,180,0.6); background:rgba(255,105,180,0.05); animation:hogGlow 3s ease-in-out infinite; }
+    .hog-unit { text-align:center; min-width:80px; animation:hogBounce 2s ease-in-out infinite; }
+    .hog-unit:nth-child(2) { animation-delay:0.15s; }
+    .hog-unit:nth-child(3) { animation-delay:0.3s; }
+    .hog-unit:nth-child(4) { animation-delay:0.45s; }
+    .hog-num { font-size:3.5rem; font-weight:900; color:#ff69b4; text-shadow:0 0 20px rgba(255,105,180,0.5); line-height:1; }
+    .hog-label { font-size:0.75rem; text-transform:uppercase; letter-spacing:3px; color:#888; margin-top:0.3rem; }
+    @media(max-width:768px) { .hog-title { font-size:2rem; } .hog-num { font-size:2.2rem; } .hog-unit { min-width:60px; } }
+  </style>
+  <div class="hog-title">🐷 THE HOG REVEAL 🐷</div>
+  <div class="hog-subtitle">Something big is coming. Something... <em>reasonably positive</em>.</div>
+  <div class="hog-timer-box">
+    <div class="hog-unit"><div class="hog-num" id="hog-days">---</div><div class="hog-label">Days</div></div>
+    <div class="hog-unit"><div class="hog-num" id="hog-hours">--</div><div class="hog-label">Hours</div></div>
+    <div class="hog-unit"><div class="hog-num" id="hog-mins">--</div><div class="hog-label">Minutes</div></div>
+    <div class="hog-unit"><div class="hog-num" id="hog-secs">--</div><div class="hog-label">Seconds</div></div>
+  </div>
+  <script>
+    (function(){
+      const target=new Date('2027-02-11T00:00:00').getTime();
+      function tick(){
+        const diff=target-Date.now();
+        if(diff<=0){document.querySelector('.hog-title').textContent='🐷 THE HOG HAS BEEN REVEALED 🐷';return;}
+        const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+        document.getElementById('hog-days').textContent=d;
+        document.getElementById('hog-hours').textContent=String(h).padStart(2,'0');
+        document.getElementById('hog-mins').textContent=String(m).padStart(2,'0');
+        document.getElementById('hog-secs').textContent=String(s).padStart(2,'0');
+      }
+      tick();setInterval(tick,1000);
+    })();
+  </script>
+</section>
+
 <div class="photo-strip" id="strip1"></div>
 
 <!-- FIT CHECK RANKER -->
