@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon City — Raj's Night</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a1a; overflow: hidden; font-family: monospace; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="city"></canvas>
+<script>
+const canvas = document.getElementById('city');
+const ctx = canvas.getContext('2d');
+
+let W, H;
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', () => { resize(); buildings = genBuildings(); stars = genStars(); });
+
+// Colors
+const NEON = ['#ff00ff','#00ffff','#ff3366','#ffcc00','#00ff88','#ff6600','#aa66ff'];
+const SKY_TOP = '#05051a';
+const SKY_BOT = '#1a0a2e';
+
+// Stars
+function genStars() {
+  return Array.from({length: 200}, () => ({
+    x: Math.random() * W,
+    y: Math.random() * H * 0.5,
+    r: Math.random() * 1.5 + 0.3,
+    twinkle: Math.random() * Math.PI * 2,
+    speed: Math.random() * 2 + 1
+  }));
+}
+let stars = genStars();
+
+// Moon
+const moon = { x: 0.8, y: 0.12, r: 30 };
+
+// Buildings
+function genBuildings() {
+  const b = [];
+  let x = -10;
+  while (x < W + 10) {
+    const w = 30 + Math.random() * 80;
+    const h = 80 + Math.random() * (H * 0.55);
+    const color = NEON[Math.floor(Math.random() * NEON.length)];
+    const windows = [];
+    const winW = 6, winH = 8, padX = 8, padY = 12;
+    for (let wy = 20; wy < h - 15; wy += padY) {
+      for (let wx = 8; wx < w - 8; wx += padX) {
+        windows.push({
+          rx: wx, ry: wy,
+          on: Math.random() > 0.35,
+          flicker: Math.random() * Math.PI * 2,
+          flickerSpeed: Math.random() * 3 + 0.5
+        });
+      }
+    }
+    // Antenna
+    const hasAntenna = h > H * 0.35 && Math.random() > 0.4;
+    b.push({ x, w, h, color, windows, winW, winH, hasAntenna, antennaH: 15 + Math.random() * 25 });
+    x += w + Math.random() * 15;
+  }
+  return b;
+}
+let buildings = genBuildings();
+
+// Shooting stars
+let shooters = [];
+function maybeShoot() {
+  if (Math.random() < 0.003 && shooters.length < 2) {
+    shooters.push({
+      x: Math.random() * W * 0.7,
+      y: Math.random() * H * 0.2,
+      vx: 4 + Math.random() * 4,
+      vy: 2 + Math.random() * 2,
+      life: 1
+    });
+  }
+}
+
+// Rain (light)
+const rain = Array.from({length: 100}, () => ({
+  x: Math.random() * 2000,
+  y: Math.random() * 2000,
+  speed: 4 + Math.random() * 6,
+  len: 10 + Math.random() * 15
+}));
+
+let t = 0;
+
+function draw() {
+  t += 0.016;
+  ctx.clearRect(0, 0, W, H);
+
+  // Sky gradient
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, SKY_TOP);
+  grad.addColorStop(0.6, SKY_BOT);
+  grad.addColorStop(1, '#0d0d2b');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Stars
+  stars.forEach(s => {
+    const alpha = 0.4 + 0.6 * Math.abs(Math.sin(t * s.speed + s.twinkle));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+    ctx.fill();
+  });
+
+  // Moon
+  ctx.beginPath();
+  ctx.arc(W * moon.x, H * moon.y, moon.r, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffffcc';
+  ctx.shadowColor = '#ffffcc';
+  ctx.shadowBlur = 40;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Shooting stars
+  maybeShoot();
+  shooters = shooters.filter(s => {
+    s.x += s.vx;
+    s.y += s.vy;
+    s.life -= 0.015;
+    if (s.life <= 0) return false;
+    ctx.beginPath();
+    ctx.moveTo(s.x, s.y);
+    ctx.lineTo(s.x - s.vx * 5, s.y - s.vy * 5);
+    ctx.strokeStyle = `rgba(255,255,255,${s.life})`;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    return true;
+  });
+
+  // Buildings
+  buildings.forEach(b => {
+    const baseY = H - b.h;
+
+    // Glow under building
+    const glow = ctx.createRadialGradient(b.x + b.w/2, H, 0, b.x + b.w/2, H, b.w);
+    glow.addColorStop(0, b.color + '22');
+    glow.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow;
+    ctx.fillRect(b.x - b.w/2, H - 30, b.w * 2, 30);
+
+    // Building body
+    ctx.fillStyle = '#0d0d1a';
+    ctx.fillRect(b.x, baseY, b.w, b.h);
+
+    // Outline glow
+    ctx.strokeStyle = b.color + '44';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(b.x, baseY, b.w, b.h);
+
+    // Windows
+    b.windows.forEach(win => {
+      if (!win.on) return;
+      const flick = Math.sin(t * win.flickerSpeed + win.flicker);
+      const alpha = flick > -0.3 ? (0.5 + flick * 0.3) : 0.08;
+      const wx = b.x + win.rx;
+      const wy = baseY + win.ry;
+      ctx.fillStyle = b.color + Math.floor(alpha * 255).toString(16).padStart(2, '0');
+      ctx.shadowColor = b.color;
+      ctx.shadowBlur = 4;
+      ctx.fillRect(wx, wy, b.winW, b.winH);
+      ctx.shadowBlur = 0;
+    });
+
+    // Antenna
+    if (b.hasAntenna) {
+      const ax = b.x + b.w / 2;
+      ctx.beginPath();
+      ctx.moveTo(ax, baseY);
+      ctx.lineTo(ax, baseY - b.antennaH);
+      ctx.strokeStyle = '#333';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // Blinking light
+      const blink = Math.sin(t * 3) > 0.3;
+      if (blink) {
+        ctx.beginPath();
+        ctx.arc(ax, baseY - b.antennaH, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#ff0033';
+        ctx.shadowColor = '#ff0033';
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+  });
+
+  // Rain
+  ctx.strokeStyle = 'rgba(150,180,255,0.15)';
+  ctx.lineWidth = 1;
+  rain.forEach(r => {
+    r.y += r.speed;
+    r.x += 1;
+    if (r.y > H) { r.y = -r.len; r.x = Math.random() * W; }
+    if (r.x > W) r.x = 0;
+    ctx.beginPath();
+    ctx.moveTo(r.x, r.y);
+    ctx.lineTo(r.x + 1, r.y + r.len);
+    ctx.stroke();
+  });
+
+  // Ground reflection line
+  ctx.fillStyle = '#ffffff08';
+  ctx.fillRect(0, H - 2, W, 2);
+
+  // Title
+  ctx.font = '14px monospace';
+  ctx.fillStyle = '#ffffff33';
+  ctx.fillText('RAJ\'S NEON CITY', 20, 30);
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+</body>
+</html>
