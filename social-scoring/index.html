@@ -1,297 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rainmaker — Social Intelligence Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafb; color: #1a2332; }
-
-        /* Header — Rainmaker brand bar */
-        .top-bar { background: #0b1d3a; padding: 12px 32px; display: flex; align-items: center; gap: 10px; }
-        .top-bar .logo-text { color: #fff; font-size: 15px; font-weight: 600; letter-spacing: 0.5px; }
-        .top-bar .logo-text span { color: #5eb8f7; }
-        .top-bar .tagline { color: #7a9bc5; font-size: 11px; margin-left: auto; letter-spacing: 0.3px; }
-
-        .header { background: linear-gradient(135deg, #0f2847 0%, #163a65 50%, #1b4d7a 100%); padding: 32px 32px 28px; position: relative; overflow: hidden; }
-        .header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(94,184,247,0.08) 0%, transparent 70%); pointer-events: none; }
-        .header h1 { font-size: 22px; font-weight: 600; color: #fff; }
-        .header h1 .rain-icon { font-size: 20px; margin-right: 6px; }
-        .header .subtitle { color: #8db8e0; font-size: 13px; margin-top: 6px; font-weight: 400; }
-        .header-row { display: flex; justify-content: space-between; align-items: flex-start; }
-        .header .updated { color: #8db8e0; font-size: 12px; text-align: right; }
-        .header .updated .time { color: #5eb8f7; font-weight: 600; display: block; margin-top: 2px; }
-
-        /* Alert bar */
-        .alert-bar { background: #fef3f2; border-bottom: 1px solid #fecaca; padding: 12px 32px; display: flex; align-items: center; gap: 10px; }
-        .alert-bar .icon { font-size: 16px; }
-        .alert-bar .text { font-size: 13px; color: #b91c1c; font-weight: 500; }
-
-        /* Metrics */
-        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding: 24px 32px; }
-        .metric-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-        .metric-card .label { color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; }
-        .metric-card .value { font-size: 34px; font-weight: 700; margin-top: 8px; }
-        .metric-card .value.positive { color: #16a34a; }
-        .metric-card .value.negative { color: #dc2626; }
-        .metric-card .value.neutral { color: #1d6fb5; }
-        .metric-card .detail { color: #94a3b8; font-size: 12px; margin-top: 4px; }
-
-        /* Charts */
-        .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; padding: 0 32px 24px; }
-        .chart-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-        .chart-card h3 { font-size: 13px; color: #64748b; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
-
-        /* Narrative alert */
-        .narrative-card { background: #fff; border: 1px solid #fecaca; border-left: 4px solid #dc2626; border-radius: 12px; padding: 20px; margin: 0 32px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-        .narrative-card h3 { font-size: 14px; color: #dc2626; margin-bottom: 8px; font-weight: 600; }
-        .narrative-card p { font-size: 13px; color: #374151; line-height: 1.7; }
-        .narrative-card .recommendation { margin-top: 12px; padding-top: 12px; border-top: 1px solid #f1f5f9; color: #1d6fb5; font-size: 13px; font-weight: 500; }
-
-        /* Mentions */
-        .mentions { padding: 0 32px 32px; }
-        .mentions h3 { font-size: 13px; color: #64748b; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
-        .mention-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-bottom: 8px; display: flex; gap: 14px; align-items: flex-start; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.15s; }
-        .mention-item:hover { border-color: #cbd5e1; }
-        .mention-item.flagged { border-color: #fca5a5; background: #fef2f2; }
-        .mention-item .sentiment-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
-        .mention-item .sentiment-dot.positive { background: #16a34a; }
-        .mention-item .sentiment-dot.negative { background: #dc2626; }
-        .mention-item .sentiment-dot.neutral { background: #94a3b8; }
-        .mention-item .content { flex: 1; }
-        .mention-item .author { font-size: 13px; color: #1d6fb5; font-weight: 500; }
-        .mention-item .text { font-size: 14px; margin-top: 4px; line-height: 1.6; color: #374151; }
-        .mention-item .meta { font-size: 12px; color: #94a3b8; margin-top: 8px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
-        .badge.positive { background: #dcfce7; color: #16a34a; }
-        .badge.negative { background: #fee2e2; color: #dc2626; }
-        .badge.conspiracy { background: #ede9fe; color: #7c3aed; }
-        .badge.neutral { background: #f1f5f9; color: #64748b; }
-        .source-tag { font-size: 11px; color: #94a3b8; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
-
-        /* Footer */
-        .footer { background: #0b1d3a; color: #7a9bc5; text-align: center; padding: 16px 32px; font-size: 11px; letter-spacing: 0.3px; }
-        .footer strong { color: #fff; font-weight: 500; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Scoring Dashboard | Hello Gumbo</title>
+<style>
+  :root { --bg: #1c2c26; --card: #103d1d; --border: #275f4b; --text: #f5f5f1; --dim: #628c7d; --accent: #e5ff42; --green: #e5ff42; --red: #f87171; --yellow: #daba89; --orange: #daba89; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 24px; max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  .subtitle { color: var(--dim); font-size: 0.85rem; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card h2 { font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; font-weight: 600; text-transform: uppercase; }
+  .badge-positive { background: rgba(229,255,66,0.15); color: var(--green); }
+  .badge-mixed, .badge-neutral { background: rgba(218,186,137,0.15); color: var(--yellow); }
+  .badge-negative { background: rgba(248,113,113,0.15); color: var(--red); }
+  .stat-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { color: var(--dim); font-size: 0.85rem; }
+  .stat-value { font-weight: 600; font-size: 0.95rem; }
+  .post { padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .post:last-child { border-bottom: none; }
+  .post-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; font-size: 0.8rem; color: var(--dim); flex-wrap: wrap; }
+  .post-text { font-size: 0.9rem; line-height: 1.45; margin-bottom: 8px; }
+  .post-stats { display: flex; gap: 16px; font-size: 0.8rem; color: var(--dim); }
+  .post-stats span { display: flex; align-items: center; gap: 3px; }
+  .risk-tag { background: rgba(248,113,113,0.15); color: var(--red); font-size: 0.7rem; padding: 1px 6px; border-radius: 4px; font-weight: 600; }
+  .pinned-tag { background: rgba(229,255,66,0.15); color: var(--accent); font-size: 0.7rem; padding: 1px 6px; border-radius: 4px; }
+  .repost-tag { background: rgba(218,186,137,0.15); color: var(--yellow); font-size: 0.7rem; padding: 1px 6px; border-radius: 4px; }
+  .topics { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .topic { background: var(--border); color: var(--dim); font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; }
+  .risk-section { margin-top: 8px; }
+  .risk-item { padding: 6px 0; font-size: 0.85rem; color: #daba89; }
+  .risk-item::before { content: "⚠ "; }
+  .full-width { grid-column: 1 / -1; }
+  .score-circle { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin-right: 8px; flex-shrink: 0; }
+  .score-row { display: flex; align-items: center; margin-bottom: 12px; }
+  .score-row .details { font-size: 0.85rem; }
+  .score-row .details .name { font-weight: 600; }
+  .score-row .details .handle { color: var(--dim); }
+  .notable { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .notable-chip { background: rgba(229,255,66,0.12); color: var(--accent); font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; }
+  .section-card { margin-bottom: 24px; }
+</style>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="logo-text">🌧️ <span>Rainmaker</span></div>
-        <div class="tagline">Rain. Made in America.</div>
-    </div>
 
-    <div class="header">
-        <div class="header-row">
-            <div>
-                <h1><span class="rain-icon">📡</span> Social Perception Dashboard</h1>
-                <div class="subtitle">Real-time monitoring of public sentiment · @rainmakercorp mentions</div>
-            </div>
-            <div class="updated">
-                Last updated<br>
-                <span class="time" id="last-updated">—</span>
-            </div>
+<h1>Rainmaker — Social Scoring Dashboard</h1>
+<div class="subtitle" id="pull-time"></div>
+
+<div class="grid" id="accounts"></div>
+
+<div class="grid">
+  <div class="card section-card">
+    <h2>📊 Aggregate Metrics</h2>
+    <div id="aggregate"></div>
+  </div>
+  <div class="card section-card">
+    <h2>👥 Notable Followers</h2>
+    <div class="notable" id="notable"></div>
+    <div style="margin-top:12px">
+      <h2>⚠️ Risk Signals</h2>
+      <div class="risk-section" id="risks"></div>
+    </div>
+  </div>
+</div>
+
+<div class="card full-width section-card">
+  <h2>📝 Recent Posts <span style="font-size:0.75rem;color:var(--dim);font-weight:400;margin-left:8px">sorted by views</span></h2>
+  <div id="posts"></div>
+</div>
+
+<script>
+const DATA_URL = 'initial-pull.json';
+
+function fmt(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
+  return n.toString();
+}
+
+function sentimentBadge(s) {
+  if (!s) return '';
+  const cls = s === 'positive' ? 'badge-positive' : s === 'negative' ? 'badge-negative' : 'badge-mixed';
+  return `<span class="badge ${cls}">${s}</span>`;
+}
+
+function scoreColor(n) {
+  if (n >= 7) return '#e5ff42';
+  if (n >= 5) return '#daba89';
+  return '#f87171';
+}
+
+async function init() {
+  const res = await fetch(DATA_URL);
+  const d = await res.json();
+
+  const ts = d.pullTimestamp || d.pulled_at;
+  document.getElementById('pull-time').textContent = `Data pulled: ${new Date(ts).toLocaleString()}`;
+
+  // Account cards
+  const accts = document.getElementById('accounts');
+  for (const [key, a] of Object.entries(d.accounts)) {
+    const score = a.sentiment_score || (a.sentiment === 'positive' ? 7 : a.sentiment === 'mixed' ? 6 : 5);
+    const color = scoreColor(score);
+    const name = a.name || a.handle;
+    const roleTag = a.role ? `<span style="color:var(--accent);font-size:0.75rem"> (${a.role})</span>` : '';
+    accts.innerHTML += `
+      <div class="card">
+        <div class="score-row">
+          <div class="score-circle" style="border: 3px solid ${color}; color: ${color}">${score}</div>
+          <div class="details">
+            <div class="name">${name}${roleTag}</div>
+            <div class="handle">${a.handle} ${a.verified ? '✓' : ''} ${sentimentBadge(a.sentiment)}</div>
+          </div>
         </div>
-    </div>
+        <div class="stat-row"><span class="stat-label">Followers</span><span class="stat-value">${fmt(a.followers)}</span></div>
+        ${a.following ? `<div class="stat-row"><span class="stat-label">Following</span><span class="stat-value">${fmt(a.following)}</span></div>` : ''}
+        <div class="stat-row"><span class="stat-label">Posts</span><span class="stat-value">${fmt(a.posts)}</span></div>
+        ${a.location ? `<div class="stat-row"><span class="stat-label">Location</span><span class="stat-value">${a.location}</span></div>` : ''}
+        ${a.joined ? `<div class="stat-row"><span class="stat-label">Joined</span><span class="stat-value">${a.joined}</span></div>` : ''}
+        <div style="font-size:0.85rem;color:var(--dim);margin-top:8px;font-style:italic">"${a.bio}"</div>
+      </div>`;
+  }
 
-    <div class="alert-bar" id="alert-bar" style="display:none;">
-        <span class="icon">🔴</span>
-        <span class="text" id="alert-text"></span>
-    </div>
+  // Aggregate
+  const ag = d.aggregateMetrics;
+  const re = ag.recentEngagement || {};
+  let agHtml = `
+    <div class="stat-row"><span class="stat-label">Combined Followers</span><span class="stat-value">${fmt(ag.totalFollowers)}</span></div>`;
+  if (ag.ceoToCorpFollowerRatio) agHtml += `<div class="stat-row"><span class="stat-label">CEO:Corp Follower Ratio</span><span class="stat-value">${ag.ceoToCorpFollowerRatio}x</span></div>`;
+  if (ag.avgEngagementCorp) agHtml += `<div class="stat-row"><span class="stat-label">Avg Engagement (Corp)</span><span class="stat-value">${fmt(ag.avgEngagementCorp)}</span></div>`;
+  if (ag.avgEngagementCeo) agHtml += `<div class="stat-row"><span class="stat-label">Avg Engagement (CEO)</span><span class="stat-value">${fmt(ag.avgEngagementCeo)}</span></div>`;
+  if (re.totalViews) agHtml += `<div class="stat-row"><span class="stat-label">Recent Total Views</span><span class="stat-value">${fmt(re.totalViews)}</span></div>`;
+  if (re.totalLikes) agHtml += `<div class="stat-row"><span class="stat-label">Recent Total Likes</span><span class="stat-value">${fmt(re.totalLikes)}</span></div>`;
+  if (d.keyTopics) agHtml += `<div class="stat-row"><span class="stat-label">Key Topics</span><span class="stat-value" style="text-align:right;max-width:60%">${d.keyTopics.join(', ')}</span></div>`;
+  document.getElementById('aggregate').innerHTML = agHtml;
 
-    <div class="metrics" id="metrics">
-        <div class="metric-card">
-            <div class="label">Brand Score</div>
-            <div class="value" id="brand-score">—</div>
-            <div class="detail" id="brand-trend"></div>
+  // Notable followers
+  const notable = document.getElementById('notable');
+  (d.notableFollowers || []).forEach(f => {
+    notable.innerHTML += `<span class="notable-chip">${f}</span>`;
+  });
+
+  // Risks
+  const risks = document.getElementById('risks');
+  (d.riskSignals || []).forEach(r => {
+    risks.innerHTML += `<div class="risk-item">${r}</div>`;
+  });
+
+  // Posts — sorted by views desc
+  const posts = document.getElementById('posts');
+  const sortedPosts = [...(d.recentPosts || [])].sort((a, b) => (b.metrics?.views || 0) - (a.metrics?.views || 0));
+  sortedPosts.forEach(p => {
+    const m = p.metrics || {};
+    const tags = [];
+    if (p.isPinned) tags.push('<span class="pinned-tag">📌 PINNED</span>');
+    if (p.risk_flag) tags.push('<span class="risk-tag">🚨 RISK</span>');
+    if (p.type === 'repost') tags.push(`<span class="repost-tag">🔁 RT ${p.originalAuthor || ''}</span>`);
+    const text = p.content || p.text || '';
+    const topicsHtml = (p.topics || []).map(t => `<span class="topic">${t}</span>`).join('');
+    posts.innerHTML += `
+      <div class="post">
+        <div class="post-meta">
+          <strong>${p.account}</strong> · ${p.date} ${tags.join(' ')} ${sentimentBadge(p.sentiment)}
         </div>
-        <div class="metric-card">
-            <div class="label">Mentions (12h)</div>
-            <div class="value neutral" id="total-mentions">—</div>
-            <div class="detail">Across Twitter/X</div>
+        <div class="post-text">${text}</div>
+        <div class="post-stats">
+          <span>💬 ${fmt(m.replies || 0)}</span>
+          <span>🔁 ${fmt(m.reposts || 0)}</span>
+          <span>❤️ ${fmt(m.likes || 0)}</span>
+          <span>👁 ${fmt(m.views || 0)}</span>
         </div>
-        <div class="metric-card">
-            <div class="label">Total Reach</div>
-            <div class="value neutral" id="total-reach">—</div>
-            <div class="detail">Estimated impressions</div>
-        </div>
-        <div class="metric-card">
-            <div class="label">Sentiment Split</div>
-            <div class="value neutral" id="sentiment-ratio">—</div>
-            <div class="detail" id="sentiment-detail"></div>
-        </div>
-    </div>
+        ${topicsHtml ? `<div class="topics">${topicsHtml}</div>` : ''}
+      </div>`;
+  });
+}
 
-    <div class="charts">
-        <div class="chart-card">
-            <h3>Sentiment Distribution</h3>
-            <canvas id="sentiment-chart"></canvas>
-        </div>
-        <div class="chart-card">
-            <h3>Reach by Author</h3>
-            <canvas id="reach-chart"></canvas>
-        </div>
-    </div>
-
-    <div class="narrative-card" id="narrative-card">
-        <h3>⚠️ Active Narrative Alert</h3>
-        <p id="narrative-text"></p>
-        <div class="recommendation" id="narrative-rec"></div>
-    </div>
-
-    <div class="mentions">
-        <h3>Recent Mentions — Last 12 Hours</h3>
-        <div id="mentions-list"></div>
-    </div>
-
-    <div class="footer">
-        <strong>Rainmaker Technology Corporation</strong> · Social Intelligence · El Segundo, California<br>
-        © 2026 Rainmaker Technology Corporation. Confidential.
-    </div>
-
-    <script>
-        const LIVE_DATA = {
-            lastUpdated: "2026-02-25T21:07:00-06:00",
-            mentions: [
-                {
-                    author: "@Josh85719480573",
-                    time: "6h ago",
-                    text: "road to hell is paved with good intentions",
-                    sentiment: "negative",
-                    views: 25,
-                    category: "criticism",
-                    flagged: false
-                },
-                {
-                    author: "@Josh85719480573",
-                    time: "6h ago",
-                    text: "rogue Meteorologist...unauthorized seeding",
-                    sentiment: "negative",
-                    category: "conspiracy",
-                    views: 33,
-                    flagged: true
-                },
-                {
-                    author: "@m_goes_distance",
-                    time: "2h ago",
-                    text: "Sharing podcast interview",
-                    sentiment: "positive",
-                    category: "positive",
-                    views: 193,
-                    flagged: false
-                },
-                {
-                    author: "@m_goes_distance",
-                    time: "11h ago",
-                    text: "lfg",
-                    sentiment: "positive",
-                    category: "positive",
-                    views: 39,
-                    flagged: false
-                }
-            ],
-            narrative: {
-                title: "Unauthorized Cloud Seeding Conspiracy",
-                description: "Active narrative blaming a 'rogue meteorologist' for unauthorized cloud seeding operations. @Josh85719480573 is the primary source, framing Rain Maker Corp's activities as dangerous and unregulated. Low reach currently (25-33 views) but conspiracy framing could amplify quickly.",
-                recommendation: "Recommended response: Proactive transparency — publish seeding operation logs, certifications, and regulatory compliance docs. Consider a direct reply or thread addressing the claims with data."
-            }
-        };
-
-        function render() {
-            const d = LIVE_DATA;
-            const mentions = d.mentions;
-
-            document.getElementById('last-updated').textContent = new Date(d.lastUpdated).toLocaleString();
-
-            const pos = mentions.filter(m => m.sentiment === 'positive').length;
-            const neg = mentions.filter(m => m.sentiment === 'negative').length;
-            const totalViews = mentions.reduce((s, m) => s + m.views, 0);
-
-            const posWeight = mentions.filter(m => m.sentiment === 'positive').reduce((s, m) => s + m.views, 0);
-            const negWeight = mentions.filter(m => m.sentiment === 'negative').reduce((s, m) => s + m.views, 0);
-            const brandScore = totalViews > 0 ? 50 + ((posWeight - negWeight) / totalViews) * 40 : 50;
-
-            const scoreEl = document.getElementById('brand-score');
-            scoreEl.textContent = brandScore.toFixed(1);
-            scoreEl.className = 'value ' + (brandScore > 55 ? 'positive' : brandScore < 45 ? 'negative' : 'neutral');
-            document.getElementById('brand-trend').textContent = brandScore > 50 ? '↑ Net positive reach' : '↓ Negative narratives active';
-
-            document.getElementById('total-mentions').textContent = mentions.length;
-            document.getElementById('total-reach').textContent = totalViews.toLocaleString();
-            document.getElementById('sentiment-ratio').textContent = `${pos}+ / ${neg}−`;
-            document.getElementById('sentiment-detail').textContent = `${pos} positive, ${neg} negative`;
-
-            if (mentions.some(m => m.flagged)) {
-                document.getElementById('alert-bar').style.display = 'flex';
-                document.getElementById('alert-text').textContent = 'Conspiracy narrative detected — "unauthorized seeding" claims gaining traction. See narrative alert below.';
-            }
-
-            document.getElementById('narrative-text').textContent = d.narrative.description;
-            document.getElementById('narrative-rec').textContent = d.narrative.recommendation;
-
-            // Charts with Rainmaker palette
-            new Chart(document.getElementById('sentiment-chart'), {
-                type: 'bar',
-                data: {
-                    labels: mentions.map(m => m.author),
-                    datasets: [{
-                        label: 'Views',
-                        data: mentions.map(m => m.views),
-                        backgroundColor: mentions.map(m =>
-                            m.sentiment === 'positive' ? '#16a34a' :
-                            m.sentiment === 'negative' ? '#dc2626' : '#94a3b8'
-                        ),
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    scales: {
-                        x: { grid: { color: '#f1f5f9' }, ticks: { color: '#64748b' } },
-                        y: { grid: { display: false }, ticks: { color: '#64748b' } }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            const authors = [...new Set(mentions.map(m => m.author))];
-            const authorReach = authors.map(a => mentions.filter(m => m.author === a).reduce((s, m) => s + m.views, 0));
-            new Chart(document.getElementById('reach-chart'), {
-                type: 'doughnut',
-                data: {
-                    labels: authors,
-                    datasets: [{
-                        data: authorReach,
-                        backgroundColor: ['#1d6fb5', '#5eb8f7'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    plugins: { legend: { labels: { color: '#64748b' } } },
-                    cutout: '60%'
-                }
-            });
-
-            const listEl = document.getElementById('mentions-list');
-            listEl.innerHTML = mentions.map(m => `
-                <div class="mention-item ${m.flagged ? 'flagged' : ''}">
-                    <div class="sentiment-dot ${m.sentiment}"></div>
-                    <div class="content">
-                        <div class="author">${m.author} <span class="source-tag">${m.time}</span></div>
-                        <div class="text">${m.text}</div>
-                        <div class="meta">
-                            <span class="badge ${m.category}">${m.category}</span>
-                            <span>👁️ ${m.views} views</span>
-                            ${m.flagged ? '<span style="color:#dc2626">⚠️ Flagged</span>' : ''}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        render();
-    </script>
+init();
+</script>
+<div style="text-align:center;color:var(--dim);font-size:0.75rem;padding:24px 0 12px;border-top:1px solid var(--border);margin-top:32px;">
+  Rainmaker Social Scoring · Data refreshes daily at 6 AM CT · <span id="footer-ts"></span>
+</div>
+<script>
+fetch('initial-pull.json?t='+Date.now()).then(r=>r.json()).then(d=>{
+  const el=document.getElementById('footer-ts');
+  if(d.pulled_at) el.textContent='Last updated: '+new Date(d.pulled_at).toLocaleString();
+}).catch(()=>{});
+</script>
 </body>
 </html>
