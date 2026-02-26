@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rain Maker Corp — Social Perception Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0e17; color: #e0e6ed; }
+        .header { background: linear-gradient(135deg, #1a1f2e, #0d1117); padding: 24px 32px; border-bottom: 1px solid #21262d; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 24px; font-weight: 600; }
+        .header h1 span { color: #58a6ff; }
+        .header .subtitle { color: #8b949e; font-size: 14px; margin-top: 4px; }
+        .header .updated { color: #8b949e; font-size: 12px; text-align: right; }
+        .header .updated .time { color: #58a6ff; font-weight: 600; }
+        .alert-bar { background: #f8514922; border-bottom: 1px solid #f85149; padding: 12px 32px; display: flex; align-items: center; gap: 12px; }
+        .alert-bar .icon { font-size: 18px; }
+        .alert-bar .text { font-size: 13px; color: #f85149; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding: 24px 32px; }
+        .metric-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 20px; }
+        .metric-card .label { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .metric-card .value { font-size: 36px; font-weight: 700; margin-top: 8px; }
+        .metric-card .value.positive { color: #3fb950; }
+        .metric-card .value.negative { color: #f85149; }
+        .metric-card .value.neutral { color: #58a6ff; }
+        .metric-card .detail { color: #8b949e; font-size: 12px; margin-top: 4px; }
+        .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; padding: 0 32px 24px; }
+        .chart-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 20px; }
+        .chart-card h3 { font-size: 14px; color: #8b949e; margin-bottom: 16px; }
+        .mentions { padding: 0 32px 32px; }
+        .mentions h3 { font-size: 14px; color: #8b949e; margin-bottom: 12px; }
+        .mention-item { background: #161b22; border: 1px solid #21262d; border-radius: 8px; padding: 16px; margin-bottom: 8px; display: flex; gap: 16px; align-items: flex-start; }
+        .mention-item.flagged { border-color: #f85149; background: #f8514910; }
+        .mention-item .sentiment-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+        .mention-item .sentiment-dot.positive { background: #3fb950; }
+        .mention-item .sentiment-dot.negative { background: #f85149; }
+        .mention-item .sentiment-dot.neutral { background: #8b949e; }
+        .mention-item .content { flex: 1; }
+        .mention-item .author { font-size: 13px; color: #58a6ff; }
+        .mention-item .text { font-size: 14px; margin-top: 4px; line-height: 1.5; }
+        .mention-item .meta { font-size: 12px; color: #8b949e; margin-top: 8px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge.positive { background: #3fb95022; color: #3fb950; }
+        .badge.negative { background: #f8514922; color: #f85149; }
+        .badge.conspiracy { background: #d2a8ff22; color: #d2a8ff; }
+        .badge.neutral { background: #8b949e22; color: #8b949e; }
+        .section-title { padding: 0 32px; margin-bottom: 8px; }
+        .section-title h3 { font-size: 14px; color: #8b949e; }
+        .narrative-card { background: #161b22; border: 1px solid #f85149; border-radius: 12px; padding: 20px; margin: 0 32px 24px; }
+        .narrative-card h3 { font-size: 14px; color: #f85149; margin-bottom: 8px; }
+        .narrative-card p { font-size: 13px; color: #e0e6ed; line-height: 1.6; }
+        .narrative-card .recommendation { margin-top: 12px; padding-top: 12px; border-top: 1px solid #21262d; color: #58a6ff; font-size: 13px; }
+        .source-tag { font-size: 11px; color: #8b949e; background: #21262d; padding: 2px 6px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>🌧️ Rain Maker Corp — <span>Social Perception Dashboard</span></h1>
+            <div class="subtitle">Live monitoring of @rainmakercorp mentions · External sentiment tracking</div>
+        </div>
+        <div class="updated">
+            Last updated<br>
+            <span class="time" id="last-updated">—</span>
+        </div>
+    </div>
+
+    <div class="alert-bar" id="alert-bar" style="display:none;">
+        <span class="icon">⚠️</span>
+        <span class="text" id="alert-text"></span>
+    </div>
+
+    <div class="metrics" id="metrics">
+        <div class="metric-card">
+            <div class="label">Brand Score</div>
+            <div class="value" id="brand-score">—</div>
+            <div class="detail" id="brand-trend"></div>
+        </div>
+        <div class="metric-card">
+            <div class="label">Mentions (12h)</div>
+            <div class="value neutral" id="total-mentions">—</div>
+            <div class="detail">Across Twitter/X</div>
+        </div>
+        <div class="metric-card">
+            <div class="label">Total Reach</div>
+            <div class="value neutral" id="total-reach">—</div>
+            <div class="detail">Estimated impressions</div>
+        </div>
+        <div class="metric-card">
+            <div class="label">Sentiment Split</div>
+            <div class="value neutral" id="sentiment-ratio">—</div>
+            <div class="detail" id="sentiment-detail"></div>
+        </div>
+    </div>
+
+    <div class="charts">
+        <div class="chart-card">
+            <h3>Sentiment Distribution</h3>
+            <canvas id="sentiment-chart"></canvas>
+        </div>
+        <div class="chart-card">
+            <h3>Reach by Author</h3>
+            <canvas id="reach-chart"></canvas>
+        </div>
+    </div>
+
+    <div class="narrative-card" id="narrative-card">
+        <h3>⚠️ Active Narrative Alert</h3>
+        <p id="narrative-text"></p>
+        <div class="recommendation" id="narrative-rec"></div>
+    </div>
+
+    <div class="mentions">
+        <h3>Recent Mentions — Last 12 Hours</h3>
+        <div id="mentions-list"></div>
+    </div>
+
+    <script>
+        // Real data from browser scrape — 2026-02-25
+        const LIVE_DATA = {
+            lastUpdated: "2026-02-25T21:07:00-06:00",
+            mentions: [
+                {
+                    author: "@Josh85719480573",
+                    time: "6h ago",
+                    text: "road to hell is paved with good intentions",
+                    sentiment: "negative",
+                    views: 25,
+                    category: "criticism",
+                    flagged: false
+                },
+                {
+                    author: "@Josh85719480573",
+                    time: "6h ago",
+                    text: "rogue Meteorologist...unauthorized seeding",
+                    sentiment: "negative",
+                    category: "conspiracy",
+                    views: 33,
+                    flagged: true
+                },
+                {
+                    author: "@m_goes_distance",
+                    time: "2h ago",
+                    text: "Sharing podcast interview",
+                    sentiment: "positive",
+                    category: "positive",
+                    views: 193,
+                    flagged: false
+                },
+                {
+                    author: "@m_goes_distance",
+                    time: "11h ago",
+                    text: "lfg",
+                    sentiment: "positive",
+                    category: "positive",
+                    views: 39,
+                    flagged: false
+                }
+            ],
+            narrative: {
+                title: "Unauthorized Cloud Seeding Conspiracy",
+                description: "Active narrative blaming a 'rogue meteorologist' for unauthorized cloud seeding operations. @Josh85719480573 is the primary source, framing Rain Maker Corp's activities as dangerous and unregulated. Low reach currently (25-33 views) but conspiracy framing could amplify quickly.",
+                recommendation: "Recommended response: Proactive transparency — publish seeding operation logs, certifications, and regulatory compliance docs. Consider a direct reply or thread addressing the claims with data."
+            }
+        };
+
+        function render() {
+            const d = LIVE_DATA;
+            const mentions = d.mentions;
+
+            // Last updated
+            document.getElementById('last-updated').textContent = new Date(d.lastUpdated).toLocaleString();
+
+            // Metrics
+            const pos = mentions.filter(m => m.sentiment === 'positive').length;
+            const neg = mentions.filter(m => m.sentiment === 'negative').length;
+            const totalViews = mentions.reduce((s, m) => s + m.views, 0);
+
+            // Brand score: simple weighted calc
+            const posWeight = mentions.filter(m => m.sentiment === 'positive').reduce((s, m) => s + m.views, 0);
+            const negWeight = mentions.filter(m => m.sentiment === 'negative').reduce((s, m) => s + m.views, 0);
+            const brandScore = totalViews > 0 ? 50 + ((posWeight - negWeight) / totalViews) * 40 : 50;
+
+            const scoreEl = document.getElementById('brand-score');
+            scoreEl.textContent = brandScore.toFixed(1);
+            scoreEl.className = 'value ' + (brandScore > 55 ? 'positive' : brandScore < 45 ? 'negative' : 'neutral');
+            document.getElementById('brand-trend').textContent = brandScore > 50 ? '↑ Net positive reach' : '↓ Negative narratives active';
+
+            document.getElementById('total-mentions').textContent = mentions.length;
+            document.getElementById('total-reach').textContent = totalViews.toLocaleString();
+            document.getElementById('sentiment-ratio').textContent = `${pos}+ / ${neg}−`;
+            document.getElementById('sentiment-detail').textContent = `${pos} positive, ${neg} negative`;
+
+            // Alert bar
+            if (mentions.some(m => m.flagged)) {
+                document.getElementById('alert-bar').style.display = 'flex';
+                document.getElementById('alert-text').textContent = 'Conspiracy narrative detected — "unauthorized seeding" claims gaining traction. See narrative alert below.';
+            }
+
+            // Narrative card
+            document.getElementById('narrative-text').textContent = d.narrative.description;
+            document.getElementById('narrative-rec').textContent = d.narrative.recommendation;
+
+            // Sentiment chart
+            new Chart(document.getElementById('sentiment-chart'), {
+                type: 'bar',
+                data: {
+                    labels: mentions.map(m => m.author),
+                    datasets: [{
+                        label: 'Views',
+                        data: mentions.map(m => m.views),
+                        backgroundColor: mentions.map(m =>
+                            m.sentiment === 'positive' ? '#3fb950' :
+                            m.sentiment === 'negative' ? '#f85149' : '#8b949e'
+                        ),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    scales: {
+                        x: { grid: { color: '#21262d' }, ticks: { color: '#8b949e' } },
+                        y: { grid: { display: false }, ticks: { color: '#8b949e' } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Reach chart
+            const authors = [...new Set(mentions.map(m => m.author))];
+            const authorReach = authors.map(a => mentions.filter(m => m.author === a).reduce((s, m) => s + m.views, 0));
+            new Chart(document.getElementById('reach-chart'), {
+                type: 'doughnut',
+                data: {
+                    labels: authors,
+                    datasets: [{
+                        data: authorReach,
+                        backgroundColor: ['#f85149', '#3fb950'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    plugins: { legend: { labels: { color: '#8b949e' } } },
+                    cutout: '60%'
+                }
+            });
+
+            // Mentions list
+            const listEl = document.getElementById('mentions-list');
+            listEl.innerHTML = mentions.map(m => `
+                <div class="mention-item ${m.flagged ? 'flagged' : ''}">
+                    <div class="sentiment-dot ${m.sentiment}"></div>
+                    <div class="content">
+                        <div class="author">${m.author} <span class="source-tag">${m.time}</span></div>
+                        <div class="text">${m.text}</div>
+                        <div class="meta">
+                            <span class="badge ${m.category}">${m.category}</span>
+                            <span>👁️ ${m.views} views</span>
+                            ${m.flagged ? '<span style="color:#f85149">⚠️ Flagged</span>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        render();
+    </script>
+</body>
+</html>
